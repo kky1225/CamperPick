@@ -25,7 +25,10 @@
 	
 	<!-- 파일 다운로드 -->
 	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0"/>
-	<beans:bean id=""/>
+	<beans:bean id="downloadView" class="kr.spring.view.DownloadView"/>
+	
+	<!-- BLOB 이미지 표시 -->
+	<beans:bean id="imageView" class="kr.spring.view.ImageView"/>
 	
 	<context:component-scan base-package="kr.spring.**.controller" />
 	
