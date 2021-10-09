@@ -67,4 +67,6 @@
 		<beans:property name="order" value="1"/>
 	</beans:bean>
 	
+	<beans:bean id="naverLoginBO" class="kr.spring.naver.NaverLoginBO"/>
+	
 </beans:beans>
