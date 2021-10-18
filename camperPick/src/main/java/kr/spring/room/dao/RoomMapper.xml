@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.room.dao.RoomMapper">  
+	<update id="updateRoom" parameterType="roomVO">
+		UPDATE croom SET
+		<if test="filename != ''">
+			uploadfile=#{uploadfile},
+			filename=#{filename},
+		</if>
+		room_name=#{room_name},
+		people=#{people},
+		area=#{area},
+		price=#{price},
+		checkIn=#{checkIn},
+		checkOut=#{checkOut},
+		info=#{info}
+		WHERE room_num=#{room_num}
+	</update>
+	<delete id="deleteRoom">
+		DELETE FROM croom WHERE room_num=#{room_num}
+	</delete>
+</mapper>
+
+
+
+
+
+
+

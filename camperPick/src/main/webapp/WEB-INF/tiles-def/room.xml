@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="roomWrite" extends="main">
+    	<put-attribute name="title" value="객실 등록"/>
+    	<put-attribute name="body" value="/WEB-INF/views/room/roomWrite.jsp"/>
+    </definition>
+     <definition name="roomDetail" extends="main">
+    	<put-attribute name="title" value="객실 상세"/>
+    	<put-attribute name="body" value="/WEB-INF/views/room/roomDetail.jsp"/>
+    </definition>
+     <definition name="roomUpdate" extends="main">
+    	<put-attribute name="title" value="객실 정보 수정"/>
+    	<put-attribute name="body" value="/WEB-INF/views/room/roomUpdate.jsp"/>
+    </definition>
+</tiles-definitions>
+
+
+

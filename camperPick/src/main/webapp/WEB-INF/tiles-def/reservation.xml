@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="insertReservation" extends="main">
+    	<put-attribute name="title" value="예약하기"/>
+    	<put-attribute name="body" value="/WEB-INF/views/reservation/insertReservation.jsp"/>
+    </definition>
+     <definition name="reserve" extends="main">
+    	<put-attribute name="title" value="예약완료"/>
+    	<put-attribute name="body" value="/WEB-INF/views/reservation/reserve.jsp"/>
+    </definition>
+    <definition name="reservationSearch" extends="main">
+    	<put-attribute name="title" value="예약확인"/>
+    	<put-attribute name="body" value="/WEB-INF/views/reservation/reservationSearch.jsp"/>
+    </definition>
+    <definition name="reservationList" extends="main">
+    	<put-attribute name="title" value="예약목록"/>
+    	<put-attribute name="body" value="/WEB-INF/views/reservation/reservationList.jsp"/>
+    </definition>
+    <definition name="reservationDetail" extends="main">
+    	<put-attribute name="title" value="예약상세"/>
+    	<put-attribute name="body" value="/WEB-INF/views/reservation/reservationDetail.jsp"/>
+    </definition>
+    <definition name="updateReservation" extends="main">
+    	<put-attribute name="title" value="예약수정"/>
+    	<put-attribute name="body" value="/WEB-INF/views/reservation/updateReservation.jsp"/>
+    </definition>
+    <definition name="myReservationDetail" extends="main">
+    	<put-attribute name="title" value="최신예약"/>
+    	<put-attribute name="body" value="/WEB-INF/views/reservation/myReservationDetail.jsp"/>
+    </definition>
+</tiles-definitions>
+
+
+

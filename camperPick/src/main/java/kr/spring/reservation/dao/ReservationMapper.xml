@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.reservation.dao.ReservationMapper">  
+	<select id="getReservationCount" parameterType="map" resultType="integer">
+		SELECT count(*) FROM creserve r JOIN croom m ON r.room_num=m.room_num 
+		JOIN camping c ON c.camping_num=m.camping_num WHERE r.res_phone=#{res_phone} AND r.res_name=#{res_name}
+	</select>
+	
+	<select id="getReservationList" parameterType="map" resultType="reservationVO">
+  		SELECT * FROM (SELECT a.*,rownum rnum FROM (SELECT res_num, res_name,res_phone,headcount,res_start,res_end,res_state,mem_num,r.room_num,r.camping_num,res_email,res_price,camp_name,room_name FROM creserve r JOIN croom m ON r.room_num=m.room_num JOIN camping c ON c.camping_num=m.camping_num ORDER BY r.res_num DESC)a)
+  		 WHERE res_phone=#{res_phone} AND res_name=#{res_name}
+  	</select>
+  	
+  	<select id="getReservation" parameterType="integer" resultType="reservationVO">
+  		SELECT res_num, res_name,res_phone,headcount,res_start,res_end,res_state,mem_num,r.room_num,r.camping_num,res_email,camp_name,room_name,res_price FROM creserve r JOIN croom m ON r.room_num=m.room_num JOIN camping c ON c.camping_num=m.camping_num
+  		 WHERE res_num=#{res_num}
+  	</select>
+  	<update id="updateReservation" parameterType="reservationVO">
+  		UPDATE creserve SET res_name=#{res_name},res_phone=#{res_phone},res_email=#{res_email},headcount=#{headcount},res_start=#{res_start},res_end=#{res_end},res_price=#{res_price} 
+  		WHERE res_num=#{res_num} 
+  	</update>
+  	<select id="getRecentReservation" parameterType="integer" resultType="reservationVO">
+  		SELECT b.* FROM (SELECT a.*,rownum rnum FROM (SELECT * FROM creserve r JOIN croom m ON r.room_num=m.room_num JOIN camping c ON c.camping_num=m.camping_num 
+		WHERE r.mem_num=#{mem_num} ORDER BY TO_dATE(RES_START) ASC)a)b
+		WHERE rnum=(SELECT max(rnum) FROM (SELECT a.*,rownum rnum FROM (SELECT * FROM creserve r JOIN croom m ON r.room_num=m.room_num JOIN camping c ON c.camping_num=m.camping_num 
+		WHERE r.mem_num=#{mem_num} ORDER BY TO_dATE(RES_START) ASC)a))
+  	</select>
+</mapper>
+
+
+
+
+
+
+

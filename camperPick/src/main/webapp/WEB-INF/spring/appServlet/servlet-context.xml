@@ -56,6 +56,9 @@
 			<beans:list>
 				<beans:value>/WEB-INF/tiles-def/main.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/member.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/camping.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/room.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/reservation.xml</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>
@@ -68,5 +71,38 @@
 	</beans:bean>
 	
 	<beans:bean id="naverLoginBO" class="kr.spring.naver.NaverLoginBO"/>
+	
+	<interceptors>
+	<!-- 로그인 여부 체크 -->
+		<interceptor>
+			<mapping path="/member/myPage.do"/>
+			<mapping path="/member/update.do"/>
+			<mapping path="/member/delete.do"/>
+			<mapping path="/member/changePassword.do"/>
+			<mapping path="/board/write.do"/>
+			<mapping path="/board/update.do"/>
+			<mapping path="/board/delete.do"/>
+			<mapping path="/reservation/reserve.do"/>
+			<mapping path="/reservation/checkReservation.do"/>
+			<mapping path="/reservation/getReservationList.do"/>
+			<mapping path="/reservation/detailReservation.do"/>
+			<mapping path="/reservation/updateReservation.do"/>
+			<mapping path="/reservation/deleteReservation.do"/>
+			<mapping path="/camping/write.do"/>
+			<mapping path="/camping/update.do"/>
+			<mapping path="/camping/delete.do"/>
+			<mapping path="/room/writeRoom.do"/>
+			<mapping path="/room/updateRoom.do"/>
+			<mapping path="/room/deleteRoom.do"/>
+			<beans:bean class="kr.spring.interceptor.LoginCheckInterceptor"/>
+			
+		</interceptor>
+	<!-- 로그인 회원 번호와 작성자 회원 번호 일치 여부 체크 -->
+		<!-- <interceptor>
+			<mapping path="/board/update.do"/>
+			<mapping path="/board/delete.do"/>
+			<beans:bean class="kr.spring.interceptor.WriterCheckInterceptor"/>
+		</interceptor> -->
+	</interceptors>
 	
 </beans:beans>
