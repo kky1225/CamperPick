@@ -188,8 +188,14 @@ public class CampingController {
 		String camp_name = "", camp_address = "", camp_phone = "", rcount = "";
 
 		try {
+			
 			// XML 데이터를 읽어옴
-			File fXmlFile = new File("C:\\Users\\김민혜\\git\\CamperPick\\camperPick\\src\\main\\webapp\\resources\\downloads\\getdata.xml");
+			String path = request.getSession().getServletContext().getRealPath("/");
+			String attach_path = "resources/downloads/getdata.xml";
+			File fXmlFile = new File(path + attach_path);
+			
+			// XML 데이터를 읽어옴
+			//File fXmlFile = new File("C:\\teacher\\java\\workspace_spring_origin\\camperPick_backup\\src\\main\\webapp\\resources\\downloads\\getdata.xml");
 
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();			//DocumentBuilder 객체를 만들기 위한 클래스
 			DocumentBuilder db = factory.newDocumentBuilder();								//xml문서에 DOM객체를 만드는 Parser 객체를 추상화한 클래스.
