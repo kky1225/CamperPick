@@ -27,6 +27,10 @@ public class MemberVO {
 	private Date reg_date; //가입일
 	private Date modify_date; //정보 수정일
 	
+	// 비밀번호 변경 시 현재 비밀번호를 저장하는 용도로 사용
+	@Pattern(regexp="^[A-Za-z0-9]{4,12}$")
+	private String now_passwd;
+	
 	//=========비밀번호 일치 여부 체크 ==========//
 	public boolean isCheckedPassword(String userPasswd) {
 		if(auth > 1 && passwd.equals(userPasswd)) {
@@ -124,11 +128,20 @@ public class MemberVO {
 		this.modify_date = modify_date;
 	}
 	
+	public String getNow_passwd() {
+		return now_passwd;
+	}
+
+	public void setNow_passwd(String now_passwd) {
+		this.now_passwd = now_passwd;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberVO [mem_num=" + mem_num + ", auth=" + auth + ", name=" + name + ", passwd=" + passwd + ", phone="
 				+ phone + ", email=" + email + ", zipcode=" + zipcode + ", address1=" + address1 + ", address2="
-				+ address2 + ", reg_date=" + reg_date + ", modify_date=" + modify_date + "]";
+				+ address2 + ", reg_date=" + reg_date + ", modify_date=" + modify_date + ", now_passwd=" + now_passwd
+				+ "]";
 	}
 	
 }

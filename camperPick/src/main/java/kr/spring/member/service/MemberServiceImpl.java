@@ -34,4 +34,25 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.selectMember(mem_num);
 	}
 
+	@Override
+	public void updateMember(MemberVO member) {
+		memberMapper.updateMember(member);
+	}
+
+	@Override
+	public void updatepassword(MemberVO member) {
+		memberMapper.updatePassword(member);
+	}
+
+	@Override
+	public void deleteMember(Integer mem_num) {
+		memberMapper.deleteMember(mem_num);
+		memberMapper.deleteMember_detail(mem_num);
+	}
+
+	@Override
+	public void updateAddress(MemberVO member) {
+		memberMapper.updateAddress(member);
+	}
+
 }
