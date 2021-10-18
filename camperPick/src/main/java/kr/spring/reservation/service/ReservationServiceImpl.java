@@ -17,9 +17,13 @@ public class ReservationServiceImpl implements ReservationService{
 	private ReservationMapper reservationMapper; 
 
 	@Override
-	public void insertReservation(ReservationVO reservation) {
+	public int insertReservation(ReservationVO reservation) {
+		
+		reservation.setRes_num(reservationMapper.selectMem_num());
+		
 		reservationMapper.insertReservation(reservation);
 	
+		return reservation.getRes_num();
 		
 	}
 

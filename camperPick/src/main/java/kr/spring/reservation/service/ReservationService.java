@@ -6,7 +6,7 @@ import java.util.Map;
 import kr.spring.reservation.vo.ReservationVO;
 
 public interface ReservationService {
-	public void insertReservation(ReservationVO reservation);
+	public int insertReservation(ReservationVO reservation);
 	public void updateReservation(ReservationVO reservation);
 	public void deleteReservation(Integer res_num);
 	public List<ReservationVO> getReservationList(Map<String,Object> map);

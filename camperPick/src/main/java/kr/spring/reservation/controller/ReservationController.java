@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.spring.camping.service.CampingService;
 import kr.spring.reservation.service.ReservationService;
 import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.room.service.RoomService;
@@ -41,6 +42,8 @@ public class ReservationController {
 	private ReservationService reservationService;
 	@Autowired
 	private RoomService roomService;
+	@Autowired
+	private CampingService campingService;
 
 	//자바빈 초기화
 	@ModelAttribute					
@@ -101,11 +104,17 @@ public class ReservationController {
 		
 		reservationVO.setRes_price(oneDay * period);
 		
+		reservationVO.setRoom_name(roomService.getRoom(reservationVO.getRoom_num()).getRoom_name());
+		reservationVO.setCamp_name(campingService.selectCamping(reservationVO.getCamping_num()).getCamp_name());
 		
 		logger.debug("<<예약 등록>> : " + reservationVO + "/" + oneDay + "/" + period);
 		
 		//등록
-		reservationService.insertReservation(reservationVO);
+		int res_num=reservationService.insertReservation(reservationVO);
+		
+		reservationVO.setRes_num(res_num);
+		
+		logger.debug("<<예약 등록2>> : " + reservationVO + "/" + oneDay + "/" + period);
 		
 		model.addAttribute("reservationVO", reservationVO);
 

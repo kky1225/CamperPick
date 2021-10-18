@@ -5,13 +5,15 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import kr.spring.reservation.vo.ReservationVO;
 
 public interface ReservationMapper {
-
-	@Insert("INSERT INTO creserve (res_num,res_email,res_name,res_phone,headcount,res_start,res_end,mem_num,room_num,camping_num,res_price) VALUES (creserve_seq.nextval,#{res_email},#{res_name},#{res_phone},#{headcount},#{res_start},#{res_end},#{mem_num},#{room_num},#{camping_num},#{res_price})")
+	@Select("SELECT creserve_seq.nextval FROM dual")
+	public int selectMem_num();
+	@Insert("INSERT INTO creserve (res_num,res_email,res_name,res_phone,headcount,res_start,res_end,mem_num,room_num,camping_num,res_price) VALUES (#{res_num},#{res_email},#{res_name},#{res_phone},#{headcount},#{res_start},#{res_end},#{mem_num},#{room_num},#{camping_num},#{res_price})")
 	public void insertReservation(ReservationVO reservation);
 	public void updateReservation(ReservationVO reservation);
 	@Delete("DELETE FROM creserve WHERE res_num=#{res_num}")
