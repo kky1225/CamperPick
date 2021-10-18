@@ -205,6 +205,8 @@ public class MemberController {
 		public String process(HttpSession session, Model model) {
 			Integer user_num = (Integer)session.getAttribute("user_num");
 			
+			logger.debug("<<회원상세정보>> : " + user_num);
+			
 			MemberVO member = memberService.selectMember(user_num);
 			
 			logger.debug("<<회원상세정보>> : " + member);
