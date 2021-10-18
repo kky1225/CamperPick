@@ -28,6 +28,11 @@ public class MemberServiceImpl implements MemberService{
 	public MemberVO selectCheckMember(String email) {
 		return memberMapper.selectCheckMember(email);
 	}
+	
+	@Override
+	public MemberVO selectCheckMember2(String phone) {
+		return memberMapper.selectCheckMember2(phone);
+	}
 
 	@Override
 	public MemberVO selectMember(Integer mem_num) {

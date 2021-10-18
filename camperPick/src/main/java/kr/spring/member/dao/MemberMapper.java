@@ -20,6 +20,9 @@ public interface MemberMapper {
 	@Select("SELECT m.mem_num,m.auth, m.email, d.passwd FROM cmember m, cmember_detail d WHERE m.mem_num=d.mem_num AND m.email=#{email}")
 	public MemberVO selectCheckMember(String email);
 	
+	@Select("SELECT m.mem_num,m.auth, m.email, d.passwd FROM cmember m, cmember_detail d WHERE m.mem_num=d.mem_num AND d.phone=#{phone}")
+	public MemberVO selectCheckMember2(String phone);
+	
 	@Select("SELECT * FROM cmember m, cmember_detail d WHERE m.mem_num = d.mem_num AND m.mem_num=#{mem_num}")
 	public MemberVO selectMember(Integer mem_num);
 	

@@ -13,7 +13,7 @@ class UploadAdapter {
 
     _initRequest() {
         const xhr = this.xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:8082/springPage/board/imageUploader.do', true);
+        xhr.open('POST', 'http://localhost:8081/springPage/board/imageUploader.do', true);
         xhr.responseType = 'json';
     }
 

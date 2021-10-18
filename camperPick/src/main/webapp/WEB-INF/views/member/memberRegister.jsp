@@ -7,6 +7,7 @@
 	$(document).ready(function(){
 		var checkId = 0;
 		var checkPasswd = 0;
+		var checkPasswd2 = 0;
 		var checkPhone = 0;
 		
 		//아이디 중복 안내 메시지 초기화 및 아이디 중복 값 초기화
@@ -57,10 +58,13 @@
 				success:function(param){
 					if(param.result == 'good'){
 						$('#message_passwd').css('color','green').text('사용 가능합니다');
+						checkPasswd = 1;
 					}else if(param.result == 'notMatchPattern'){
 						$('#message_passwd').css('color','red').text('4~12자리 영문, 숫자만 가능합니다');
+						checkPasswd = 0;
 					}else{
 						alert('비밀번호 체크 오류');
+						checkPasswd = 0;
 					}
 				},
 				error:function(){
@@ -70,12 +74,13 @@
 		});
 		
 		$('#register_form #passwdCheck').keyup(function(){
+			checkPasswd2 = 0;
 			if($('#passwdCheck').val().trim() == $('#passwd').val().trim()){
 				$('#message_passwd2').css('color','green').text('비밀번호가 동일합니다');
-				checkPasswd = 1;
+				checkPasswd2 = 1;
 			}else{
 				$('#message_passwd2').css('color','red').text('비밀번호가 서로 다릅니다');
-				checkPasswd = 0;
+				checkPasswd2 = 0;
 			}
 		});
 		
@@ -94,11 +99,14 @@
 					if(param.result == 'good'){
 						$('#message_phone').css('color','green').text('사용 가능합니다');
 						checkPhone = 1;
+					}else if(param.result == 'phoneDuplicated'){
+						$('#message_phone').css('color','red').text('중복된 전화번호입니다');
+						checkPhone = 0;
 					}else if(param.result == 'notMatchPattern'){
 						$('#message_phone').css('color','red').text('전화번호 형식이 아닙니다');
 						checkPhone = 0;
 					}else{
-						alert('비밀번호 체크 오류');
+						alert('전화번호 체크 오류');
 						checkPhone = 0;
 					}
 				},
@@ -116,7 +124,10 @@
 			}else if(checkPasswd == 0){
 				$('#passwd').focus();
 				return false;
-			}else if(phoneCheck == 0){
+			}else if(checkPasswd2 == 0){
+				$('#passwdCheck').focus();
+				return false;
+			}else if(checkPhone == 0){
 				$('#phone').focus();
 				return false;
 			}
@@ -164,24 +175,23 @@
 						<form:errors path="zipcode" cssClass="error-color"/>
 					</div>
 					<div class="col-auto" style="margin-top:25px; margin-right:26px;">
-						<input type="button" value="우편번호 찾기" class="btn btn-dark" onclick="execDaumPostcode()">
+						<input type="button" value="찾기" class="btn btn-dark" onclick="execDaumPostcode()">
 					</div>
 				</div>
 			</li>
 			<li>
 				<label for="address1" style="margin-top:10px;">주소</label>
-				<form:input path="address1" class="form-control form-label mt-4"/>
+				<form:input path="address1" class="form-control form-label mt-4" style="width:275px"/>
 				<form:errors path="address1" cssClass="error-color"/>
 			</li>
 			<li>
 				<label for="address2" style="margin-top:10px;">나머지 주소</label>
-				<form:input path="address2" class="form-control form-label mt-4"/>
+				<form:input path="address2" class="form-control form-label mt-4" style="width:275px"/>
 				<form:errors path="address2" cssClass="error-color"/>
 			</li>
 		</ul>
 		<div class="align-center">
-			<form:button>전송</form:button>
-			<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
+			<form:button class="btn btn-dark mt-5" style="width:335px; margin-right:250px;">회원가입</form:button>
 		</div>
 		<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
 			<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
