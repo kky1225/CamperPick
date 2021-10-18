@@ -1,0 +1,64 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<style>
+	.ck-editor__editable_inline{
+		min-height: 250px;
+	}
+</style>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>    
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/ckeditor.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/uploadAdapter.js"></script>
+<!-- 거래게시판 작성 시작 -->
+<div class="page-main"> 
+	<h4 class="align-center" style="margin-bottom:10px;"><b>거래게시판 작성</b></h4>
+	<form:form id="marketWrite" action="marketWrite.do" modelAttribute="marketVO" enctype="multipart/form-data">
+		<ul>
+			<li>
+				<input type="hidden" value="${user_num}" id="mem_num" name="mem_num">
+			</li>
+			<li>
+				<label for="choice">구분</label>
+				<input type="radio" name="choice" id="choice" value="0" checked="checked">팝니다
+				<input type="radio" name="choice" id="choice" value="1">삽니다
+			</li><br>
+			<li>
+				<label for="title">제목</label>
+				<form:input path="title"/>
+				<form:errors path="title" cssClass="error-color"/>
+			</li><br>
+			<li><b>내용</b></li><br>
+			<li>
+				<form:textarea path="content"/>
+				<form:errors path="content" cssClass="error-color"/>
+				<script type="text/javascript">
+					function MyCustomUploadAdapterPlugin(editor) {
+						editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+							return new UploadAdapter(loader);
+						}
+					}
+					
+					ClassicEditor.create(document.querySelector('#content'),{
+						extraPlugins:[MyCustomUploadAdapterPlugin]
+					}).then(editor => {
+						window.editor = editor;
+					}).catch(error => {
+						console.error(error);
+					});
+				</script>
+			</li><br>
+			<li>
+				<label for="upload">파일</label>
+				<input type="file" id="upload" name="upload" accept="image/gif,image/png,image/jpeg">
+			</li><br>
+		</ul>
+		<p>
+		<div class="align-center">
+			<input type="submit" value="등록" class="btn btn-dark" style="width:120px; margin-top:20px;">
+			<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'" class="btn btn-dark" style="width:120px; margin-top:20px;">
+		</div>
+	</form:form>
+</div>
+<!-- 거래게시판 작성 끝 -->

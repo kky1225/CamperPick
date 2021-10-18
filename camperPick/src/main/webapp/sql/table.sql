@@ -85,6 +85,75 @@ CONSTRAINT CRESERVE_DETAIL_FK2 FOREIGN KEY (ROOM_NUM) REFERENCES CROOM (ROOM_NUM
 );
 create sequence creserve_detail_seq;
 
+/*공지사항*/
+create table cnotice(
+	notice_num number not null,
+	title varchar2(150) not null,
+	content clob  not null,
+	hit number(10,0) default 0  not null,
+	reg_date date default sysdate not null,
+	modify_date date default sysdate not null,
+	uploadfile blob,
+	filename varchar2(150),
+	ip varchar2(40) not null,
+	mem_num number not null,
+	constraint cnotice_pk primary key (notice_num),
+	constraint cnotice_fk foreign key (mem_num) references spmember (mem_num)
+);
+
+create sequence cnotice_seq;
+
+/*공지사항 댓글*/
+create table cnotice_reply(
+	nre_num number not null,
+	re_content clob not null,
+	re_ip varchar2(40) not null,
+	re_date date default sysdate not null,
+	re_modifydate date default sysdate not null,
+	notice_num number not null,
+	mem_num number not null,
+	constraint cnotice_reply_pk primary key (nre_num),
+	constraint cnotice_reply_fk1 foreign key (notice_num) references cnotice (notice_num),
+	constraint cnotice_reply_fk2 foreign key (mem_num) references spmember (mem_num)
+);
+create sequence cnotice_reply_seq;
+
+/*거래게시판*/
+create table cmarket(
+	market_num number not null,
+	title varchar2(150) not null,
+	content clob  not null,
+	hit number(10,0) default 0  not null,
+	reg_date date default sysdate not null,
+	modify_date date default sysdate not null,
+	uploadfile blob,
+	filename varchar2(150),
+	ip varchar2(40) not null,
+	state varchar2(20) default 0 not null,	/* 거래상태 0:거래중, 1:거래완료 */
+	choice varchar2(20) default 0 not null,	/* 거래구분 0:삽니다, 1:팝니다*/
+	mem_num number not null,
+	constraint cmarket_pk primary key (market_num),
+	constraint cmarket_fk foreign key (mem_num) references spmember (mem_num)
+);
+
+create sequence cmarket_seq;
+
+/*거래게시판 댓글*/
+create table cmarket_reply(
+	mre_num number not null,
+	re_content clob not null,
+	re_ip varchar2(40) not null,
+	re_date date default sysdate not null,
+	re_modifydate date default sysdate not null,
+	market_num number not null,
+	mem_num number not null,
+	constraint cmarket_reply_pk primary key (mre_num),
+	constraint cmarket_reply_fk1 foreign key (market_num) references cmarket (market_num),
+	constraint cmarket_reply_fk2 foreign key (mem_num) references spmember (mem_num)
+);
+create sequence cmarket_reply_seq;
+
+
 
 
 

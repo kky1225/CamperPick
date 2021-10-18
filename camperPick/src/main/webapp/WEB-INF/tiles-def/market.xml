@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="market" extends="main">
+    	<put-attribute name="title" value="거래게시판"/>
+    	<put-attribute name="body" value="/WEB-INF/views/market/marketList.jsp"/>
+    </definition>
+    <definition name="marketWrite" extends="main">
+    	<put-attribute name="title" value="거래게시판 작성"/>
+    	<put-attribute name="body" value="/WEB-INF/views/market/writeMarketForm.jsp"/>
+    </definition>
+    <definition name="marketDetail" extends="main">
+    	<put-attribute name="title" value="거래게시판 상세"/>
+    	<put-attribute name="body" value="/WEB-INF/views/market/detailMarket.jsp"/>
+    </definition>
+    <definition name="marketUpdate" extends="main">
+    	<put-attribute name="title" value="거래게시판 수정"/>
+    	<put-attribute name="body" value="/WEB-INF/views/market/updateMarket.jsp"/>
+    </definition>
+    <definition name="marketDelete" extends="main">
+    	<put-attribute name="title" value="거래게시판 삭제"/>
+    	<put-attribute name="body" value="/WEB-INF/views/market/deleteMarket.jsp"/>
+    </definition>
+</tiles-definitions>

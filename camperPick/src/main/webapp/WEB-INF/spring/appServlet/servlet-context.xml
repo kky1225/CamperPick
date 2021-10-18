@@ -59,6 +59,8 @@
 				<beans:value>/WEB-INF/tiles-def/camping.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/room.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/reservation.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/notice.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/market.xml</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>
@@ -103,6 +105,21 @@
 			<mapping path="/board/delete.do"/>
 			<beans:bean class="kr.spring.interceptor.WriterCheckInterceptor"/>
 		</interceptor> -->
+		
+		<!-- 공지사항 로그인 회원 번호와 작성자 회원 번호 일치 여부 체크 -->
+		<interceptor>
+			<mapping path="/notice/noticeUpdate.do"/>
+			<mapping path="/notice/noticeDelete.do"/>
+			<beans:bean class="kr.spring.interceptor.NoticeWriterCheckInterceptor"/>
+		</interceptor>
+		<!-- 거래게시판 로그인 회원 번호와 작성자 회원 번호 일치 여부 체크 -->
+		<interceptor>
+			<mapping path="/market/marketUpdate.do"/>
+			<mapping path="/market/marketDelete.do"/>
+			<beans:bean class="kr.spring.interceptor.MarketWriterCheckInterceptor"/>
+		</interceptor>
+		
 	</interceptors>
+	
 	
 </beans:beans>

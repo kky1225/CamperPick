@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.market.dao.MarketMapper">
+	<select id="getMarketList" parameterType="map" resultType="marketVO">
+		select
+		*
+		from(select
+				a.*,
+				rownum rnum
+			 from (select
+			 			m.market_num,
+			 			<![CDATA[
+			 			REPLACE(REPLACE(m.title,'<','&lt;'),'>','&gt;') title,
+			 			]]>
+			 			m.hit,
+			 			m.reg_date,
+			 			m.mem_num,
+			 			m.state,
+			 			m.choice,
+			 			d.name
+			 		from cmarket m join cmember_detail d on m.mem_num = d.mem_num
+			 		<where>
+			 			<if test="keyword != '' and keyfield == 1">
+			 				m.title like '%' || #{keyword} || '%'
+			 			</if>
+			 			<if test="keyword != '' and keyfield == 2">
+			 				d.name like '%' || #{keyword} || '%'
+			 			</if>
+			 			<if test="keyword != '' and keyfield == 3">
+			 				m.content like '%' || #{keyword} || '%'
+			 			</if>
+			 			<if test="keyword != '' and keyfield == 4">
+			 				m.content like '%' || #{keyword} || '%' or
+			 				m.title like '%' || #{keyword} || '%'
+			 			</if>
+			 		</where>
+			 		order by m.market_num desc)a)
+		<![CDATA[
+			where rnum >= #{start} and rnum <= #{end}
+		]]>
+	</select>
+	
+	<select id="getMarketCount" parameterType="map" resultType="integer">
+		select 
+		 count(*)
+		from cmarket m join cmember_detail d on m.mem_num = d.mem_num
+		<where>
+			<if test="keyword != '' and keyfield == 1">
+				m.title like '%' || #{keyword} || '%'
+			</if>
+			<if test="keyword != '' and keyfield == 2">
+				d.name like '%' || #{keyword} || '%'
+			</if>
+			<if test="keyword != '' and keyfield == 3">
+				m.content like '%' || #{keyword} || '%'
+			</if>
+			<if test="keyword != '' and keyfield == 4">
+				m.content like '%' || #{keyword} || '%' or
+				m.title like '%' || #{keyword} || '%'
+			</if>
+		</where>	
+	</select>
+	
+	<update id="updateMarket" parameterType="marketVO">
+		 UPDATE cmarket SET
+            
+            <!-- 파일명이 있는 경우 -->
+            <if test="filename != ''">
+            uploadfile=#{uploadfile},
+            filename=#{filename},
+            </if>
+            <!-- 파일명이 있다면 파일을 업데이트 해주지만, 없다면 아래만 업데이트 -->
+            title=#{title},
+            content=#{content},
+            ip=#{ip},
+            state=#{state},
+            choice=#{choice},
+            modify_date= SYSDATE
+         WHERE market_num=#{market_num}  		
+	</update>
+</mapper>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
