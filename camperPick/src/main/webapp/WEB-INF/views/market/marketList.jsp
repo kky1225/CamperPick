@@ -44,7 +44,7 @@ tr{
 		</ul>
 	</form>
 	<div class="align-right">
-		<c:if test="${user_auth > 0}">
+		<c:if test="${user_auth > 1}">
 		<input type="button" value="글쓰기" class="btn btn-dark" onclick="location.href='marketWrite.do'">
 		</c:if>
 	</div>
