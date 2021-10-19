@@ -47,7 +47,7 @@ $(document).ready(function(){
 				        	}else{
 				        		alert('결제 오류');
 				        	}
-				        	window.location.href = "http://localhost:8081/camperPick_backup/reservation/detailReservation.do?res_num=${reservation.res_num}";
+				        	window.location.href = "http://localhost:8081/camperPick/reservation/detailReservation.do?res_num=${reservation.res_num}";
 				        },
 				        error:function(){
 				          console.log("ajax 통신 실패!!!");
