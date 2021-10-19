@@ -11,6 +11,7 @@ public class PaymentVO {
 	private int amount;
 	private int res_num;
 	private int mem_num;
+	private String camp_name;
 	
 	public int getPay_num() {
 		return pay_num;
@@ -61,12 +62,19 @@ public class PaymentVO {
 		this.mem_num = mem_num;
 	}
 	
+	public String getCamp_name() {
+		return camp_name;
+	}
+	public void setCamp_name(String camp_name) {
+		this.camp_name = camp_name;
+	}
+	
 	@Override
 	public String toString() {
 		return "PaymentVO [pay_num=" + pay_num + ", imp_uid=" + imp_uid + ", merchant_uid=" + merchant_uid
 				+ ", biz_email=" + biz_email + ", pay_date=" + pay_date + ", amount=" + amount + ", res_num=" + res_num
-				+ ", mem_num=" + mem_num + "]";
+				+ ", mem_num=" + mem_num + ", camp_name=" + camp_name + "]";
 	}
-
+	
 	
 }

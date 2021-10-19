@@ -2,6 +2,7 @@ package kr.spring.member.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -24,12 +25,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import kr.spring.member.service.MemberService;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.naver.NaverLoginBO;
+import kr.spring.reservation.service.ReservationService;
+import kr.spring.reservation.vo.ReserveNotificationVO;
 import kr.spring.util.AuthCheckException;
 
 @Controller
@@ -39,6 +43,8 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private ReservationService reservationService;
 	
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null; 
@@ -426,6 +432,23 @@ public class MemberController {
 		}
 		
 		// 예약정보
+		
+		// 알림 정보
+		@RequestMapping("/member/notification.do")
+		public ModelAndView notification(HttpSession session) {
+					
+			List<ReserveNotificationVO> list = null;
+			
+			Integer user_num = (Integer)session.getAttribute("user_num");
+					
+			list = reservationService.getReserveNotificationList(user_num);
+						
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("notification");	// 타일스 식별자
+			mav.addObject("list", list);
+					
+			return mav;	
+		}
 	
 }
 

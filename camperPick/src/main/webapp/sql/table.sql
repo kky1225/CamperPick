@@ -153,6 +153,36 @@ create table cmarket_reply(
 );
 create sequence cmarket_reply_seq;
 
+/* 결제 테이블 */
+CREATE TABLE payment(
+	pay_num NUMBER PRIMARY KEY,
+	imp_uid VARCHAR(25) NOT NULL,
+	merchant_uid VARCHAR(25) NOT NULL,
+	biz_email VARCHAR(50) NOT NULL,
+	pay_date DATE NOT NULL,
+	amount NUMBER NOT NULL,
+	res_num NUMBER NOT NULL,
+	mem_num NUMBER NOT NULL,
+	
+	CONSTRAINT payment_fk1 FOREIGN KEY (res_num) REFERENCES creserve(res_num),
+	CONSTRAINT payment_fk2 FOREIGN KEY (mem_num) REFERENCES cmember(mem_num)
+);
+CREATE SEQUENCE payment_seq;
+
+/* 예약 알림 */
+CREATE TABLE creserve_notification(
+	not_num NUMBER PRIMARY KEY,
+	message CLOB NOT NULL,
+	date_time DATE DEFAULT SYSDATE NOT NULL,
+	read_time DATE DEFAULT SYSDATE NOT NULL,
+	res_num NUMBER NOT NULL,
+	mem_num NUMBER NOT NULL,
+	
+	CONSTRAINT creserve_notification_fk1 FOREIGN KEY (res_num) REFERENCES creserve(res_num),
+	CONSTRAINT creserve_notification_fk2 FOREIGN KEY (mem_num) REFERENCES cmember(mem_num)
+);
+CREATE SEQUENCE creserve_notification_seq;
+
 
 
 

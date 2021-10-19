@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.spring.reservation.vo.ReservationVO;
+import kr.spring.reservation.vo.ReserveNotificationVO;
 
 public interface ReservationService {
 	public int insertReservation(ReservationVO reservation);
@@ -14,4 +15,9 @@ public interface ReservationService {
 	public ReservationVO getReservation(Integer res_num);
 	public ReservationVO getRecentReservation(Integer mem_num);
 	public void changeState(Integer res_num);
+	
+	public int insertReserveNotification(ReserveNotificationVO reserveNotificationVO);
+	public void updateReserveNotfication(Integer res_num);
+	public void deleteReserveNotfication(Integer res_num);
+	public List<ReserveNotificationVO> getReserveNotificationList(Integer mem_num);
 }

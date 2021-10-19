@@ -28,14 +28,15 @@ $(document).ready(function(){
 					"card_no" : rsp.apply_num,
 					"refund" : 'payed',
 					"res_num" : ${reservationVO.res_num},
-					"mem_num" : ${reservationVO.mem_num}
+					"mem_num" : ${reservationVO.mem_num},
+					"camp_name" : '${reservation.camp_name}'
 					}
 					$.ajax({
 						url : 'payment.do', 
 				        type :'post',
 				        data : JSON.stringify(result,
 				        		['imp_uid', 'merchant_uid', 'biz_email', 
-				        			'pay_date', 'amount', 'res_num', 'mem_num']),
+				        			'pay_date', 'amount', 'res_num', 'mem_num', 'camp_name']),
 				        contentType:'application/json;charset=utf-8',
 				        dataType: 'json', //서버에서 보내줄 데이터 타입
 				        success: function(param){

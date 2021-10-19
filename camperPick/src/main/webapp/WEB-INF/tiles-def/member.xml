@@ -33,6 +33,10 @@
     	<put-attribute name="title" value="회원탈퇴"/>
     	<put-attribute name="body" value="/WEB-INF/views/member/memberDelete.jsp"/>
     </definition>
+    <definition name="notification" extends="main">
+    	<put-attribute name="title" value="알림"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/notification.jsp"/>
+    </definition>
 </tiles-definitions>
 
 

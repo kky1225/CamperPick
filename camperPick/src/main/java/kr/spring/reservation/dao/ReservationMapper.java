@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import kr.spring.reservation.vo.ReservationVO;
+import kr.spring.reservation.vo.ReserveNotificationVO;
 
 public interface ReservationMapper {
 	@Select("SELECT creserve_seq.nextval FROM dual")
@@ -29,4 +30,12 @@ public interface ReservationMapper {
 	//결제 완료 시 예약완료로 예약상태 바꿔줌.
 	@Update("UPDATE creserve SET res_state='예약완료' WHERE res_num=#{res_num}")
 	public void changeState(Integer res_num);
+	
+	@Insert("INSERT INTO creserve_notification(not_num, message, res_num, mem_num) VALUES (creserve_notification_seq.nextval, #{message}, #{res_num}, #{mem_num})")
+	public void insertReserveNotfication(ReserveNotificationVO reserveNotificationVO);
+	@Update("UPDATE creserve_notification SET read_time=SYSDATE WHERE res_num=#{res_num}")
+	public void updateReserveNotfication(Integer res_num);
+	@Delete("DELETE FROM creserve_notification WHERE res_num=#{res_num}")
+	public void deleteReserveNotfication(Integer res_num);
+	public List<ReserveNotificationVO> getReserveNotificationList(Integer mem_num);
 }

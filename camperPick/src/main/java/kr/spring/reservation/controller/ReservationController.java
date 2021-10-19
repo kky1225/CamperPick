@@ -32,6 +32,7 @@ import kr.spring.payment.service.PaymentService;
 import kr.spring.payment.vo.PaymentVO;
 import kr.spring.reservation.service.ReservationService;
 import kr.spring.reservation.vo.ReservationVO;
+import kr.spring.reservation.vo.ReserveNotificationVO;
 import kr.spring.room.service.RoomService;
 import kr.spring.room.vo.RoomVO;
 
@@ -63,6 +64,12 @@ public class ReservationController {
 	@ModelAttribute					
 	public PaymentVO initCommand2() {
 		return new PaymentVO();
+	}
+	
+	//자바빈 초기화
+	@ModelAttribute					
+	public ReserveNotificationVO initCommand3() {
+		return new ReserveNotificationVO();
 	}
 	
 	//예약 등록 - 폼 호출
@@ -129,6 +136,15 @@ public class ReservationController {
 		
 		reservationVO.setRes_num(res_num);
 		
+		ReserveNotificationVO reserveNotificationVO = new ReserveNotificationVO();
+		reserveNotificationVO.setMessage("[" + reservationVO.getCamp_name() + "] 예약이 완료되었습니다");
+		reserveNotificationVO.setMem_num(user_num);
+		reserveNotificationVO.setRes_num(res_num);
+		
+		int not_num=reservationService.insertReserveNotification(reserveNotificationVO);
+		
+		logger.debug("<<예약 알림 번호>> : " + not_num);
+		
 		logger.debug("<<예약 등록2>> : " + reservationVO + "/" + oneDay + "/" + period);
 		
 		model.addAttribute("reservationVO", reservationVO);
@@ -171,6 +187,8 @@ public class ReservationController {
 	//예약 상세
 	@RequestMapping("/reservation/detailReservation.do")
 	public String getReservation(@RequestParam int res_num, Model model) {
+		
+		reservationService.updateReserveNotfication(res_num);
 		
 		ReservationVO reservation = reservationService.getReservation(res_num);
 		
@@ -252,6 +270,8 @@ public class ReservationController {
 		
 		logger.debug("<<예약취소>> : " + res_num);
 		
+		reservationService.deleteReserveNotfication(res_num);
+		
 		reservationService.deleteReservation(res_num);
 		
 		//view에 메시지 표시
@@ -293,57 +313,64 @@ public class ReservationController {
 	}
 	
 	//결제
-		@RequestMapping("/reservation/payment.do")
-		@ResponseBody
-		public Map<String, String> payment(@RequestBody PaymentVO paymentVO, BindingResult result) {
+	@RequestMapping("/reservation/payment.do")
+	@ResponseBody
+	public Map<String, String> payment(@RequestBody PaymentVO paymentVO, BindingResult result) {
 			
-			System.out.println(paymentVO);
+		System.out.println(paymentVO);
 			
-			Map<String,String> map = new HashMap<String,String>();
+		Map<String,String> map = new HashMap<String,String>();
 			
-			paymentService.payment(paymentVO);
-			reservationService.changeState(paymentVO.getRes_num());
+		paymentService.payment(paymentVO);
+		reservationService.changeState(paymentVO.getRes_num());
 			
-			PaymentVO payment = paymentService.getPayment(paymentVO.getRes_num());
-			
-			if(payment != null) {
-				map.put("result", "success");
-			}else {
-				map.put("result", "fail");
-			}
-			
-			return map;
-		}
+		PaymentVO payment = paymentService.getPayment(paymentVO.getRes_num());
 		
-		//결제 취소
-		@RequestMapping("/reservation/cancelPay.do")
-		@ResponseBody
-		public String cancelPay(@RequestParam int res_num, @RequestParam String biz_email) throws ParseException {
+		ReserveNotificationVO reserveNotificationVO = new ReserveNotificationVO();
+		reserveNotificationVO.setMessage("[" + paymentVO.getCamp_name() + "] 결제가 완료되었습니다");
+		reserveNotificationVO.setMem_num(paymentVO.getMem_num());
+		reserveNotificationVO.setRes_num(paymentVO.getRes_num());
+		
+		reservationService.insertReserveNotification(reserveNotificationVO);
 			
-			Iamport iamport = new Iamport();
-			String token = iamport.getToken();
-			
-			PaymentVO paymentVO = paymentService.getPayment(res_num);
-			
-			System.out.println(paymentVO);
-			
-			if(paymentVO == null) {
-				return "success";
-			}else {
-				String merchant_uid = paymentVO.getMerchant_uid();
-				
-				int check = iamport.cancelPayment(token, merchant_uid);
-				
-				  if(check == 1) { 
-					  paymentService.cancelPayment(merchant_uid);
-					  return "success"; 
-				  }else if(check == -1) { 
-					  return "failure";
-				  }else { 
-					  return "error"; 
-				  }
-			}
-			 
+		if(payment != null) {
+			map.put("result", "success");
+		}else {
+			map.put("result", "fail");
 		}
+			
+		return map;
+	}
+		
+	//결제 취소
+	@RequestMapping("/reservation/cancelPay.do")
+	@ResponseBody
+	public String cancelPay(@RequestParam int res_num, @RequestParam String biz_email) throws ParseException {
+			
+		Iamport iamport = new Iamport();
+		String token = iamport.getToken();
+			
+		PaymentVO paymentVO = paymentService.getPayment(res_num);
+			
+		System.out.println(paymentVO);
+			
+		if(paymentVO == null) {
+			return "success";
+		}else {
+			String merchant_uid = paymentVO.getMerchant_uid();
+				
+			int check = iamport.cancelPayment(token, merchant_uid);
+				
+			  if(check == 1) { 
+				  paymentService.cancelPayment(merchant_uid);
+				  return "success"; 
+				 }else if(check == -1) { 
+				  return "failure";
+				 }else { 
+				  return "error"; 
+			  }
+		}
+			 
+	}
 	
 }

@@ -96,6 +96,7 @@
 			<mapping path="/room/writeRoom.do"/>
 			<mapping path="/room/updateRoom.do"/>
 			<mapping path="/room/deleteRoom.do"/>
+			<mapping path="/member/notification.do"/>
 			<beans:bean class="kr.spring.interceptor.LoginCheckInterceptor"/>
 			
 		</interceptor>

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.spring.reservation.dao.ReservationMapper;
 import kr.spring.reservation.vo.ReservationVO;
+import kr.spring.reservation.vo.ReserveNotificationVO;
 @Service
 @Transactional
 public class ReservationServiceImpl implements ReservationService{
@@ -66,6 +67,28 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public void changeState(Integer res_num) {
 		reservationMapper.changeState(res_num);
+		
+	}
+	
+	@Override
+	public int insertReserveNotification(ReserveNotificationVO reserveNotificationVO) {
+		reservationMapper.insertReserveNotfication(reserveNotificationVO);
+		return reserveNotificationVO.getNot_num();
+	}
+
+	@Override
+	public void deleteReserveNotfication(Integer res_num) {
+		reservationMapper.deleteReserveNotfication(res_num);
+	}
+
+	@Override
+	public List<ReserveNotificationVO> getReserveNotificationList(Integer mem_num) {
+		return reservationMapper.getReserveNotificationList(mem_num);
+	}
+
+	@Override
+	public void updateReserveNotfication(Integer res_num) {
+		reservationMapper.updateReserveNotfication(res_num);
 		
 	}
 
