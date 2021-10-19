@@ -270,6 +270,163 @@ public class MemberController {
 		return "redirect:/main/main.do";
 	}
 	
+	// 회원 상세 정보
+		@RequestMapping("/member/myPage.do")
+		public String process(HttpSession session, Model model) {
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			
+			MemberVO member = memberService.selectMember(user_num);
+			
+			logger.debug("<<회원상세정보>> : " + member);
+			
+			model.addAttribute("member", member);
+			
+			return "memberView";
+		}
+		
+		// 회원정보 수정 - 수정 폼
+		@GetMapping("/member/update.do")
+		public String formUpdate(HttpSession session, Model model) {
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			
+			MemberVO memberVO = memberService.selectMember(user_num);
+			
+			model.addAttribute("memberVO", memberVO);
+			
+			return "memberModify";
+		}
+		
+		// 회원정보 수정 - 수정 데이터 처리
+		@PostMapping("/member/update.do")
+		public String submitUpdate(@Valid MemberVO memberVO, BindingResult result, HttpSession session) {
+			
+			logger.debug("<<회원정보 수정>> : " + memberVO);
+			
+			if(result.hasFieldErrors("name") || result.hasFieldErrors("phone")) {
+				
+				return "memberModify";
+			}
+			
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			memberVO.setMem_num(user_num);
+			
+			memberService.updateMember(memberVO);
+			
+			return "redirect:/member/myPage.do";
+		}
+		
+		// 회원정보 주소 수정 - 수정 폼
+		@GetMapping("/member/updateAddress.do")
+		public String formUpdateAddress(HttpSession session, Model model) {
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			
+			MemberVO memberVO = memberService.selectMember(user_num);
+			
+			model.addAttribute("memberVO", memberVO);
+			
+			return "memberAddress";
+		}
+
+		// 회원정보 주소 수정 - 수정 데이터 처리
+		@PostMapping("/member/updateAddress.do")
+		public String submitUpdateAddress(@Valid MemberVO memberVO, BindingResult result, HttpSession session) {
+			
+			logger.debug("<<회원 주소 수정>> : " + memberVO);
+			
+			if(result.hasFieldErrors("zipcode") || result.hasFieldErrors("address1") || result.hasFieldErrors("address2")) {
+				
+				return "memberAddress";
+			}
+			
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			memberVO.setMem_num(user_num);
+			
+			memberService.updateAddress(memberVO);
+			
+			return "redirect:/member/myPage.do";
+		}
+		
+		// 비밀번호 수정 - 폼 호출
+		@GetMapping("/member/changePassword.do")
+		public String formChangePassword() {
+			
+			return "memberChangePassword";
+		}
+		
+		// 비밀번호 수정 - 수정 데이터 처리
+		@PostMapping("/member/changePassword.do")
+		public String submitChangePassword(@Valid MemberVO memberVO, BindingResult result, HttpSession session) {
+			
+			logger.debug("<<비밀번호 수정>> : " + memberVO);
+			
+			if(result.hasFieldErrors("now_passwd") || result.hasFieldErrors("passwd")) {
+				
+				return formChangePassword();
+			}
+			
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			MemberVO member = memberService.selectMember(user_num);
+			
+			if(!member.getPasswd().equals(memberVO.getNow_passwd())) {
+				// 비밀번호 불일치
+				result.rejectValue("now_passwd", "invalidPassword");
+				
+				return formChangePassword();
+			}
+			
+			memberVO.setMem_num(user_num);
+			memberService.updatepassword(memberVO);
+			
+			return "redirect:/member/myPage.do";
+		}
+		
+		// 회원탈퇴 - 폼 호출
+		@GetMapping("/member/delete.do")
+		public String formDelete() {
+			
+			return "memberDelete";
+		}
+		
+		// 회원탈퇴 - 데이터 처리
+		@PostMapping("/member/delete.do")
+		public String submitDelete(@Valid MemberVO memberVO, BindingResult result, HttpSession session) {
+			
+			logger.debug("<<회원탈퇴>> : " + memberVO);
+			
+			if(result.hasFieldErrors("email") || result.hasFieldErrors("passwd")) {
+				
+				return formDelete();
+			}
+			
+			String user_email = (String)session.getAttribute("user_email");
+			
+			MemberVO dbMember = memberService.selectCheckMember(memberVO.getEmail());
+			boolean check = false;
+			
+			// 사용자가 입력한 아이디가 db에 저장되어 있고, 세션에 저장된 id와 일치함
+			if(dbMember != null && dbMember.getEmail().equals(user_email)) {
+				// 비밀번호 일치 여부 체크
+				check = dbMember.isCheckedPassword(memberVO.getPasswd());
+			}
+			if(check) {
+				// 인증 성공, 회원정보 삭제
+				memberVO.setMem_num((Integer)session.getAttribute("user_num"));
+				memberService.deleteMember(memberVO.getMem_num());
+				// 로그아웃
+				session.invalidate();
+				
+				return "redirect:/main/main.do";
+			}else {
+				// 인증 실패
+				result.reject("invalidIdOrPassword");
+				
+				return formDelete();
+			}
+			
+		}
+		
+		// 예약정보
+	
 }
 
 
