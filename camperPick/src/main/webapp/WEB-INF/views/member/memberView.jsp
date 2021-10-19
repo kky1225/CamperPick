@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> 
 <!-- 마이페이지 시작 -->
 <div id="mypageForm" class="page-main">
@@ -27,7 +28,9 @@
 						</dl>
 					</div>
 					<div class="mp_btn">
-						<input type="button" class="btn btn-dark" value="수정" onclick="location.href='update.do'">
+						<c:if test="${!empty user_num && user_auth == 2}">
+							<input type="button" class="btn btn-dark" value="수정" onclick="location.href='update.do'">
+						</c:if>
 					</div>
 				</div>
 			</div>
