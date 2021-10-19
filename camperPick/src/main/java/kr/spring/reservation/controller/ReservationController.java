@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.camping.service.CampingService;
+import kr.spring.iamport.Iamport;
+import kr.spring.payment.service.PaymentService;
+import kr.spring.payment.vo.PaymentVO;
 import kr.spring.reservation.service.ReservationService;
 import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.room.service.RoomService;
@@ -44,12 +50,21 @@ public class ReservationController {
 	private RoomService roomService;
 	@Autowired
 	private CampingService campingService;
+	@Autowired
+	private PaymentService paymentService;
 
 	//자바빈 초기화
 	@ModelAttribute					
 	public ReservationVO initCommand() {
 		return new ReservationVO();
 	}
+	
+	//자바빈 초기화
+	@ModelAttribute					
+	public PaymentVO initCommand2() {
+		return new PaymentVO();
+	}
+	
 	//예약 등록 - 폼 호출
 	@GetMapping("/reservation/reserve.do")
 	public String reservationForm(@RequestParam int camping_num, @RequestParam int room_num, int mem_num, Model model) {
@@ -276,5 +291,59 @@ public class ReservationController {
 		}
 		return diffDays;
 	}
+	
+	//결제
+		@RequestMapping("/reservation/payment.do")
+		@ResponseBody
+		public Map<String, String> payment(@RequestBody PaymentVO paymentVO, BindingResult result) {
+			
+			System.out.println(paymentVO);
+			
+			Map<String,String> map = new HashMap<String,String>();
+			
+			paymentService.payment(paymentVO);
+			reservationService.changeState(paymentVO.getRes_num());
+			
+			PaymentVO payment = paymentService.getPayment(paymentVO.getRes_num());
+			
+			if(payment != null) {
+				map.put("result", "success");
+			}else {
+				map.put("result", "fail");
+			}
+			
+			return map;
+		}
+		
+		//결제 취소
+		@RequestMapping("/reservation/cancelPay.do")
+		@ResponseBody
+		public String cancelPay(@RequestParam int res_num, @RequestParam String biz_email) throws ParseException {
+			
+			Iamport iamport = new Iamport();
+			String token = iamport.getToken();
+			
+			PaymentVO paymentVO = paymentService.getPayment(res_num);
+			
+			System.out.println(paymentVO);
+			
+			if(paymentVO == null) {
+				return "success";
+			}else {
+				String merchant_uid = paymentVO.getMerchant_uid();
+				
+				int check = iamport.cancelPayment(token, merchant_uid);
+				
+				  if(check == 1) { 
+					  paymentService.cancelPayment(merchant_uid);
+					  return "success"; 
+				  }else if(check == -1) { 
+					  return "failure";
+				  }else { 
+					  return "error"; 
+				  }
+			}
+			 
+		}
 	
 }
