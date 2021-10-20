@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -16,7 +17,7 @@ $(function(){
 </script>
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
-<h2 class="align-center">캠핑장 목록</h2>
+<h4 class="align-center" style="margin-bottom:10px;"><b>캠핑장 목록</b></h4>
 <c:if test="${!empty user_num && user_auth==3}">
 <div class="align-right">
 	<input type="button" value="등록" onclick="location.href='write.do'">
@@ -30,14 +31,16 @@ $(function(){
 	</div>
 </c:if>
 <c:if test="${count>0 }">
-	<table>
-		<tr>
-			<th>캠핑장 번호</th>
-			<th>캠핑장명</th>
-			<th>주소</th>
-			<th>전화번호</th>
-			<th>객실수</th>
-		</tr>
+	<table class="table table-borderless" style="text-align:center;">
+		<thead class="thead-dark">
+			<tr>
+				<th>캠핑장 번호</th>
+				<th>캠핑장명</th>
+				<th>주소</th>
+				<th>전화번호</th>
+				<th>객실수</th>
+			</tr>
+		</thead>
 		<c:forEach var="camping" items="${list }">
 			<tr>
 				<td>${camping.camping_num }</td>

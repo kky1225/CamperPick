@@ -22,11 +22,11 @@ div#main_body{
 	float:left;
 	width:100%;
 	padding:5px 5px 30px 5px;
+	min-height: 760px;
 }
 div#main_footer{
 	clear:both;
 	width:100%;
-	background-color:yellow;
 }
 
 /*==========메뉴==========*/
@@ -75,6 +75,33 @@ div#main_menu ul li{
 	color:#ff0000;
 }
 
+/*===== 버튼 =====*/
+.button{
+	border: 1px solid;
+    border-color: #343a40;
+    border-radius: 5px;
+    background-color: white;
+}
+.button:hover{
+	color: white;
+	background-color: #343a40;
+}
+.button-large{
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+.button-large:hover{
+	color: #343a40;
+	border: 1px solid;
+    border-color: #343a40;
+    border-radius: 5px;
+    background-color: white;
+    padding: 5px 15px;
+}
+
 /*Mypage*/
 .page-main .mypage-div{
 	width:48%;
@@ -92,7 +119,7 @@ div#main_menu ul li{
 	margin: 15px 10px 0;
 	padding: 10px 10px 10px;
 	text-align: left;
-	min-height: 282px;
+	min-height: 277px;
 }
 #mypageform dl{
 	padding: 10px 0;
@@ -115,9 +142,10 @@ div#main_menu ul li{
 /*목록*/
 .page-main form#search_form{
 	border: none;
+	text-align: center;
 }
 .page-main ul.search{
-	width:500px;
+	/*width:500px;*/
 	list-style:none;
 	padding:0;
 	margin:0 auto;

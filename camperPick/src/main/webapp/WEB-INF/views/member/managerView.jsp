@@ -4,10 +4,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>      
 <style type="text/css">
-
-tr{
-	border-bottom: 1px solid gray;
-}
+	tr{
+		border-bottom: 1px solid gray;
+	}
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -37,8 +36,8 @@ tr{
 				<input type="search" id="keyword" name="keyword">
 			</li>
 			<li>
-				<input type="submit" value="검색" class="btn btn-outline-dark" style="font-size:14px;">
-				<input type="button" value="목록" class="btn btn-outline-dark" style="font-size:14px;" onclick="location.href='marketList.do'">
+				<input type="submit" value="검색" class="button" style="font-size:14px;">
+				<input type="button" value="목록" class="button" style="font-size:14px;" onclick="location.href='marketList.do'">
 			</li>
 		</ul>
 	</form>
@@ -78,7 +77,7 @@ tr{
 			<c:if test="${member.auth == 4}">
 				<td>관리자</td>
 			</c:if>
-			<th><input type="button" class="btn btn-outline-dark" value="변경" onclick="location.href='memberAuthUpdate.do?mem_num=${member.mem_num}'"></th>
+			<th><input type="button" class="button" value="변경" onclick="location.href='memberAuthUpdate.do?mem_num=${member.mem_num}'"></th>
 		</tr>
 		</c:forEach>
 	</table>

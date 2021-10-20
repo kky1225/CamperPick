@@ -29,28 +29,28 @@
 					</div>
 					<div class="mp_btn">
 						<c:if test="${!empty user_num && user_auth == 2}">
-							<input type="button" class="btn btn-dark" value="수정" onclick="location.href='update.do'">
+							<input type="button" class="button-large" value="수정" onclick="location.href='update.do'">
 						</c:if>
 					</div>
 				</div>
 			</div>
 
 			<!-- 비밀번호 -->
-			<div id="mypageform" class="card">
-				<div class="card-body">
-					<div class="mp_header">
-						<h5><b>비밀번호</b></h5>
-					</div>
-					<div class="mp_content">
-						<p>주기적인 비밀번호 변경을 통해<br>개인정보를 안전하게 보호하세요.</p>
-					</div>
-					<div class="mp_btn">
-						<c:if test="${!empty user_num && user_auth == 2}">
-						<input type="button" class="btn btn-dark" value="수정" onclick="location.href='changePassword.do'">
-						</c:if>
+			<c:if test="${!empty user_num && user_auth == 2}">
+				<div id="mypageform" class="card">
+					<div class="card-body">
+						<div class="mp_header">
+							<h5><b>비밀번호</b></h5>
+						</div>
+						<div class="mp_content">
+							<p>주기적인 비밀번호 변경을 통해<br>개인정보를 안전하게 보호하세요.</p>
+						</div>
+						<div class="mp_btn">
+							<input type="button" class="button-large" value="수정" onclick="location.href='changePassword.do'">
+						</div>
 					</div>
 				</div>
-			</div>
+			</c:if>
 
 			<!-- 회원탈퇴 -->
 			<div id="mypageform" class="card">
@@ -62,7 +62,7 @@
 						<p>사용하고 계신 아이디는 탈퇴할 경우<br> 재사용 및 복구가 불가능합니다.</p>
 					</div>
 					<div class="mp_btn">
-						<input type="button" class="btn btn-dark" value="탈퇴" onclick="location.href='delete.do'">
+						<input type="button" class="button-large" value="탈퇴" onclick="location.href='delete.do'">
 					</div>
 				</div>
 			</div>
@@ -79,7 +79,7 @@
 						<p>${member.address1}<br>${member.address2}</p>
 					</div>
 					<div class="mp_btn">
-						<input type="button" class="btn btn-dark" value="수정" onclick="location.href='updateAddress.do'">
+						<input type="button" class="button-large" value="수정" onclick="location.href='updateAddress.do'">
 					</div>
 				</div>
 			</div>
@@ -94,7 +94,7 @@
 						<p>예약된 정보를 확인할 수 있습니다.</p>
 					</div>
 					<div class="mp_btn">
-						<input type="button" class="btn btn-dark" value="확인" onclick="location.href='${pageContext.request.contextPath}/reservation/getReservationList.do?email=${user_email}'">
+						<input type="button" class="button-large" value="확인" onclick="location.href='${pageContext.request.contextPath}/reservation/getReservationList.do?email=${user_email}'">
 					</div>
 				</div>
 			</div>
