@@ -29,11 +29,8 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<div class="align-center">${pagingHtml }</div>
 </c:if>
-<br>
-<div class="align-center">
-	<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
-</div>
 </div>
 
 

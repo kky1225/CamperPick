@@ -35,6 +35,7 @@ import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.reservation.vo.ReserveNotificationVO;
 import kr.spring.room.service.RoomService;
 import kr.spring.room.vo.RoomVO;
+import kr.spring.util.PagingUtil;
 
 
 
@@ -43,7 +44,9 @@ import kr.spring.room.vo.RoomVO;
 public class ReservationController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ReservationController.class);
-
+	
+	private int rowCount=10;		//한 화면에 10개의 목록
+	private int pageCount = 10;		//10개의 페이지 번호
 	
 	@Autowired
 	private ReservationService reservationService;
@@ -165,15 +168,20 @@ public class ReservationController {
 
 	//예약 검색 결과 -이름, 전화번호로 검색
 	@RequestMapping("/reservation/getReservationList.do")
-	public ModelAndView getReservation(@RequestParam String res_phone, @RequestParam String res_name,HttpSession session) {
+	public ModelAndView getReservation(@RequestParam(value="pageNum",defaultValue="1") int currentPage,@RequestParam String email,HttpSession session) {
 		
 		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("res_phone", res_phone);
-		map.put("res_name", res_name);
 		//count
-		int count = reservationService.getReservationCount(map);
+		int count = reservationService.getReservationCount(email);
 		
-		logger.debug("<<예약검색>> : " + res_phone + "/" + res_name + "/" + count);
+		//페이지
+		//page
+		PagingUtil page = new PagingUtil(currentPage,count, rowCount, pageCount,"getReservationList.do");
+		map.put("start", page.getStartCount());
+		map.put("end", page.getEndCount());
+	
+		map.put("email", email);
+		logger.debug("<<예약검색>> : " + count);
 		//list
 		List<ReservationVO> list = null;
 		if(count>0) {
@@ -184,7 +192,7 @@ public class ReservationController {
 		mav.setViewName("reservationList");
 		mav.addObject("count",count);
 		mav.addObject("list",list);
-		
+		mav.addObject("pagingHtml", page.getPagingHtml());
 		return mav;
 	}
 	

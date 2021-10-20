@@ -11,7 +11,7 @@ public interface ReservationService {
 	public void updateReservation(ReservationVO reservation);
 	public void deleteReservation(Integer res_num);
 	public List<ReservationVO> getReservationList(Map<String,Object> map);
-	public int getReservationCount(Map<String,Object> map);
+	public int getReservationCount(String email);
 	public ReservationVO getReservation(Integer res_num);
 	public ReservationVO getRecentReservation(Integer mem_num);
 	public void changeState(Integer res_num);

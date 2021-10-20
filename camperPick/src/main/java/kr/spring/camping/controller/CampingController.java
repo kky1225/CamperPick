@@ -104,7 +104,7 @@ public class CampingController {
 		//객실 갯수
 		int count = roomService.getRoomCount(camping_num);
 		//객실 페이지
-		PagingUtil page = new PagingUtil(currentPage,count, rowCount, pageCount,"list.do");
+		PagingUtil page = new PagingUtil(currentPage,count, rowCount, pageCount,"detail.do");
 		map.put("start", page.getStartCount());
 		map.put("end", page.getEndCount());
 		//객실 리스트

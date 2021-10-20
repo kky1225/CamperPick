@@ -40,7 +40,7 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public List<ReservationVO> getReservationList(Map<String, Object> map) {
+	public List<ReservationVO> getReservationList(Map<String,Object> map) {
 		
 		return reservationMapper.getReservationList(map);
 	}
@@ -53,9 +53,9 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public int getReservationCount(Map<String, Object> map) {
+	public int getReservationCount(String email) {
 		
-		return reservationMapper.getReservationCount(map);
+		return reservationMapper.getReservationCount(email);
 	}
 
 	@Override

@@ -85,9 +85,9 @@
 			<mapping path="/board/update.do"/>
 			<mapping path="/board/delete.do"/>
 			<mapping path="/reservation/reserve.do"/>
-			<mapping path="/reservation/checkReservation.do"/>
+<!-- 			<mapping path="/reservation/checkReservation.do"/>
 			<mapping path="/reservation/getReservationList.do"/>
-			<mapping path="/reservation/detailReservation.do"/>
+			<mapping path="/reservation/detailReservation.do"/> -->
 			<mapping path="/reservation/updateReservation.do"/>
 			<mapping path="/reservation/deleteReservation.do"/>
 			<mapping path="/camping/write.do"/>

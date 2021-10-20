@@ -24,7 +24,7 @@ public interface ReservationMapper {
 	@Delete("DELETE FROM creserve WHERE camping_num=#{camping_num}")
 	public void deleteReservationFirst(Integer camping_num);
 	public List<ReservationVO> getReservationList(Map<String,Object> map);
-	public int getReservationCount(Map<String,Object> map);
+	public int getReservationCount(String email);
 	public ReservationVO getReservation(Integer res_num);
 	public ReservationVO getRecentReservation(Integer mem_num);
 	//결제 완료 시 예약완료로 예약상태 바꿔줌.

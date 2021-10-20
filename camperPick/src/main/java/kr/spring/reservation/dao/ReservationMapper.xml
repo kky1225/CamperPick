@@ -3,14 +3,20 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="kr.spring.reservation.dao.ReservationMapper">  
-	<select id="getReservationCount" parameterType="map" resultType="integer">
-		SELECT count(*) FROM creserve r JOIN croom m ON r.room_num=m.room_num 
-		JOIN camping c ON c.camping_num=m.camping_num WHERE r.res_phone=#{res_phone} AND r.res_name=#{res_name}
+	<select id="getReservationCount" parameterType="string" resultType="integer">
+		SELECT count(*) FROM cmember m JOIN creserve r ON r.mem_num = m.mem_num 
+  		JOIN croom c ON r.room_num=c.room_num 
+  		JOIN camping p ON c.camping_num=p.camping_num  
+  		WHERE m.email=#{email} AND NOT r.res_state ='예약취소'
 	</select>
 	
 	<select id="getReservationList" parameterType="map" resultType="reservationVO">
-  		SELECT * FROM (SELECT a.*,rownum rnum FROM (SELECT res_num, res_name,res_phone,headcount,res_start,res_end,res_state,mem_num,r.room_num,r.camping_num,res_email,res_price,camp_name,room_name FROM creserve r JOIN croom m ON r.room_num=m.room_num JOIN camping c ON c.camping_num=m.camping_num ORDER BY r.res_num DESC)a)
-  		 WHERE res_phone=#{res_phone} AND res_name=#{res_name}
+  		SELECT * FROM (SELECT a.*,rownum rnum FROM (SELECT * FROM cmember m JOIN creserve r ON r.mem_num = m.mem_num 
+  		JOIN croom c ON r.room_num=c.room_num 
+  		JOIN camping p ON c.camping_num=p.camping_num WHERE m.email=#{email} AND NOT r.res_state ='예약취소' ORDER BY r.res_num DESC )a) 
+  		<![CDATA[
+  		WHERE rnum >= #{start} AND rnum <= #{end}
+  		]]>
   	</select>
   	
   	<select id="getReservation" parameterType="integer" resultType="reservationVO">
