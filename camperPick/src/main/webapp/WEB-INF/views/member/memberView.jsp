@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> 
 <!-- 마이페이지 시작 -->
 <div id="mypageForm" class="page-main">
-	<h4>마이페이지</h4>
+	<h4 class="align-center" style="margin-bottom:10px;"><b>마이페이지</b></h4>
 	<div class="mypageSection">
 		<div class="mypageBox">
 			<!-- 연락처 -->
