@@ -93,7 +93,7 @@ public class MarketController {
 	@PostMapping("/market/marketWrite.do")
 	public String submitWrite(@Valid MarketVO marketVO, BindingResult result, HttpServletRequest request) {
 		
-		log.debug("<<공지사항 작성>> : " + marketVO);
+		log.debug("<<거래게시판 작성>> : " + marketVO);
 		
 		// 유효성 체크 결과 오류가 있으면 폼 호출
 		if(result.hasErrors()) {

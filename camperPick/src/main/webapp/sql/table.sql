@@ -98,7 +98,7 @@ create table cnotice(
 	ip varchar2(40) not null,
 	mem_num number not null,
 	constraint cnotice_pk primary key (notice_num),
-	constraint cnotice_fk foreign key (mem_num) references spmember (mem_num)
+	constraint cnotice_fk foreign key (mem_num) references cmember (mem_num)
 );
 
 create sequence cnotice_seq;
@@ -114,7 +114,7 @@ create table cnotice_reply(
 	mem_num number not null,
 	constraint cnotice_reply_pk primary key (nre_num),
 	constraint cnotice_reply_fk1 foreign key (notice_num) references cnotice (notice_num),
-	constraint cnotice_reply_fk2 foreign key (mem_num) references spmember (mem_num)
+	constraint cnotice_reply_fk2 foreign key (mem_num) references cmember (mem_num)
 );
 create sequence cnotice_reply_seq;
 
@@ -133,7 +133,7 @@ create table cmarket(
 	choice varchar2(20) default 0 not null,	/* 거래구분 0:삽니다, 1:팝니다*/
 	mem_num number not null,
 	constraint cmarket_pk primary key (market_num),
-	constraint cmarket_fk foreign key (mem_num) references spmember (mem_num)
+	constraint cmarket_fk foreign key (mem_num) references cmember (mem_num)
 );
 
 create sequence cmarket_seq;
@@ -149,7 +149,7 @@ create table cmarket_reply(
 	mem_num number not null,
 	constraint cmarket_reply_pk primary key (mre_num),
 	constraint cmarket_reply_fk1 foreign key (market_num) references cmarket (market_num),
-	constraint cmarket_reply_fk2 foreign key (mem_num) references spmember (mem_num)
+	constraint cmarket_reply_fk2 foreign key (mem_num) references cmember (mem_num)
 );
 create sequence cmarket_reply_seq;
 
