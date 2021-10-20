@@ -33,10 +33,6 @@
 		WHERE rnum=(SELECT max(rnum) FROM (SELECT a.*,rownum rnum FROM (SELECT * FROM creserve r JOIN croom m ON r.room_num=m.room_num JOIN camping c ON c.camping_num=m.camping_num 
 		WHERE r.mem_num=#{mem_num} ORDER BY TO_dATE(RES_START) ASC)a))
   	</select>
-  	
-  	<select id="getReserveNotificationList" resultType="reserveNotificationVO">
-		SELECT * FROM creserve_notification WHERE mem_num=#{mem_num} ORDER BY date_time
-  	</select>
 </mapper>
 
 

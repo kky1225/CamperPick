@@ -337,13 +337,22 @@ public class ReservationController {
 	
 	//예약 취소 - 예약시 mem_num과 로그인 mem_num이 같은지 확인하고 삭제 진행
 	@RequestMapping("/reservation/deleteReservation.do")
-	public String deleteReserve(@RequestParam int res_num,Model model,HttpServletRequest request) {
+	public String deleteReserve(@RequestParam int res_num, String camp_name, Model model,HttpServletRequest request, HttpSession session) {
 		
 		logger.debug("<<예약취소>> : " + res_num);
 		
+		Integer user_num = (Integer)session.getAttribute("user_num");
+		
 		reservationService.deleteReserveNotfication(res_num);
 		
-		reservationService.deleteReservation(res_num);
+		reservationService.changeState2(res_num);
+		
+		ReserveNotificationVO reserveNotificationVO = new ReserveNotificationVO();
+		reserveNotificationVO.setMessage("[" + camp_name + "] 예약 및 결제가 취소되었습니다");
+		reserveNotificationVO.setMem_num(user_num);
+		reserveNotificationVO.setRes_num(res_num);
+		
+		reservationService.insertReserveNotification(reserveNotificationVO);
 		
 		//view에 메시지 표시
 		model.addAttribute("message", "취소 완료");
@@ -422,11 +431,15 @@ public class ReservationController {
 		String token = iamport.getToken();
 			
 		PaymentVO paymentVO = paymentService.getPayment(res_num);
-			
-		System.out.println(paymentVO);
+		
+		String pay = "0";
+		
+		if(paymentVO != null) {
+			pay = Integer.toString(paymentVO.getAmount());
+		}
 			
 		if(paymentVO == null) {
-			return "success";
+			return "Pay : 0";
 		}else {
 			String merchant_uid = paymentVO.getMerchant_uid();
 				
@@ -434,7 +447,7 @@ public class ReservationController {
 				
 			  if(check == 1) { 
 				  paymentService.cancelPayment(merchant_uid);
-				  return "success"; 
+				  return "Pay : " + pay;
 				 }else if(check == -1) { 
 				  return "failure";
 				 }else { 

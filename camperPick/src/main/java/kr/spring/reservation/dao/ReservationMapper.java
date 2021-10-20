@@ -30,6 +30,8 @@ public interface ReservationMapper {
 	//결제 완료 시 예약완료로 예약상태 바꿔줌.
 	@Update("UPDATE creserve SET res_state='예약완료' WHERE res_num=#{res_num}")
 	public void changeState(Integer res_num);
+	@Update("UPDATE creserve SET res_state='예약취소' WHERE res_num=#{res_num}")
+	public void changeState2(Integer res_num);
 	@Select("SELECT * FROM creserve WHERE room_num=#{room_num}")
 	public List<ReservationVO> getReservationByRoom(Integer room_num);
 	
@@ -39,5 +41,6 @@ public interface ReservationMapper {
 	public void updateReserveNotfication(Integer res_num);
 	@Delete("DELETE FROM creserve_notification WHERE res_num=#{res_num}")
 	public void deleteReserveNotfication(Integer res_num);
+	@Select("SELECT not_num, message, TO_CHAR(date_time,'YYYY-MM-DD HH24:MI:SS') date_time, TO_CHAR(read_time,'YYYY-MM-DD HH24:MI:SS') read_time, res_num, mem_num FROM(SELECT * FROM creserve_notification ORDER BY ROWNUM DESC) WHERE ROWNUM <= 10 AND mem_num=#{mem_num}")
 	public List<ReserveNotificationVO> getReserveNotificationList(Integer mem_num);
 }

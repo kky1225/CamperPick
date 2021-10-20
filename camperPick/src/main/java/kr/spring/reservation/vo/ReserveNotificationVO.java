@@ -1,14 +1,16 @@
 package kr.spring.reservation.vo;
 
-import java.sql.Date;
+import kr.spring.util.DurationFromNow;
 
 public class ReserveNotificationVO {
+	
 	private int not_num;
 	private String message;
-	private Date date_time;
-	private Date read_time;
+	private String date_time;
+	private String read_time;
 	private int res_num;
 	private int mem_num;
+	
 	public int getNot_num() {
 		return not_num;
 	}
@@ -21,17 +23,17 @@ public class ReserveNotificationVO {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public Date getDate_time() {
+	public String getDate_time() {
 		return date_time;
 	}
-	public void setDate_time(Date date_time) {
-		this.date_time = date_time;
+	public void setDate_time(String date_time) {
+		this.date_time = DurationFromNow.getTimeDiffLabel(date_time);
 	}
-	public Date getRead_time() {
+	public String getRead_time() {
 		return read_time;
 	}
-	public void setRead_time(Date read_time) {
-		this.read_time = read_time;
+	public void setRead_time(String read_time) {
+		this.read_time = DurationFromNow.getTimeDiffLabel(read_time);
 	}
 	public int getRes_num() {
 		return res_num;

@@ -90,7 +90,7 @@ $(document).ready(function(){
 					},
 			}).done(function(result){ //환불 성공
 				alert("환불 성공 : " + result);
-				window.location.href = "http://localhost:8081/camperPick/reservation/deleteReservation.do?res_num=${reservation.res_num}";
+				window.location.href = "http://localhost:8081/camperPick/reservation/deleteReservation.do?res_num=${reservation.res_num}&camp_name=${reservation.camp_name}";
 			}).fail(function(error){
 				alert("환불 실패 : " + error);
 			});//ajax

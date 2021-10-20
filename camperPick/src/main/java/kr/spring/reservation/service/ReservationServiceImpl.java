@@ -71,6 +71,12 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 	
 	@Override
+	public void changeState2(Integer res_num) {
+		reservationMapper.changeState2(res_num);
+		
+	}
+	
+	@Override
 	public int insertReserveNotification(ReserveNotificationVO reserveNotificationVO) {
 		reservationMapper.insertReserveNotfication(reserveNotificationVO);
 		return reserveNotificationVO.getNot_num();
