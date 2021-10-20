@@ -43,7 +43,7 @@ tr{
 		</ul>
 	</form>
 	<div class="align-right">
-		<c:if test="${user_auth == 3 }">
+		<c:if test="${user_auth == 4 }">
 		<input type="button" value="글쓰기" onclick="location.href='noticeWrite.do'" class="btn btn-dark">
 		</c:if>
 	</div>
