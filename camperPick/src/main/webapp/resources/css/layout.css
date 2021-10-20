@@ -79,15 +79,17 @@ div#main_menu ul li{
 .button{
 	border: 1px solid;
     border-color: #343a40;
-    border-radius: 5px;
+    border-radius: 3px;
     background-color: white;
 }
 .button:hover{
+	border: 1px solid;
 	color: white;
 	background-color: #343a40;
 }
 .button-large{
     color: #fff;
+    border: 1px solid;
     background-color: #343a40;
     border-color: #343a40;
     border-radius: 5px;

@@ -16,12 +16,12 @@ $(function(){
 });
 </script>
 <div class="page-main">
-<h2 class="align-center">예약 확인</h2>
-<form id="search_form" action="getReservationList.do" method="get">
-		
-	<div class="align-center">
-			<input type="email" id="email" name="email" placeholder="가입 이메일을 입력하세요.">
-			<input type="submit" value="확인">
-	</div>
-</form>
+	<h4 class="align-center" style="margin-bottom:10px;"><b>예약 확인</b></h4>
+	<form id="search_form" action="getReservationList.do" method="get">
+			
+		<div class="align-center">
+				<input type="email" id="email" name="email" placeholder="가입 이메일을 입력하세요.">
+				<input type="submit" class="button" value="확인">
+		</div>
+	</form>
 </div>

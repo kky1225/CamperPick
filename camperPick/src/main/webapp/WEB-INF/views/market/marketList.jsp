@@ -38,14 +38,14 @@ tr{
 				<input type="search" id="keyword" name="keyword">
 			</li>
 			<li>
-				<input type="submit" value="검색" class="btn btn-outline-dark" style="font-size:14px;">
-				<input type="button" value="목록" class="btn btn-outline-dark" style="font-size:14px;" onclick="location.href='marketList.do'">
+				<input type="submit" value="검색" class="button" style="font-size:14px;">
+				<input type="button" value="목록" class="button" style="font-size:14px;" onclick="location.href='marketList.do'">
 			</li>
 		</ul>
 	</form>
 	<div class="align-right">
 		<c:if test="${user_auth > 1}">
-		<input type="button" value="글쓰기" class="btn btn-dark" onclick="location.href='marketWrite.do'">
+		<input type="button" value="글쓰기" class="button-large" onclick="location.href='marketWrite.do'">
 		</c:if>
 	</div>
 	<c:if test="${count == 0}">
