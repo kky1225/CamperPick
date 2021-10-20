@@ -37,6 +37,14 @@
     	<put-attribute name="title" value="알림"/>
     	<put-attribute name="body" value="/WEB-INF/views/member/notification.jsp"/>
     </definition>
+    <definition name="managerView" extends="main">
+    	<put-attribute name="title" value="관리자페이지"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/managerView.jsp"/>
+    </definition>
+    <definition name="memberAuthUpdate" extends="main">
+    	<put-attribute name="title" value="회원등급수정"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/memberAuthUpdate.jsp"/>
+    </definition>
 </tiles-definitions>
 
 

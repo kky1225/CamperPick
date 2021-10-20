@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -35,6 +36,7 @@ import kr.spring.naver.NaverLoginBO;
 import kr.spring.reservation.service.ReservationService;
 import kr.spring.reservation.vo.ReserveNotificationVO;
 import kr.spring.util.AuthCheckException;
+import kr.spring.util.PagingUtil;
 
 @Controller
 public class MemberController {
@@ -48,6 +50,9 @@ public class MemberController {
 	
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null; 
+	
+	private int rowCount = 20;
+	private int pageCount = 10;
 	
 	@Autowired 
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
@@ -449,6 +454,63 @@ public class MemberController {
 					
 			return mav;	
 		}
+		
+	// 회원 정보 리스트
+	@RequestMapping("/member/managerPage.do")
+	public ModelAndView managerView(@RequestParam(value="pageNum",defaultValue = "1") int currentPage,
+							@RequestParam(value="keyfield",defaultValue = "") String keyfield,
+							@RequestParam(value="keyword",defaultValue = "1") String keyword) {
+				
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("keyfield", keyfield);
+		map.put("keyword", keyword);
+				
+		// 총 레코드 수
+		int count = memberService.getMemberCount(map);
+				
+		// 페이지 처리
+		PagingUtil page = new PagingUtil(keyfield,keyword,currentPage, count, rowCount, pageCount, "managerPage.do");
+				
+		map.put("start", page.getStartCount());
+		map.put("end", page.getEndCount());
+				
+		// 목록 호출
+		List<MemberVO> list = null;
+		if(count > 0) {
+			list = memberService.getMemberList(map);
+		}
+				
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("managerView");
+		mav.addObject("count", count);
+		mav.addObject("list", list);
+		mav.addObject("pagingHtml", page.getPagingHtml());
+				
+		return mav;	// 타일스 식별자
+	}
+				
+	// 회원 등급 수정 폼 호출
+	@GetMapping("/member/memberAuthUpdate.do")
+	public String updateAuthForm(@RequestParam int mem_num, Model model) {
+			
+		MemberVO memberVO = memberService.getMember(mem_num);
+				
+		// 데이터 저장
+		model.addAttribute("memberVO", memberVO);
+			
+		return "memberAuthUpdate";
+	}
+		
+		
+	// 회원 등급 수정
+	@PostMapping("/member/memberAuthUpdate.do") 
+	public String updateAuth(@Valid MemberVO memberVO, BindingResult result, HttpServletRequest request) {
+			  
+		memberService.updateAuth(memberVO);
+			  
+		return "redirect:/member/managerPage.do"; 
+		  
+	}
 	
 }
 

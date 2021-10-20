@@ -1,5 +1,8 @@
 package kr.spring.member.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,6 +61,27 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void updateAddress(MemberVO member) {
 		memberMapper.updateAddress(member);
+	}
+	
+	@Override
+	public int getMemberCount(Map<String, Object> map) {
+		return memberMapper.getMemberCount(map);
+	}
+
+	@Override
+	public List<MemberVO> getMemberList(Map<String, Object> map) {
+		return memberMapper.getMemberList(map);
+	}
+
+	@Override
+	public void updateAuth(MemberVO memberVO) {
+		memberMapper.updateAuth(memberVO);
+		
+	}
+
+	@Override
+	public MemberVO getMember(Integer mem_num) {
+		return memberMapper.getMember(mem_num);
 	}
 
 }

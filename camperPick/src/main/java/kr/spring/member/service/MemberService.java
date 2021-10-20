@@ -1,5 +1,8 @@
 package kr.spring.member.service;
 
+import java.util.List;
+import java.util.Map;
+
 import kr.spring.member.vo.MemberVO;
 
 public interface MemberService {
@@ -11,4 +14,9 @@ public interface MemberService {
 	public void updatepassword(MemberVO member);
 	public void deleteMember(Integer mem_num);
 	public void updateAddress(MemberVO member);
+	
+	public int getMemberCount(Map<String, Object> map);
+	public List<MemberVO> getMemberList(Map<String,Object> map);
+	public MemberVO getMember(Integer mem_num);
+	public void updateAuth(MemberVO memberVO);
 }
