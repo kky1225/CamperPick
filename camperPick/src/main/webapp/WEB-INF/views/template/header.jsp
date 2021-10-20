@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!-- 상단 시작 -->
-<a href="${pageContext.request.contextPath}/main/main.do" class="align-center"><h2>Spring Project</h2></a>>
+<a href="${pageContext.request.contextPath}/main/main.do" class="align-center"><h2>Spring Project</h2></a>
 <div class="align-right">
 	<c:if test="${!empty user_num}">
 	    [<span>${user_email}</span>]

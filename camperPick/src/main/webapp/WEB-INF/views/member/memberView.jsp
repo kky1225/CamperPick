@@ -45,7 +45,9 @@
 						<p>주기적인 비밀번호 변경을 통해<br>개인정보를 안전하게 보호하세요.</p>
 					</div>
 					<div class="mp_btn">
+						<c:if test="${!empty user_num && user_auth == 2}">
 						<input type="button" class="btn btn-dark" value="수정" onclick="location.href='changePassword.do'">
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -92,7 +94,7 @@
 						<p>예약된 정보를 확인할 수 있습니다.</p>
 					</div>
 					<div class="mp_btn">
-						<input type="button" class="btn btn-dark" value="확인" onclick="location.href='reserve.do'">
+						<input type="button" class="btn btn-dark" value="확인" onclick="location.href='${pageContext.request.contextPath}/reservation/getReservationList.do?email=${user_email}'">
 					</div>
 				</div>
 			</div>
