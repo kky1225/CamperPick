@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
-	<h2>${camping.camp_name }</h2>
+	<h2 class="align-center">${camping.camp_name }</h2>
 	<ul>
 		<li>번호 : ${camping.camping_num }</li>
 		<li>주소 : ${camping.camp_address }</li>	

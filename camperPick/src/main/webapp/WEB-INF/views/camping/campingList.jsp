@@ -16,7 +16,7 @@ $(function(){
 </script>
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
-<h2>캠핑장 목록</h2>
+<h2 class="align-center">캠핑장 목록</h2>
 <c:if test="${!empty user_num && user_auth==3}">
 <div class="align-right">
 	<input type="button" value="등록" onclick="location.href='write.do'">

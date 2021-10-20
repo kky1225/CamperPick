@@ -86,9 +86,19 @@ public class ReservationController {
 	@PostMapping("/reservation/reserve.do")
 	public String submitReservation(@Valid ReservationVO reservationVO, BindingResult result, HttpSession session, Model model) {
 		
+		RoomVO room = roomService.getRoom(reservationVO.getRoom_num());
+		
 		if(result.hasErrors()) {
 			return "insertReservation";
 		}
+		
+		//예약 인원이 정원 넘는지 검사
+		if(reservationVO.getHeadcount()-room.getPeople()>0) {	//예약인원이 정원수보다 클 때
+			result.rejectValue("headcount", "InvalidHeadcount");
+			return "insertReservation";
+		}
+		
+		
 		//날짜 선택 유효성 검사
 		Date today = new Date();
 		String format = new SimpleDateFormat("yyyy-MM-dd").format(today);
@@ -114,22 +124,16 @@ public class ReservationController {
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		reservationVO.setMem_num(user_num);
 		
-		//결제가격 계산	> 정원 넘을 시 명당 10000원씩 추가.(하루)
-		RoomVO room = roomService.getRoom(reservationVO.getRoom_num());
-		int oneDay = 0;
-		if(reservationVO.getHeadcount()-room.getPeople()>0) {	//예약인원이 정원수보다 클 때
-			oneDay = room.getPrice() + (reservationVO.getHeadcount()-room.getPeople())*10000;
-		}else {
-			oneDay = room.getPrice();
-		}
+		//결제가격 계산	
+		
 		int period = (int)getDay(reservationVO.getRes_end(),reservationVO.getRes_start());
 		
-		reservationVO.setRes_price(oneDay * period);
+		reservationVO.setRes_price(room.getPrice() * period);
 		
 		reservationVO.setRoom_name(roomService.getRoom(reservationVO.getRoom_num()).getRoom_name());
 		reservationVO.setCamp_name(campingService.selectCamping(reservationVO.getCamping_num()).getCamp_name());
 		
-		logger.debug("<<예약 등록>> : " + reservationVO + "/" + oneDay + "/" + period);
+		logger.debug("<<예약 등록>> : " + reservationVO + "/" + period);
 		
 		//등록
 		int res_num=reservationService.insertReservation(reservationVO);
@@ -145,7 +149,7 @@ public class ReservationController {
 		
 		logger.debug("<<예약 알림 번호>> : " + not_num);
 		
-		logger.debug("<<예약 등록2>> : " + reservationVO + "/" + oneDay + "/" + period);
+		logger.debug("<<예약 등록2>> : " + reservationVO );
 		
 		model.addAttribute("reservationVO", reservationVO);
 
@@ -184,6 +188,62 @@ public class ReservationController {
 		return mav;
 	}
 	
+	//예약일 중간 확인
+	@RequestMapping("/reservation/checkDate.do")
+	@ResponseBody
+	public Map<String,String> checkBetweenDate(@RequestParam int room_num, @RequestParam String res_start,@RequestParam String res_end){
+		
+		logger.debug("<<room_num>> : " + room_num);
+		logger.debug("<<res_end>> : " + res_end);
+		logger.debug("<<res_start>> : " + res_start);
+		
+		Map<String,String> ajaxmap = new HashMap<String,String>();
+		
+		int scount = 0;
+		int ecount = 0;
+		int bcount = 0;
+		//객실번호로 예약 start 와 end 가져와서 선택한 날짜와 비교
+		List<ReservationVO> list = reservationService.getReservationByRoom(room_num);		
+		Date r_start;
+	     Date r_end;
+	     try {
+	    	 r_start = new SimpleDateFormat("yyyy-MM-dd").parse(res_start);
+	    	 r_end = new SimpleDateFormat("yyyy-MM-dd").parse(res_end);
+	    	 
+	    	 for(int i=0;i<list.size();i++) {
+	    		 ReservationVO reservation = list.get(i);
+	    		 Date get_start = new SimpleDateFormat("yyyy-MM-dd").parse(reservation.getRes_start());		//서버에서 가져온 start
+	    		 Date get_end =  new SimpleDateFormat("yyyy-MM-dd").parse(reservation.getRes_end());		//서버에서 가져온 end
+				 
+	    		 logger.debug("<<db내용>> : " + get_start + "/" + get_end);
+	    		 if(get_start.getTime() <= r_start.getTime() && r_start.getTime() <= get_end.getTime()) {
+					 scount+=1;
+				 }else if(get_start.getTime() <= r_end.getTime() && r_end.getTime() <= get_end.getTime()) {
+					 ecount+=1;
+				 }else if((get_start.getTime()>=r_start.getTime() && get_start.getTime()<=r_end.getTime()) ||
+						 ( get_end.getTime()>=r_start.getTime() && get_end.getTime()<=r_end.getTime())) {
+					 bcount+=1;
+				 }
+	    	 }
+	    		logger.debug("<<count>> : " + scount + "/" + ecount + "/" + bcount);
+	    	 if(scount>0) {//선택한 입실에 예약이 이미 존재
+	    		 ajaxmap.put("result", "StartAlreadyReserved");
+	    	 }else {
+	    		 if(ecount>0) {//선택한 퇴실에 예약이 이미 존재
+		    		 ajaxmap.put("result", "EndAlreadyReserved");
+	    		 }else {
+	    			 if(bcount>0) {//선택한 입실과 퇴실 사이에 예약이 이미 존재
+	    				 ajaxmap.put("result", "BetweenAlreadyReserved");
+	    			 }
+	    		 }
+	    	 
+	    	 }
+	     }catch(Exception e) {
+	    	  e.printStackTrace();
+	     }
+		return ajaxmap;
+	}
+	
 	//예약 상세
 	@RequestMapping("/reservation/detailReservation.do")
 	public String getReservation(@RequestParam int res_num, Model model) {
@@ -212,10 +272,20 @@ public class ReservationController {
 	//예약 수정 - 처리
 	@PostMapping("/reservation/updateReservation.do")
 	public String submitUpdateReservation(@Valid ReservationVO reservationVO, BindingResult result,Model model, HttpServletRequest request) {
+		RoomVO room = roomService.getRoom(reservationVO.getRoom_num());
+		
 		logger.debug("<<예약수정>> : " + reservationVO);
 		if(result.hasErrors()) {
 			return "updateReservation";
 		}
+		
+
+		//예약 인원이 정원 넘는지 검사
+		if(reservationVO.getHeadcount()-room.getPeople()>0) {	//예약인원이 정원수보다 클 때
+			result.rejectValue("headcount", "InvalidHeadcount");
+			return "updateReservation";
+		}
+		
 		
 		//날짜 선택 유효성 검사
 		Date today = new Date();
@@ -238,19 +308,12 @@ public class ReservationController {
 			return "updateReservation";
 			}
 		
-		//결제가격 계산	> 정원 넘을 시 명당 10000원씩 추가.(하루)
-		RoomVO room = roomService.getRoom(reservationVO.getRoom_num());
-		int oneDay = 0;
-		if(reservationVO.getHeadcount()-room.getPeople()>0) {	//예약인원이 정원수보다 클 때
-			oneDay = room.getPrice() + (reservationVO.getHeadcount()-room.getPeople())*10000;
-		}else {
-			oneDay = room.getPrice();
-		}
+		//결제가격 계산	
 		int period = (int)getDay(reservationVO.getRes_end(),reservationVO.getRes_start());
 				
-		reservationVO.setRes_price(oneDay * period);
+		reservationVO.setRes_price(room.getPrice() * period);
 				
-		logger.debug("<<예약 등록>> : " + reservationVO + "/" + oneDay + "/" + period);
+		logger.debug("<<예약 등록>> : " + reservationVO + "/" + period);
 				
 		//수정
 		reservationService.updateReservation(reservationVO);

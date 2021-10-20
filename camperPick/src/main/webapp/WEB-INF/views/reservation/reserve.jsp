@@ -66,7 +66,7 @@ $(document).ready(function(){
 }); //doc.ready
 </script>
 <div class="page-main align-center" >
-<h2>예약이 완료되었습니다.</h2>
+<h2 class="align-center">예약이 완료되었습니다.</h2>
 	<div >
 	<ul>
 		<li>예약자명 : ${reservationVO.res_name }</li>

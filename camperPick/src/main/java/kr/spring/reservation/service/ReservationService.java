@@ -15,6 +15,7 @@ public interface ReservationService {
 	public ReservationVO getReservation(Integer res_num);
 	public ReservationVO getRecentReservation(Integer mem_num);
 	public void changeState(Integer res_num);
+	public List<ReservationVO> getReservationByRoom(Integer room_num);
 	
 	public int insertReserveNotification(ReserveNotificationVO reserveNotificationVO);
 	public void updateReserveNotfication(Integer res_num);

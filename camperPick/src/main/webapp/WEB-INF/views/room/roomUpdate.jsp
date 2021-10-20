@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
-	<h2>객실 수정</h2>
+	<h2 class="align-center">객실 수정</h2>
 	<form:form id="update_form" action="updateRoom.do" modelAttribute="roomVO" enctype="multipart/form-data">
 		<form:hidden path="camping_num"/>
 		<form:hidden path="room_num"/>

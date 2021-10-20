@@ -15,7 +15,7 @@ $(function(){
 });
 </script>
 <div class="page-main">
-<h2>캠핑장 검색</h2>
+<h2 class="align-center">캠핑장 검색</h2>
 <form id="search_form" action="list.do" method="get">
 	<ul class="search">
 		<li>

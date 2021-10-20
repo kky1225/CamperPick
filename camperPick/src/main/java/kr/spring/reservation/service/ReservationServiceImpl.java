@@ -92,4 +92,10 @@ public class ReservationServiceImpl implements ReservationService{
 		
 	}
 
+	@Override
+	public List<ReservationVO> getReservationByRoom(Integer room_num) {
+		return reservationMapper.getReservationByRoom(room_num);
+		
+	}
+
 }

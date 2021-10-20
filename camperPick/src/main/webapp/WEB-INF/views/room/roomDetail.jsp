@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
-	<h2>${room.room_name }</h2>
+	<h2 class="align-center">${room.room_name }</h2>
 	<ul>
 		<li>객실번호 : ${room.room_num }</li>
 		<li>정원 : ${room.people }</li>	

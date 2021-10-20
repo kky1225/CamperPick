@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
-	<h2>캠핑장 수정</h2>
+	<h2 class="align-center">캠핑장 수정</h2>
 	<form:form id="update_form" action="update.do" modelAttribute="campingVO">
 		<form:hidden path="camping_num"/>
 		<form:errors element="div" cssClass="error-color"/>

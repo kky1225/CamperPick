@@ -4,7 +4,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
-<h2>예약 목록</h2>
+<h2 class="align-center">예약 목록</h2>
 <c:if test="${count==0 }">
 	<div class="result-display">
 		예약 내역이 없습니다.

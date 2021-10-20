@@ -99,7 +99,7 @@ $(document).ready(function(){
 </script>
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
-	<h2>${reservation.res_name }님의 예약</h2>
+	<h2 class="align-center">${reservation.res_name }님의 예약</h2>
 	<ul>
 		<li><b>캠핑지 정보</b></li>
 		<li>캠핑장명 : ${reservation.camp_name }</li>

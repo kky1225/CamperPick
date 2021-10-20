@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
-	<h2>객실 등록</h2>
+	<h2 class="align-center">객실 등록</h2>
 	<form:form id="register_form" action="writeRoom.do" modelAttribute="roomVO" enctype="multipart/form-data">
 		<form:hidden path="camping_num" value="${camping_num }"/>
 		<form:errors element="div" cssClass="error-color"/>
