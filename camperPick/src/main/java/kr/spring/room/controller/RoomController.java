@@ -1,6 +1,10 @@
 package kr.spring.room.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -117,6 +122,24 @@ public class RoomController {
 		model.addAttribute("url", request.getContextPath() + "/camping/detail.do?camping_num="+roomVO.getCamping_num());
 		return "common/resultView";		
 	}
+	//캠핑장 수정 - 파일 삭제
+	@RequestMapping("/room/deleteFile.do")
+	@ResponseBody
+	public Map<String, String> removeFile(int room_num, HttpSession session){
+		
+		Map<String,String> map = new HashMap<String, String>();
+		
+		Integer user_num = (Integer)session.getAttribute("user_num");
+		if(user_num==null) {
+			map.put("result", "logout");
+		}else {
+			roomService.deleteFile(room_num);
+			map.put("result", "success");
+		}
+		
+		return map;
+	}
+	
 	//객실 삭제
 	@RequestMapping("/room/deleteRoom.do")
 	public String submitDeleteRoom(@RequestParam int room_num,Model model, HttpServletRequest request) {

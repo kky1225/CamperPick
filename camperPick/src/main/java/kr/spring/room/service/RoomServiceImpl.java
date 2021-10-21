@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.spring.payment.dao.PaymentMapper;
 import kr.spring.reservation.dao.ReservationMapper;
 import kr.spring.room.dao.RoomMapper;
 import kr.spring.room.vo.RoomVO;
@@ -19,7 +20,9 @@ public class RoomServiceImpl implements RoomService{
 	private RoomMapper roomMapper;
 	@Autowired
 	private ReservationMapper reservationMapper;
-
+	@Autowired
+	private PaymentMapper paymentMapper;
+	
 	@Override
 	public void insertRoom(RoomVO roomVO) {
 		roomMapper.insertRoom(roomVO);
@@ -34,6 +37,8 @@ public class RoomServiceImpl implements RoomService{
 
 	@Override
 	public void deleteRoom(Integer room_num) {
+		reservationMapper.deleteReserveNotficationByRoom(room_num);
+		paymentMapper.deletePaymentByRoom(room_num);
 		reservationMapper.deleteReservationToo(room_num);
 		roomMapper.deleteRoom(room_num);
 		
@@ -55,6 +60,12 @@ public class RoomServiceImpl implements RoomService{
 	@Override
 	public RoomVO getRoom(Integer room_num) {
 		return roomMapper.getRoom(room_num);
+	}
+
+	@Override
+	public void deleteFile(Integer room_num) {
+		roomMapper.deleteFile(room_num);
+		
 	}
 
 

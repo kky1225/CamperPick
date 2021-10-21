@@ -32,7 +32,7 @@ public interface ReservationMapper {
 	public void changeState(Integer res_num);
 	@Update("UPDATE creserve SET res_state='예약취소' WHERE res_num=#{res_num}")
 	public void changeState2(Integer res_num);
-	@Select("SELECT * FROM creserve WHERE room_num=#{room_num}")
+	@Select("SELECT * FROM creserve WHERE room_num=#{room_num} AND NOT res_state='예약취소'")
 	public List<ReservationVO> getReservationByRoom(Integer room_num);
 	
 	@Insert("INSERT INTO creserve_notification(not_num, message, res_num, mem_num) VALUES (creserve_notification_seq.nextval, #{message}, #{res_num}, #{mem_num})")
@@ -45,4 +45,9 @@ public interface ReservationMapper {
 	public List<ReserveNotificationVO> getReserveNotificationList(Integer mem_num);
 	@Select("SELECT COUNT(*) FROM(SELECT * FROM creserve_notification ORDER BY ROWNUM DESC) WHERE ROWNUM <= 10 AND mem_num=#{mem_num} AND date_time=read_time")
 	public int getReserveNotificationCount(Integer mem_num);
+	//타 테이블 삭제시
+	@Delete("DELETE FROM creserve_notification WHERE res_num IN(SELECT res_num FROM creserve r JOIN croom c ON r.room_num=c.room_num WHERE c.room_num=#{room_num})")
+	public void deleteReserveNotficationByRoom(Integer room_num);
+	@Delete("DELETE FROM creserve_notification WHERE res_num IN(SELECT res_num FROM creserve r JOIN camping c ON r.camping_num=c.camping_num WHERE c.camping_num=#{camping_num})")
+	public void deleteReserveNotficationByCamping(Integer camping_num);
 }

@@ -13,4 +13,5 @@ public interface CampingService {
 	public void updateCamping(CampingVO camping);
 	public void deleteCamping(Integer camping_num);
 	public void insertCampingData(CampingVO camping);
+	public void deleteFile(Integer camping_num);
 }

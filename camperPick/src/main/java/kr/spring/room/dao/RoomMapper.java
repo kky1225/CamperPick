@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
-
+import org.apache.ibatis.annotations.Update;
 
 import kr.spring.room.vo.RoomVO;
 
@@ -23,5 +23,8 @@ public interface RoomMapper {
 	public RoomVO getRoom(Integer room_num);
 	@Delete("DELETE FROM croom WHERE camping_num=#{camping_num}")
 	public void deleteRoomToo(Integer camping_num);
-	
+	//파일만 지우기
+	@Update("UPDATE croom SET uploadfile='', filename='' WHERE room_num=#{room_num}")
+	public void deleteFile(Integer room_num);
+
 }

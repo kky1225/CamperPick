@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.spring.camping.dao.CampingMapper;
 import kr.spring.camping.vo.CampingVO;
+import kr.spring.payment.dao.PaymentMapper;
 import kr.spring.reservation.dao.ReservationMapper;
 import kr.spring.room.dao.RoomMapper;
 
@@ -22,7 +23,8 @@ public class CampingServiceImpl implements CampingService{
 	private RoomMapper roomMapper;
 	@Autowired
 	private ReservationMapper reservationMapper;
-	
+	@Autowired
+	private PaymentMapper paymemtMapper;
 	
 	@Override
 	public List<CampingVO> selectList(Map<String, Object> map) {
@@ -56,7 +58,8 @@ public class CampingServiceImpl implements CampingService{
 
 	@Override
 	public void deleteCamping(Integer camping_num) {
-		
+		reservationMapper.deleteReserveNotficationByCamping(camping_num);
+		paymemtMapper.deletePaymentByCamping(camping_num);
 		reservationMapper.deleteReservationFirst(camping_num);
 		roomMapper.deleteRoomToo(camping_num);
 		campingMapper.deleteCamping(camping_num);
@@ -66,6 +69,12 @@ public class CampingServiceImpl implements CampingService{
 	@Override
 	public void insertCampingData(CampingVO camping) {
 		campingMapper.insertCampingData(camping);
+		
+	}
+
+	@Override
+	public void deleteFile(Integer camping_num) {
+		campingMapper.deleteFile(camping_num);
 		
 	}
 	

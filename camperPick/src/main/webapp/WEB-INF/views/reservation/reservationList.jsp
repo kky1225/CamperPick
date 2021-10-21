@@ -1,18 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">  
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
-<h2 class="align-center">예약 목록</h2>
+<h2 class="align-center" style="margin-bottom:30px;"><B>예약 목록</B></h2>
 <c:if test="${count==0 }">
 	<div class="result-display">
 		예약 내역이 없습니다.
 	</div>
 </c:if>
 <c:if test="${count>0 }">
-	<table>
+	<table class="table table-borderless" style="text-align:center;">
+		<thead class="thead-dark">
 		<tr>
 			<th>예약 번호</th>
 			<th>예약자명</th>
@@ -20,6 +24,7 @@
 			<th>날짜</th>
 			<th>예약상태</th>
 		</tr>
+		</thead>
 		<c:forEach var="reservation" items="${list }">
 			<tr>
 				<td>${reservation.res_num }</td>
@@ -30,7 +35,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<div class="align-center">${pagingHtml }</div>
+	<div class="align-center" style="margin-top:30px;">${pagingHtml }</div>
 </c:if>
 </div>
 

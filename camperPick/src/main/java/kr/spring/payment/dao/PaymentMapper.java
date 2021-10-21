@@ -14,4 +14,10 @@ public interface PaymentMapper {
 	
 	@Delete("DELETE FROM payment WHERE merchant_uid=#{merchant_uid}")
 	public void cancelPayment(String merchant_uid);
+	
+	@Delete("DELETE FROM payment WHERE res_num IN(SELECT res_num FROM creserve r JOIN croom c ON r.room_num=c.room_num WHERE c.room_num=#{room_num})")
+	public void deletePaymentByRoom(Integer room_num);
+	
+	@Delete("DELETE FROM payment WHERE res_num IN(SELECT res_num FROM creserve r JOIN camping c ON r.camping_num=c.camping_num WHERE c.camping_num=#{camping_num})")
+	public void deletePaymentByCamping(Integer camping_num);
 }

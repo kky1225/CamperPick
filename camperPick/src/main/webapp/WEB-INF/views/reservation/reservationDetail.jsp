@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">  
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -103,7 +106,7 @@ $(document).ready(function(){
 </script>
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
-	<h2 class="align-center">${reservation.res_name }님의 예약</h2>
+	<h2 class="align-center" style="margin-bottom:50px;"><b>${reservation.res_name }님의 예약</b></h2>
 	<ul>
 		<li><b>캠핑지 정보</b></li>
 		<li>캠핑장명 : ${reservation.camp_name }</li>
@@ -124,15 +127,12 @@ $(document).ready(function(){
 	<div class="align-right">
 	<c:if test="${!empty user_num && user_num == reservation.mem_num}">
 		
-			<input type="button" value="예약 수정" onclick="location.href='updateReservation.do?res_num=${reservation.res_num}'">
-			<input type="button" value="예약 취소" id="delete_btn">
+			<input type="button" value="예약 수정" class="button" style="margin-top:10px;" onclick="location.href='updateReservation.do?res_num=${reservation.res_num}'">
+			<input type="button" value="예약 취소" class="button" style="margin-top:10px;" id="delete_btn">
 			<c:if test="${reservation.res_state=='결제대기' }">
-				<input type="button" value="결제" id="payment">
-			</c:if>
-			
-		
+				<input type="button" class="button" style="margin-top:10px;" value="결제" id="payment">
+			</c:if>	
 	</c:if>
-		<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 	</div>
 </div>
 <!-- 중앙 내용 끝 -->

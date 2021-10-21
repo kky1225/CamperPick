@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -119,6 +121,22 @@ public class CampingController {
 		
 		return mav;
 	}
+	//캠핑장 사진
+		@RequestMapping("/camping/imageView.do")
+		public ModelAndView viewImage(@RequestParam int camping_num) {
+			
+			CampingVO camping = campingService.selectCamping(camping_num);
+			
+			ModelAndView mav = new ModelAndView();
+			
+			mav.setViewName("imageView");
+							//속성명			속성값(byte[] 타입의 데이터)
+			mav.addObject("imageFile",camping.getUploadfile());
+			mav.addObject("filename", camping.getFilename());
+			
+			return mav;
+		}
+	
 	
 	//캠핑장 등록 - 폼 호출
 	@GetMapping("/camping/write.do")
@@ -167,6 +185,24 @@ public class CampingController {
 		model.addAttribute("message", "수정 완료");
 		model.addAttribute("url", request.getContextPath() + "/camping/list.do");
 		return "common/resultView";	
+	}
+	
+	//캠핑장 수정 - 파일 삭제
+	@RequestMapping("/camping/deleteFile.do")
+	@ResponseBody
+	public Map<String, String> removeFile(int camping_num, HttpSession session){
+		
+		Map<String,String> map = new HashMap<String, String>();
+		
+		Integer user_num = (Integer)session.getAttribute("user_num");
+		if(user_num==null) {
+			map.put("result", "logout");
+		}else {
+			campingService.deleteFile(camping_num);
+			map.put("result", "success");
+		}
+		
+		return map;
 	}
 	//캠핑장 삭제
 	@RequestMapping("/camping/delete.do")

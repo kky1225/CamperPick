@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">  
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -77,8 +80,8 @@ $(document).ready(function(){
 		<li>가격 : ${reservationVO.res_price}원</li>
 	</ul>
 		<div >
-			<input type="button" value="결제" id="payment">
-			<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
+			<input type="button" class="button" style="margin-top:30px;" value="결제" id="payment">
+			<input type="button" class="button" style="margin-top:30px;" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 		</div>
 	</div>
 	

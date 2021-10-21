@@ -14,4 +14,5 @@ public interface RoomService {
 	public int getRoomCount(Integer camping_num);
 	public List<RoomVO> getRoomList(Map<String,Object> map);
 	public RoomVO getRoom(Integer room_num);
+	public void deleteFile(Integer room_num);
 }

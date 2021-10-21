@@ -23,7 +23,9 @@
   					 camp_name,
   					 camp_address,
   					 camp_phone,
-  					 rcount
+  					 rcount,
+  					 filename,
+  					 uploadfile
   		FROM camping
   		<where>
   			<if test="keyword != '' and keyfield == 1">
@@ -39,7 +41,18 @@
   		WHERE rnum >= #{start} AND rnum <= #{end}
   		]]>
   	</select>
-  	
+  	<update id="updateCamping" parameterType="campingVO">
+		UPDATE camping SET 
+		<if test="filename != ''">
+			uploadfile=#{uploadfile},
+			filename=#{filename},
+		</if>
+		camp_name=#{camp_name}, 
+		camp_address=#{camp_address},
+		camp_phone=#{camp_phone}, 
+		rcount=#{rcount} 
+		WHERE camping_num=#{camping_num}
+	</update>
   	
 </mapper>
 

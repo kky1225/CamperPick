@@ -18,10 +18,10 @@ $(function(){
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
 <h4 class="align-center" style="margin-bottom:10px;"><b>캠핑장 목록</b></h4>
-<c:if test="${!empty user_num && user_auth==3}">
+<c:if test="${!empty user_num && user_auth==4}">
 <div class="align-right">
-	<input type="button" value="등록" onclick="location.href='write.do'">
-	<input type="button" value="데이터 받기" onclick="location.href='insertData.do'">
+	<input type="button" class="button" value="등록" onclick="location.href='write.do'">
+	<input type="button" class="button" value="데이터 받기" onclick="location.href='insertData.do'">
 </div>
 </c:if>
 
@@ -51,7 +51,7 @@ $(function(){
 			</tr>
 		</c:forEach>
 	</table>
-	<div class="align-center">${pagingHtml }</div>
+	<div class="align-center" style="margin-top:30px;">${pagingHtml }</div>
 </c:if>
 <br>
 <div class="align-center">
@@ -67,8 +67,8 @@ $(function(){
 			<input type="search" name="keyword" id="keyword">
 		</li>
 		<li>
-			<input type="submit" value="검색">
-			<input type="button" value="목록" onclick="location.href='list.do'">
+			<input type="submit" class="button" value="검색">
+			<input type="button" class="button" value="목록" onclick="location.href='list.do'">
 		</li>
 	</ul>
 </form>
