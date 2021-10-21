@@ -22,4 +22,5 @@ public interface ReservationService {
 	public void updateReserveNotfication(Integer res_num);
 	public void deleteReserveNotfication(Integer res_num);
 	public List<ReserveNotificationVO> getReserveNotificationList(Integer mem_num);
+	public int getReserveNotificationCount(Integer mem_num);
 }

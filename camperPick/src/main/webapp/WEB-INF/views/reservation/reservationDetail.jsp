@@ -89,7 +89,11 @@ $(document).ready(function(){
 						//"refund_account" : '' // [가상계좌 환불시 필수입력] 환불 가상계좌 번호
 					},
 			}).done(function(result){ //환불 성공
-				alert("환불 성공 : " + result);
+				if(result == "0"){
+					
+				}else{
+					alert("환불 금액 : " + result);
+				}
 				window.location.href = "http://localhost:8081/camperPick/reservation/deleteReservation.do?res_num=${reservation.res_num}&camp_name=${reservation.camp_name}";
 			}).fail(function(error){
 				alert("환불 실패 : " + error);

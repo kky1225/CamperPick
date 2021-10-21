@@ -439,15 +439,15 @@ public class ReservationController {
 		}
 			
 		if(paymentVO == null) {
-			return "Pay : 0";
+			return "0";
 		}else {
 			String merchant_uid = paymentVO.getMerchant_uid();
 				
 			int check = iamport.cancelPayment(token, merchant_uid);
 				
-			  if(check == 1) { 
+			if(check == 1) { 
 				  paymentService.cancelPayment(merchant_uid);
-				  return "Pay : " + pay;
+				  return pay;
 				 }else if(check == -1) { 
 				  return "failure";
 				 }else { 

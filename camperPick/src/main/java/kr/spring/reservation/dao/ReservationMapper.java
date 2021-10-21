@@ -41,6 +41,8 @@ public interface ReservationMapper {
 	public void updateReserveNotfication(Integer res_num);
 	@Delete("DELETE FROM creserve_notification WHERE res_num=#{res_num}")
 	public void deleteReserveNotfication(Integer res_num);
-	@Select("SELECT not_num, message, TO_CHAR(date_time,'YYYY-MM-DD HH24:MI:SS') date_time, TO_CHAR(read_time,'YYYY-MM-DD HH24:MI:SS') read_time, res_num, mem_num FROM(SELECT * FROM creserve_notification ORDER BY ROWNUM DESC) WHERE ROWNUM <= 10 AND mem_num=#{mem_num}")
+	@Select("SELECT not_num, message, TO_CHAR(date_time,'YYYY-MM-DD HH24:MI:SS') date_time, TO_CHAR(read_time,'YYYY-MM-DD HH24:MI:SS') read_time, res_num, mem_num FROM creserve_notification WHERE ROWNUM <= 10 AND mem_num=#{mem_num} ORDER BY date_time DESC")
 	public List<ReserveNotificationVO> getReserveNotificationList(Integer mem_num);
+	@Select("SELECT COUNT(*) FROM(SELECT * FROM creserve_notification ORDER BY ROWNUM DESC) WHERE ROWNUM <= 10 AND mem_num=#{mem_num} AND date_time=read_time")
+	public int getReserveNotificationCount(Integer mem_num);
 }

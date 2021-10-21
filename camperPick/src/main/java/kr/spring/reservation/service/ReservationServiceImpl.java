@@ -104,4 +104,9 @@ public class ReservationServiceImpl implements ReservationService{
 		
 	}
 
+	@Override
+	public int getReserveNotificationCount(Integer mem_num) {
+		return reservationMapper.getReserveNotificationCount(mem_num);
+	}
+
 }
