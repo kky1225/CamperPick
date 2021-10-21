@@ -51,8 +51,8 @@ public class MarketServiceImpl implements MarketService{
 	}
 
 	@Override
-	public void updateHit(int notice_num) {
-		marketMapper.updateHit(notice_num);
+	public void updateHit(int market_num) {
+		marketMapper.updateHit(market_num);
 		
 	}
 

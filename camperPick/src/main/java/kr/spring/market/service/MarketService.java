@@ -10,7 +10,7 @@ public interface MarketService {
 	public int getMarketCount(Map<String, Object> map);
 	public List<MarketVO> getMarketList(Map<String,Object> map);
 	public MarketVO getMarket(int market_num);
-	public void updateHit(int notice_num);
+	public void updateHit(int market_num);
 	public void updateMarket(MarketVO marketVO);
 	public void deleteMarket(int market_num);
 	public void deleteFile(Integer market_num);
