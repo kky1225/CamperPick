@@ -135,7 +135,7 @@
 	});
 </script>
 <!-- 중앙 내용 시작 -->
-<div class="page-main">
+<div class="page-main" align="left" style="margin-left:150px;">
 	<h2>회원가입</h2>
 	<form:form id="register_form" action="registerUser.do" modelAttribute="memberVO">
 		<ul>
@@ -170,7 +170,7 @@
 			<li>
 				<label for="zipcode" style="margin-top:32px;">우편번호</label>
 				<div class="row">
-					<div class="col-auto" style="margin-left:-14px;">
+					<div class="col-auto">
 						<form:input path="zipcode" class="form-control form-label mt-4"/>
 						<form:errors path="zipcode" cssClass="error-color"/>
 					</div>
