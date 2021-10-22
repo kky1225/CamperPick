@@ -204,8 +204,8 @@ create table creview(
 	constraint creview_pk primary key (review_num),
 	constraint creview_fk foreign key (res_num) references creserve (res_num),
 	constraint creview_fk2 foreign key (mem_num) references cmember (mem_num),
-	constraint creview_fk3 foreign key (camping_num) references camping (camping_num),
-	constraint creview_fk4 foreign key (res_num) references creserve (res_num)
+	constraint creview_fk3 foreign key (camping_num) references camping (camping_num)
+
 );
 
 create sequence creview_seq;

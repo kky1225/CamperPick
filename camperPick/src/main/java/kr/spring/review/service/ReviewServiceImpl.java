@@ -73,22 +73,6 @@ public class ReviewServiceImpl implements ReviewService{
 		reviewMapper.insertReReview(reviewReply);
 		
 	}
-	/*
-	 * @Override public void updateReReview(ReviewReplyVO reviewReply) { // TODO
-	 * Auto-generated method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void deleteReReview(Integer rre_num) { // TODO
-	 * Auto-generated method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void deleteReReviewByCampingNum(Integer rre_num) { // TODO
-	 * Auto-generated method stub
-	 * 
-	 * }
-	 */
 
 	@Override
 	public int getReReviewCount(Map<String, Object> map) {
@@ -103,6 +87,23 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public ReviewReplyVO getReReview(Integer rre_num) {
 		return reviewMapper.getReReview(rre_num);
+	}
+
+	@Override
+	public void updateReReview(ReviewReplyVO reviewReply) {
+		reviewMapper.updateReReview(reviewReply);
+		
+	}
+
+	@Override
+	public void deleteReReview(Integer rre_num) {
+		reviewMapper.deleteReReview(rre_num);
+	}
+
+	@Override
+	public void deleteReReviewByCampingNum(Integer rre_num) {
+		reviewMapper.deleteReviewByCampingNum(rre_num);
+		
 	}
 
 	

@@ -177,7 +177,7 @@ public class ReviewController {
 			return map;
 		}
 		
-		//댓글 수정
+		//리뷰 수정
 		@RequestMapping("/review/updateReview.do")
 		@ResponseBody
 		public Map<String,String> modifyReview(ReviewVO reviewVO, HttpSession session, HttpServletRequest request){
@@ -283,7 +283,65 @@ public class ReviewController {
 				}
 				
 		
-		
+		//대댓글 삭제
+				@RequestMapping("/review/deleteReReview.do")
+				@ResponseBody
+				public Map<String,String> deleteReReview(@RequestParam int rre_num,
+						                              @RequestParam int mem_num,
+						                              HttpSession session){
+					
+					logger.debug("<<rre_num>> : " + rre_num);
+					logger.debug("<<mem_num>> : " + mem_num);
+					
+					Map<String,String> map = new HashMap<String,String>();
+					
+					Integer user_num = (Integer)session.getAttribute("user_num");
+					if(user_num == null) {
+						//로그인이 되어있지 않음
+						map.put("result", "logout");
+					}else if(user_num != null && user_num==mem_num) {
+						//로그인이 되어 있고 로그인한 아이디와 작성자 아이디가 일치
+						reviewService.deleteReview(rre_num);
+						map.put("result", "success");
+					}else {
+						//로그인 아이디와 작성자 아이디 불일치
+						map.put("result", "wrongAccess");
+					}
+					return map;
+				}
+				
+		//대댓글 수정
+				@RequestMapping("/review/updateReReview.do")
+				@ResponseBody
+				public Map<String,String> modifyReview(ReviewReplyVO reviewreplyVO, HttpSession session, HttpServletRequest request){
+					
+					logger.debug("<<대댓글 수정>>:" + reviewreplyVO);
+					
+					Map<String,String> map=new HashMap<String,String>();
+					
+					Integer user_num=(Integer)session.getAttribute("user_num");
+					if(user_num==null) {
+						//로그인이 안된 경우
+						map.put("result", "logout");
+					}else if(user_num!=null && user_num == reviewreplyVO.getMem_num()) {
+						//로그인 회원번호와 작성자 회원번호 일치
+						//ip 등록
+						reviewreplyVO.setRe_ip(request.getRemoteAddr());
+						
+						//대댓글 수정
+						reviewService.updateReReview(reviewreplyVO);
+						map.put("result", "success");
+					}else {
+						//로그인회원번호와 작성자 회원번호 불일치
+						map.put("result", "wrongAccess");
+						
+					}
+					
+					return map;
+				}
+				
+
+				
 		
 		
 }

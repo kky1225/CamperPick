@@ -24,10 +24,10 @@ public interface ReviewService {
 	public List<ReviewReplyVO> getReReviewList(Map<String,Object> map);
 	public ReviewReplyVO getReReview(Integer rre_num);
 	public void insertReReview(ReviewReplyVO reviewReply);
-		/*
-		 * public void updateReReview(ReviewReplyVO reviewReply); public void
-		 * deleteReReview(Integer rre_num); public void
-		 * deleteReReviewByCampingNum(Integer rre_num);
-		 */
+		
+	public void updateReReview(ReviewReplyVO reviewReply); 
+	public void deleteReReview(Integer rre_num); 
+	public void deleteReReviewByCampingNum(Integer rre_num);
+
 	
 }
