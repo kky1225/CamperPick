@@ -6,11 +6,10 @@
 
 <script type="text/javascript">
 	$(function() {
-		
-		
 		var currentPage;
 		var count;
 		var rowCount;
+		var view_button = 0;//댓댓글이 안 보여짐 (초기값) 
 		//댓글 목록
 		function selectData(pageNum,camping_num){
 			currentPage = pageNum;
@@ -273,10 +272,7 @@
 				}
 			});
 			
-		});
-		//초기 데이터(목록) 호출
-		selectData(1,$('#camping_num').val());
-		
+		});		
 		
 		// 사진 수정
 		$('#photo_btn').click(function(){
@@ -428,42 +424,47 @@
 		$(document).on('click','.view-btn',function(){
 			var view_btn = $(this);
 			var review_num = $(this).attr('data-num');
-			$.ajax({
-				type:'post',
-				data:{review_num:review_num},
-				url:'../review/rereviewList.do',
-				dataType:'json',
-				cache:false,
-				timeout:30000,
-				success:function(param){
-					 //로딩 이미지 감추기
-					var user_auth = ${user_auth};
-					var output = '';
-					$(param.list).each(function(index,item){
-						output += '<div class="rritem" style="margin:20px 30px 40px 50px; ">';
-						output += '<div class="rrsub-item">';
-						output +='   <p>' + item.re_content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
-						output += item.re_date; 
-						if($('#mem_num').val()==item.mem_num){
-							//로그인한 회원 번호가 댓글 작성자 회원 번호와 같으면
-							output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="수정" class="rmodify-btn">';
-							output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="삭제" class="rdelete-btn">';
-						 }
-						output += '</div>';
-						output += '</div>';
-					});//end of each
-					if(param.list.length > 0){
-						output += '  <hr size="1" noshade>';
-						//문서 객체에 추가
-						view_btn.parents('.sub-item').append(output);
+			if(view_button == 0){
+				$.ajax({
+					type:'post',
+					data:{review_num:review_num},
+					url:'../review/rereviewList.do',
+					dataType:'json',
+					cache:false,
+					timeout:30000,
+					success:function(param){
+						 //로딩 이미지 감추기
+						var user_auth = ${user_auth};
+						var output = '';
+						$(param.list).each(function(index,item){
+							output += '<div class="rritem" style="margin:20px 30px 40px 50px; ">';
+							output += '<div class="rrsub-item">';
+							output +='   <p>' + item.re_content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
+							output += item.re_date; 
+							if($('#mem_num').val()==item.mem_num){
+								//로그인한 회원 번호가 댓글 작성자 회원 번호와 같으면
+								output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="수정" class="rmodify-btn">';
+								output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="삭제" class="rdelete-btn">';
+							 }
+							output += '</div>';
+							output += '</div>';
+						});//end of each
+						if(param.list.length > 0){
+							output += '  <hr size="1" noshade class="view-hr">';
+							//문서 객체에 추가
+							view_btn.parents('.sub-item').append(output);
+						}
+						view_button = 1; //댓댓글이 보여짐 
+						},
+					error:function(){
+						alert('네트워크 오류 발생');
 					}
-					
-					},
-				error:function(){
-					alert('네트워크 오류 발생');
-				}
-			}); 
-			
+				}); 
+			}else{
+				$('.rritem').hide();
+				$('.view-hr').hide();
+				view_button = 0; //댓댓글이 안 보여지게 함
+			}
 		}); 
 		
 		//대댓글 수정 버튼 클릭시 수정폼 노출
