@@ -31,7 +31,7 @@ $(function(){
 	</div>
 </c:if>
 <c:if test="${count>0 }">
-	<table class="table table-hover" style="text-align:center; border-style:none;">
+	<table class="table table-hover" style="text-align:center;">
 		<thead class="thead-dark">
 			<tr>
 				<th>사진</th>

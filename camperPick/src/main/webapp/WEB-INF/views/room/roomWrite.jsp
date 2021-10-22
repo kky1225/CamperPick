@@ -4,7 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">  
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+<script type="text/javascript">
+	$(function(){
+		if($('#upload').change(function(){
+			$('#filename_text').val($(this)[0].files[0].name);
+		}));
+	});
+</script>
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
 	<h2 class="align-center" style="margin-bottom:40px;"><b>객실 등록</b></h2>
@@ -48,14 +54,23 @@
 				<form:errors path="info" cssClass="error-color"/>
 			</li>
 			<li>
-				<label for="upload">이미지 파일</label>
-				<input type="file" name="upload" id="upload" class="form-control" style="width:300px;margin-bottom:10px;" accept="image/gif,image/png,image/jpeg"/>
+				<div class="row">
+					<div class="col-auto" style="margin-top:10px;">
+						첨부파일
+					</div>
+					<div class="col-auto" style="margin-left:32px;">
+						<input id="filename_text" class="form-control mt-1" value="파일선택" style="width:200px; margin-left:14px;" readonly>
+					</div>
+					<div class="col-auto" style="margin-top:5px;">
+						<label for="upload" class="btn btn-dark" style="width:60px;">파일</label>
+					</div>
+					<input type="file" id="upload" name="upload" accept="image/gif,image/png,image/jpeg" style="display:none;">
+				</div>
 				<c:if test="${!empty roomVO.filename }">
 					<br>
-					<span>(${roomVO.filename })파일이 등록되어 있습니다. 다시 업로드하면 기존 파일은 삭제됩니다.</span>
+					<span>(${roomVO.filename })파일이 등록되어 있습니다.</span>
 				</c:if>
 			</li>
-			
 		</ul>
 		<div class="align-center">
 			<form:button class="button" style="margin-top:30px;">등록</form:button>

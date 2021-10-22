@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">  
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
-	<h2>회원 로그인</h2>
+	<h4 class="align-center" style="margin-bottom:10px;"><b>로그인</b></h4>
 	<form:form id="login_form" action="login.do" modelAttribute="memberVO">
 		<ul>
 			<li>

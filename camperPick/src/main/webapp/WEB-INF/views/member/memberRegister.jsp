@@ -136,7 +136,7 @@
 </script>
 <!-- 중앙 내용 시작 -->
 <div class="page-main" align="left" style="margin-left:150px;">
-	<h2>회원가입</h2>
+	<h4 class="align-center" style="margin-bottom:10px; margin-right:250px;"><b>회원가입</b></h4>
 	<form:form id="register_form" action="registerUser.do" modelAttribute="memberVO">
 		<ul>
 			<li>

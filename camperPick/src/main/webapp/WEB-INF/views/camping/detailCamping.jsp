@@ -59,7 +59,7 @@
 					<th>가격</th>
 				</tr>
 				<c:forEach var="room" items="${roomList }">
-					<tr onClick="location.href='${pageContext.request.contextPath }/room/detailRoom.do?room_num=${room.room_num }'">
+					<tr onClick="location.href='${pageContext.request.contextPath }/room/detailRoom.do?room_num=${room.room_num }'" style="border-bottom:1px solid #000;">
 						<td>
 							<c:if test="${!empty room.filename }">
 								<img src="${pageContext.request.contextPath }/room/imageView.do?room_num=${room.room_num}" border="0" width="120" height="120">
