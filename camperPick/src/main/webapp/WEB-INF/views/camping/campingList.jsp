@@ -31,23 +31,28 @@ $(function(){
 	</div>
 </c:if>
 <c:if test="${count>0 }">
-	<table class="table table-borderless" style="text-align:center;">
+	<table class="table table-hover" style="text-align:center; border-style:none;">
 		<thead class="thead-dark">
 			<tr>
-				<th>캠핑장 번호</th>
+				<th>사진</th>
 				<th>캠핑장명</th>
 				<th>주소</th>
-				<th>전화번호</th>
 				<th>객실수</th>
 			</tr>
 		</thead>
 		<c:forEach var="camping" items="${list }">
-			<tr>
-				<td>${camping.camping_num }</td>
-				<td><a href="detail.do?camping_num=${camping.camping_num }">${camping.camp_name}</a></td>
-				<td>${camping.camp_address }</td>
-				<td>${camping.camp_phone }</td>
-				<td>${camping.rcount }</td>
+			<tr onClick="location.href='detail.do?camping_num=${camping.camping_num }'" style="border-bottom:1px solid #000;">
+				<td>
+				<c:if test="${!empty camping.filename }">
+					<img src="${pageContext.request.contextPath }/camping/imageView.do?camping_num=${camping.camping_num}" border="0" width="150" height="150">
+				</c:if>
+				<c:if test="${empty camping.filename }">
+					<img src="${pageContext.request.contextPath }/resources/images/noImage.gif" border="0" width="150" height="150" >
+				</c:if>
+				</td>
+				<td style="vertical-align:middle;">${camping.camp_name}</td>
+				<td style="vertical-align:middle;">${camping.camp_address }</td>
+				<td style="vertical-align:middle;">${camping.rcount }</td>
 			</tr>
 		</c:forEach>
 	</table>

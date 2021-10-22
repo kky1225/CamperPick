@@ -50,31 +50,28 @@
 			</div>
 		</c:if>
 		<c:if test="${roomCount>0 }">
-			<table style="text-align:center;">
-				<tr>
-					<th></th>
-					<th>객실번호</th>
+			<table class="table table-hover" style="text-align:center;">
+				<tr class="thead-dark">
+					<th>사진</th>
 					<th>객실이름</th>
 					<th>정원</th>
 					<th>면적</th>
 					<th>가격</th>
-					
 				</tr>
 				<c:forEach var="room" items="${roomList }">
-					<tr>
+					<tr onClick="location.href='${pageContext.request.contextPath }/room/detailRoom.do?room_num=${room.room_num }'">
 						<td>
 							<c:if test="${!empty room.filename }">
-								<img src="${pageContext.request.contextPath }/room/imageView.do?room_num=${room.room_num}" border="0" width="90" height="90">
+								<img src="${pageContext.request.contextPath }/room/imageView.do?room_num=${room.room_num}" border="0" width="120" height="120">
 							</c:if>
 							<c:if test="${empty room.filename }">
-								<img src="${pageContext.request.contextPath }/resources/images/noImage.gif" border="0" width="90" height="90" >
+								<img src="${pageContext.request.contextPath }/resources/images/noImage.gif" border="0" width="120" height="120" >
 							</c:if>
 						</td>
-						<td>${room.room_num }</td>
-						<td><a href="${pageContext.request.contextPath }/room/detailRoom.do?room_num=${room.room_num }">${room.room_name }</a></td>
-						<td>${room.people }</td>
-						<td>${room.area }</td>
-						<td>${room.price }</td>
+						<td style="vertical-align:middle;">${room.room_name }</td>
+						<td style="vertical-align:middle;">${room.people }</td>
+						<td style="vertical-align:middle;">${room.area }</td>
+						<td style="vertical-align:middle;">${room.price }</td>
 					</tr>
 				</c:forEach>
 			</table>
