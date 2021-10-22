@@ -170,7 +170,7 @@
 			<li>
 				<label for="zipcode" style="margin-top:32px;">우편번호</label>
 				<div class="row">
-					<div class="col-auto">
+					<div class="col-auto" style="padding: 0;">
 						<form:input path="zipcode" class="form-control form-label mt-4"/>
 						<form:errors path="zipcode" cssClass="error-color"/>
 					</div>
