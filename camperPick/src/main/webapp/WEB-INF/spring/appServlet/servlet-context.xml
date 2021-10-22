@@ -61,6 +61,7 @@
 				<beans:value>/WEB-INF/tiles-def/reservation.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/notice.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/market.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/review.xml</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>

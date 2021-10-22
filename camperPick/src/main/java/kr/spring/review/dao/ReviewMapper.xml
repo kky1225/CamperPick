@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.review.dao.ReviewMapper">
+	<select id="getReviewList" parameterType="map" resultType="reviewVO">
+		SELECT
+		  *
+		FROM (SELECT 
+		        a.*,
+		        rownum rnum
+		      FROM (SELECT 
+		              b.review_num,
+		  			  b.title,
+		  			  b.content,
+		  			  b.uploadfile,
+		  			  b.filename,
+		              TO_CHAR(b.reg_date,'YYYY-MM-DD HH24:MI:SS') reg_date,
+		              TO_CHAR(b.modify_date,'YYYY-MM-DD HH24:MI:SS') modify_date,
+		              b.mem_num,
+		              b.res_num,
+		               m.email 
+		            FROM creview b JOIN cmember m ON b.mem_num=m.mem_num
+		            WHERE b.camping_num=#{camping_num}
+		            ORDER BY b.review_num DESC)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+	
+	<!-- 댓글 총 갯수 -->
+	<select id="getReviewCount" parameterType="map" resultType="integer">
+		SELECT
+		   COUNT(*)
+		FROM creview b JOIN cmember m ON b.mem_num=m.mem_num
+		WHERE b.camping_num = #{camping_num}
+	</select>
+	
+	
+	
+	
+	<!-- 대댓글================================================ -->
+	<select id="getReReviewList" parameterType="map" resultType="reviewReplyVO">
+		SELECT
+		  *
+		FROM (SELECT 
+		        a.*,
+		        rownum rnum
+		      FROM (SELECT 
+		      		  b.rre_num,
+		              m.review_num,
+		  			  b.re_content,
+		  			  b.re_ip,
+		              TO_CHAR(b.re_date,'YYYY-MM-DD HH24:MI:SS') re_date,
+		              TO_CHAR(b.re_modifydate,'YYYY-MM-DD HH24:MI:SS') re_modifydate,
+		              b.mem_num,
+		              m.res_num
+		            FROM creview_reply b JOIN creview m ON b.mem_num=m.mem_num
+		            WHERE b.review_num = #{review_num}
+		            ORDER BY b.rre_num DESC)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]> 
+		 
+		 
+	</select>
+	
+	<!-- 대댓글 총 갯수 -->
+	<select id="getReReviewCount" parameterType="map" resultType="integer">
+		SELECT
+		   COUNT(*)
+		FROM creview_reply b JOIN cmember m ON b.mem_num=m.mem_num
+		WHERE b.rre_num = #{rre_num}
+	</select>
+	 
+	
+	
+</mapper>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

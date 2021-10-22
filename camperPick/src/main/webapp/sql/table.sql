@@ -186,6 +186,51 @@ CREATE TABLE creserve_notification(
 CREATE SEQUENCE creserve_notification_seq;
 
 
+/*후기 테이블*/
+create table creview(
+	review_num number not null,
+	res_num number not null,
+    title varchar2(150) not null,
+	content clob not null,
+    hit number(10,0) default 0 not null,
+	reg_date date default sysdate not null,
+	modify_date date default sysdate not null,
+	uploadfile blob,
+	filename varchar2(150),
+	ip varchar2(40) not null,
+	mem_num number not null,
+	camping_num number not null,
+
+	constraint creview_pk primary key (review_num),
+	constraint creview_fk foreign key (res_num) references creserve (res_num),
+	constraint creview_fk2 foreign key (mem_num) references cmember (mem_num),
+	constraint creview_fk3 foreign key (camping_num) references camping (camping_num),
+	constraint creview_fk4 foreign key (res_num) references creserve (res_num)
+);
+
+create sequence creview_seq;
+
+/*후기 댓글 테이블*/
+create table creview_reply(
+	rre_num number not null,
+	re_content clob not null,
+	re_ip VARCHAR2(40) not null,
+	re_date DATE default sysdate not null,
+	re_modifydate DATE default sysdate not null,
+	mem_num number not null,
+	review_num number not null,
+	res_num number not null,
+	
+	constraint creview_reply_pk primary key (rre_num),
+	constraint creview_reply_fk foreign key (res_num) references creserve (res_num),
+	constraint creview_reply_fk2 foreign key (mem_num) references cmember (mem_num),
+	constraint creview_reply_fk3 foreign key (review_num) references creview (review_num)
+	
+);
+
+create sequence creview_reply_seq;
+
+
 
 
 

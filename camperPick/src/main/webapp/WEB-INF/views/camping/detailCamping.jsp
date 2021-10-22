@@ -82,5 +82,6 @@
 		</c:if>
 				
 	</div>
+		<%@include file="../review/reviewList.jsp" %>
 </div>
 <!-- 중앙 내용 끝 -->
