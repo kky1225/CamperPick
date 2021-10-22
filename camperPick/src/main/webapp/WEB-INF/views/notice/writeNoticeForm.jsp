@@ -20,11 +20,9 @@
 				<input type="hidden" value="${user_num}" id="mem_num" name="mem_num">
 			</li>
 			<li>
-				<label for="title">제목</label>
-				<form:input path="title" class="form-control mt-6"/>
+				<form:input path="title" class="form-control mt-6" style="width:420px; margin-bottom:10px; margin-top:10px;" placeholder="제목을 입력해 주세요."/>
 				<form:errors path="title" cssClass="error-color"/>
-			</li><br>
-			<li><b>내용</b></li><br>
+			</li>
 			<li>
 				<form:textarea path="content"/>
 				<form:errors path="content" cssClass="error-color"/>
@@ -43,11 +41,7 @@
 						console.error(error);
 					});
 				</script>
-			</li><br>
-			<li>
-				<label for="upload">파일</label>
-				<input type="file" id="upload" name="upload" accept="image/gif,image/png,image/jpeg">
-			</li><br>
+			</li>
 		</ul>
 		<p>
 		<div class="align-center">

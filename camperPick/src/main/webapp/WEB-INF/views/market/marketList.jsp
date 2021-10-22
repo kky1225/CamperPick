@@ -55,26 +55,23 @@ tr{
 	<table class="table table-borderless" style="text-align:center;">
 		<thead class="thead-dark">
 		<tr>
-			<th>번호</th>
-			<th>구분</th>
+			<th>상태</th>
 			<th>제목</th>
 			<th>작성자</th>
 			<th>날짜</th>
 			<th>조회수</th>
-			<th>거래 상황</th>
 		</tr>
 		</thead>
 		<c:forEach var="market" items="${list}">
 		<tr>
-			<td>${market.market_num}</td>
-			<c:if test="${market.choice==0}"><td>팝니다</td></c:if>
-			<c:if test="${market.choice==1}"><td>삽니다</td></c:if>
+			<c:if test="${market.choice==0 && market.state==0}"><td>판매</td></c:if>
+			<c:if test="${market.choice==0 && market.state==1}"><td>판매완료</td></c:if>
+			<c:if test="${market.choice==1 && market.state==0}"><td>구매</td></c:if>
+			<c:if test="${market.choice==1 && market.state==1}"><td>구매완료</td></c:if>
 			<td><a href="marketDetail.do?market_num=${market.market_num}">${market.title}</a></td>
 			<td>${market.name}</td>
 			<td>${market.reg_date}</td>
 			<td>${market.hit}</td>
-			<c:if test="${market.state==0}"><td>거래중</td></c:if>
-			<c:if test="${market.state==1}"><td>거래완료</td></c:if>
 		</tr>
 		</c:forEach>
 	</table>

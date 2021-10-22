@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Update;
 import kr.spring.notice.vo.NoticeVO;
 
 public interface NoticeMapper {
-	@Insert("insert into cnotice(notice_num,title,content,uploadfile,filename,ip,mem_num) values (cnotice_seq.nextval,#{title},#{content},#{uploadfile},#{filename},#{ip},#{mem_num})")
+	@Insert("insert into cnotice(notice_num,title,content,ip,mem_num) values (cnotice_seq.nextval,#{title},#{content},#{ip},#{mem_num})")
 	public void insertNotice(NoticeVO notice);
 	
 	public int getNoticeCount(Map<String,Object> map);

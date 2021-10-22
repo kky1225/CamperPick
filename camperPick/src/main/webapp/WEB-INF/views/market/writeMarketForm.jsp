@@ -20,16 +20,13 @@
 				<input type="hidden" value="${user_num}" id="mem_num" name="mem_num">
 			</li>
 			<li>
-				<label for="choice">구분</label>
-				<input type="radio" name="choice" id="choice" value="0" checked="checked">팝니다
-				<input type="radio" name="choice" id="choice" value="1">삽니다
-			</li><br>
+				<input type="radio" name="choice" id="choice" value="0" checked="checked">판매
+				<input type="radio" name="choice" id="choice" value="1">구매
+			</li>
 			<li>
-				<label for="title">제목</label>
-				<form:input path="title"/>
+				<form:input path="title" class="form-control mt-4" style="width:420px; margin-bottom:10px; margin-top:10px;" placeholder="제목을 입력해 주세요."/>
 				<form:errors path="title" cssClass="error-color"/>
-			</li><br>
-			<li><b>내용</b></li><br>
+			</li>
 			<li>
 				<form:textarea path="content"/>
 				<form:errors path="content" cssClass="error-color"/>
@@ -48,11 +45,7 @@
 						console.error(error);
 					});
 				</script>
-			</li><br>
-			<li>
-				<label for="upload">파일</label>
-				<input type="file" id="upload" name="upload" accept="image/gif,image/png,image/jpeg">
-			</li><br>
+			</li>
 		</ul>
 		<p>
 		<div class="align-center">

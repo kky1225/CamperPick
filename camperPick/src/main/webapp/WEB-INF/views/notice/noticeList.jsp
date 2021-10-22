@@ -54,7 +54,6 @@ tr{
 	<table class="table table-borderless" style="text-align:center;">
 		<thead class="thead-dark">
 		<tr>
-			<th>번호</th>
 			<th>제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
@@ -63,7 +62,6 @@ tr{
 		</thead>
 		<c:forEach var="notice" items="${list}">
 		<tr>
-			<td>${notice.notice_num}</td>
 			<td><a href="noticeDetail.do?notice_num=${notice.notice_num}">${notice.title}</a></td>
 			<td>${notice.name}</td>
 			<td>${notice.reg_date}</td>

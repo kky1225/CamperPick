@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Update;
 import kr.spring.market.vo.MarketVO;
 
 public interface MarketMapper {
-	@Insert("insert into cmarket(market_num,title,content,uploadfile,filename,ip,mem_num,choice) values (cmarket_seq.nextval,#{title},#{content},#{uploadfile},#{filename},#{ip},#{mem_num},#{choice})")
+	@Insert("insert into cmarket(market_num,title,content,ip,mem_num,choice) values (cmarket_seq.nextval,#{title},#{content},#{ip},#{mem_num},#{choice})")
 	public void insertMarket(MarketVO market);
 	
 	public int getMarketCount(Map<String, Object> map);
