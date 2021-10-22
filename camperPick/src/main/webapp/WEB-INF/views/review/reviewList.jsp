@@ -48,7 +48,8 @@
 						if($('#mem_num').val() && user_auth == 4){
 							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.res_num+'" value="답글 작성" class="write-btn">';
 						}
-						output +='<input type="button" data-num="'+item.review_num+'" data-mem="'+item.res_num+'" value="답글 보기" class="view-btn">';
+							/* output += '&nbsp;' */
+						output +='<input type="button" data-num="'+item.review_num+'" value="답글 보기" class="view-btn">';
 						if($('#mem_num').val()==item.mem_num){
 							//로그인한 회원 번호가 댓글 작성자 회원 번호와 같으면
 							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
@@ -422,89 +423,49 @@
 			$('#mre_form').remove();
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		//------------------------대댓글 리스트----------------------------------------
-
-/* 
- 		function selectreData(pageNum, review_num){
 		
-		$.ajax({
-			type:'get',
-			data:{pageNum:pageNum,review_num:review_num},
-			url:'../review/rereviewList.do',
-			dataType:'json',
-			cache:false,
-			timeout:30000,
-			success:function(param){
-				 //로딩 이미지 감추기
-				$('#loading').hide();
-				count = param.count;
-				rowCount = param.rowCount;
-				var user_auth = ${user_auth};
-				$(param.list).each(function(index,item){
-					var output = '<div class="item">';
-					output += '<div class="sub-item">';
-					output +='   <p>' + item.re_content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
-					output += item.re_date; 
-					if($('#mem_num').val()==item.mem_num){
-						//로그인한 회원 번호가 댓글 작성자 회원 번호와 같으면
-						output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="수정" class="rmodify-btn">';
-						output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="삭제" class="rdelete-btn">';
-					 }
-					output += '  <hr size="1" noshade>';
-					output += '</div>';
-					output += '</div>';
+		//대댓글 리스트 버튼 클릭시 대댓글 리스트 노출
+		$(document).on('click','.view-btn',function(){
+			var view_btn = $(this);
+			var review_num = $(this).attr('data-num');
+			$.ajax({
+				type:'post',
+				data:{review_num:review_num},
+				url:'../review/rereviewList.do',
+				dataType:'json',
+				cache:false,
+				timeout:30000,
+				success:function(param){
+					 //로딩 이미지 감추기
+					var user_auth = ${user_auth};
+					var output = '';
+					$(param.list).each(function(index,item){
+						output += '<div class="rritem" style="margin:20px 30px 40px 50px; ">';
+						output += '<div class="rrsub-item">';
+						output +='   <p>' + item.re_content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
+						output += item.re_date; 
+						if($('#mem_num').val()==item.mem_num){
+							//로그인한 회원 번호가 댓글 작성자 회원 번호와 같으면
+							output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="수정" class="rmodify-btn">';
+							output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="삭제" class="rdelete-btn">';
+						 }
+						output += '</div>';
+						output += '</div>';
+					});//end of each
+					if(param.list.length > 0){
+						output += '  <hr size="1" noshade>';
+						//문서 객체에 추가
+						view_btn.parents('.sub-item').append(output);
+					}
 					
-					//문서 객체에 추가
-					$('#output').append(output);
-					
-				});//end of each
-				 
-			 	//paging button 처리
-				if(currentPage>=Math.ceil(count/rowCount)){
-					//다음 페이지가 없음
-					$('.paging-button').hide();
-				}else{
-					//다음 페이지가 존재
-					$('.paging-button').show();
-				},
-			error:function(){
-				alert('네트워크 오류 발생');
-			}
-		
-		
-	}
+					},
+				error:function(){
+					alert('네트워크 오류 발생');
+				}
+			}); 
+			
 		}); 
-		}
-	
-	 //다음 댓글 보기 버튼 클릭시 데이터 추가
-	$('.paging-button input').click(function(){
-		var pageNum = currentPage + 1;
-		selectreData(pageNum,$('#camping_num').val());
-	}); 
-		 
-		
- 	//대댓글 리스트 버튼 클릭시 대댓글 리스트 노출
-	$(document).on('click','.view-btn',function(){
-		selectreData(pageNum,review_num);
-	} 
-		
-
-  */
-  
-  
-
-		
-		
 		
 		//대댓글 수정 버튼 클릭시 수정폼 노출
 		$(document).on('click','.rmodify-btn',function(){
@@ -618,7 +579,7 @@
 						alert('로그인해야 삭제할 수 있습니다.');
 					}else if(param.result == 'success'){
 						alert('삭제가 완료되었습니다');
-						selectData(1,$('#camping_num').val());
+						selectData(1,$('#review_num').val());
 					}else if(param.result == 'wrongAccess'){
 						alert('타인의 글을 삭제할 수 없습니다.');
 					}else{

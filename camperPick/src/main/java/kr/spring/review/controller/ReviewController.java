@@ -270,6 +270,9 @@ public class ReviewController {
 					List<ReviewReplyVO> list = null;
 					if(count > 0) {
 						list = reviewService.getReReviewList(map);
+						
+						logger.debug("<<댓댓글 목록>> : " + list);
+						
 					}else {
 						list = Collections.emptyList();
 					}

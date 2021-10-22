@@ -18,9 +18,8 @@
 		              TO_CHAR(b.reg_date,'YYYY-MM-DD HH24:MI:SS') reg_date,
 		              TO_CHAR(b.modify_date,'YYYY-MM-DD HH24:MI:SS') modify_date,
 		              b.mem_num,
-		              b.res_num,
-		               m.email 
-		            FROM creview b JOIN cmember m ON b.mem_num=m.mem_num
+		              b.res_num
+		            FROM creview b JOIN camping m ON b.camping_num=m.camping_num
 		            WHERE b.camping_num=#{camping_num}
 		            ORDER BY b.review_num DESC)a)
 		<![CDATA[
@@ -32,7 +31,7 @@
 	<select id="getReviewCount" parameterType="map" resultType="integer">
 		SELECT
 		   COUNT(*)
-		FROM creview b JOIN cmember m ON b.mem_num=m.mem_num
+		FROM creview b JOIN camping m ON b.camping_num=m.camping_num
 		WHERE b.camping_num = #{camping_num}
 	</select>
 	
@@ -55,7 +54,7 @@
 		              TO_CHAR(b.re_modifydate,'YYYY-MM-DD HH24:MI:SS') re_modifydate,
 		              b.mem_num,
 		              m.res_num
-		            FROM creview_reply b JOIN creview m ON b.mem_num=m.mem_num
+		            FROM creview_reply b JOIN creview m ON b.review_num=m.review_num
 		            WHERE b.review_num = #{review_num}
 		            ORDER BY b.rre_num DESC)a)
 		<![CDATA[
@@ -69,12 +68,9 @@
 	<select id="getReReviewCount" parameterType="map" resultType="integer">
 		SELECT
 		   COUNT(*)
-		FROM creview_reply b JOIN cmember m ON b.mem_num=m.mem_num
-		WHERE b.rre_num = #{rre_num}
+		FROM creview_reply b JOIN creview m ON b.review_num=m.review_num
+		WHERE b.review_num = #{review_num}
 	</select>
-	 
-	
-	
 </mapper>  
 
 
