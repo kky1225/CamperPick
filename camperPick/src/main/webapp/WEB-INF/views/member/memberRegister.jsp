@@ -133,12 +133,40 @@
 			}
 		});
 	});
+	
+	$(function(){
+		var fname ="";
+		var today =new Date();
+		var hh = today.getHours();
+		
+		if(hh>=4 && hh<9){			//새벽 4시부터 낮 9시
+			fname="${pageContext.request.contextPath}/resources/images/main_bg1.jpg";
+		}else if(hh>=9 && hh<6){	//낮 9시부터 오후 6시
+			fname="${pageContext.request.contextPath}/resources/images/main_bg2.jpg";
+		}else if(hh>=6 && hh<24){	//오후 6시부터 밤 12시
+			fname="${pageContext.request.contextPath}/resources/images/main_bg3.jpg";
+		}else{						//밤 12시 부터 새벽 4시
+			fname="${pageContext.request.contextPath}/resources/images/main_bg0.jpg";
+		}
+		
+		$('.main_bg').css('background-image','url('+fname+')');
+	});
 </script>
 <!-- 중앙 내용 시작 -->
-<div class="page-main" align="left" style="margin-left:150px;">
-	<h4 class="align-center" style="margin-bottom:10px; margin-right:250px;"><b>회원가입</b></h4>
+<div class="page-main" align="left">
+	
+	<div id="main-content">
+		<div class="main_bg">
+			<div class="search_container">
+	    		<h4 class="search_title">
+			        회원가입
+			    </h4>
+			</div>
+		</div>
+	</div>
+
 	<form:form id="register_form" action="registerUser.do" modelAttribute="memberVO">
-		<ul>
+		<ul class="align-center" style="margin-left:67px;">
 			<li>
 				<label for="email" style="margin-top:10px;">이메일</label>
 				<form:input path="email" class="form-control form-label mt-4"/>
@@ -191,7 +219,7 @@
 			</li>
 		</ul>
 		<div class="align-center">
-			<form:button class="btn btn-dark mt-5" style="width:335px; margin-right:250px;">회원가입</form:button>
+			<form:button class="btn btn-dark mt-5" style="width:300px;">회원가입</form:button>
 		</div>
 		<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
 			<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">

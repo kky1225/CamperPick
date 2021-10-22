@@ -13,9 +13,6 @@
 	<div id="main_header">
 		<tiles:insertAttribute name="header"/>
 	</div>
-	<div id="main_menu">
-		<tiles:insertAttribute name="left"/>
-	</div>
 	<div id="main_body">
 		<tiles:insertAttribute name="body"/>
 	</div>

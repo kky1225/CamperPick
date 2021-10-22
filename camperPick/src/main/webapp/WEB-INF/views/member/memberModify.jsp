@@ -20,9 +20,9 @@
 			</li>
 		</ul>
 		<div class="align-center">
-			<form:button>수정</form:button>
-			<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/member/myPage.do'">
-			<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
+			<form:button class="button-large">수정</form:button>
+			<input type="button" class="button-large" value="취소" onclick="location.href='${pageContext.request.contextPath}/member/myPage.do'">
+			<input type="button" class="button-large" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 		</div>
 	</form:form>
 </div>

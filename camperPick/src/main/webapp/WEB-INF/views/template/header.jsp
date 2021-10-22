@@ -24,8 +24,20 @@
 </script>
 </c:if>
 <!-- 상단 시작 -->
-<a href="${pageContext.request.contextPath}/main/main.do" class="align-center"><h2>Spring Project</h2></a>
-<div class="align-right">
+<div class="logo">
+	<a href="${pageContext.request.contextPath}/main/main.do" class="align-center"><img alt="로고" src="${pageContext.request.contextPath}/resources/images/logo_small.png"></a>
+</div>
+
+<div class="menu">
+	<ul>
+		<li><a href="${pageContext.request.contextPath}/camping/search.do">캠핑장 검색</a></li>
+		<li><a href="${pageContext.request.contextPath}/reservation/checkReservation.do">예약확인</a></li>
+		<li><a href="${pageContext.request.contextPath}/notice/noticeList.do">공지사항</a></li>
+		<li><a href="${pageContext.request.contextPath}/market/marketList.do">거래게시판</a></li>
+	</ul>
+</div>
+
+<div class="align-right register">
 	<c:if test="${!empty user_num}">
 	    [<span>${user_email}</span>]
 	    <c:if test="${user_auth != 4}">

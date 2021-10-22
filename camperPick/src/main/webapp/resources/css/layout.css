@@ -1,28 +1,29 @@
 @CHARSET "UTF-8";
 
+body{
+	overflow-x:hidden !important;
+	overflow-y:auto !important;
+}
+
 /*=========레이아웃=========*/
 div#main{
-	width:1024px;
+	width: 100%;
 	margin:0 auto;
 	font-size:10pt;
 	font-family: "맑은 고딕";
 }
 div#main_header{
-	margin-bottom: 10px;
-	padding: 0 10px 0 0;
-}
-div#main_menu{
-	width:100%;
-	min-height:50px;
-	display: flex;
-    flex-basis: auto;
-    justify-content: center;
+	min-height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 div#main_body{
 	float:left;
 	width:100%;
 	padding:5px 5px 30px 5px;
-	min-height: 760px;
+	margin-top: -5px;
+	min-height: 785px;
 }
 div#main_footer{
 	clear:both;
@@ -30,24 +31,34 @@ div#main_footer{
 }
 
 /*==========메뉴==========*/
-div#main_menu ul{
+div#main_header .logo{
+	margin: 0 100px 0 200px;
+}
+div#main_header ul{
 	list-style:none;
 	margin-top: 20px;
 }
-
-div#main_menu ul li{
+div#main_header ul li{
 	float: left;
     font-size: 16px;
-    margin: 0 50px 0 10px;
-    margin-bottom: 5px;
+    margin: 0 50px 5px 10px;
 }
- a:link { color: black; text-decoration: none;}
- a:visited { color: black; text-decoration: none;}
- a:hover { color: #555; text-decoration: none;}
+div#main_header .menu{
+	text-align: center;
+	padding: 0 100px 20px 278px;
+}
+div#main_header .register{
+	text-align: center;
+	padding-bottom: 5px;
+	padding-left: 100px
+}
+a:link { color: black; text-decoration: none;}
+a:visited { color: black; text-decoration: none;}
+a:hover { color: #555; text-decoration: none;}
 
 /*==========페이지 기본 스타일======*/
 .page-main{
-	width:98%;
+	width:70%;
 	margin:0 auto;
 }
 .page-one{
@@ -73,6 +84,69 @@ div#main_menu ul li{
 }
 .error-color{
 	color:#ff0000;
+}
+
+/*Main*/
+#main-content{
+	min-height: 360px;
+}
+.main_bg{
+	width: 100%;
+	height: 350px;
+    position: absolute;
+    left: 0px;
+    opacity: 0.7;
+    background-position: bottom;
+    background-size: cover;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+.search_container{
+	width: 430px;
+	margin: 0 auto;
+	font-family: 'Raleway', sans-serif;
+	padding-top: 160px;
+}
+.search_title{
+	font-weight: 900;
+	text-align: center;
+	color:#fff;
+}
+.search_input{
+	width: 100%;
+	padding: 12px 24px;
+	font-size: 14px;
+	margin-top: 8px;
+	        
+	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: 95% center;
+	border-radius: 50px;
+	border: 1px solid #575756;
+}       
+.search_input:hover,.search_input:focus {
+	outline: 0;
+	border-bottom: 1px solid #575756;
+}
+.msearch_content{
+	right: 60px;
+    padding: 20px 40px;
+    width: 550px;
+    height: 165px;
+    top: 30px;
+    position: relative;
+    box-shadow: rgb(0 0 0 / 20%) 0px 2px 8px 3px;
+    border-radius: 20px;
+    background-color: #f8f9fa;
+}
+.search_btn{
+	width: 100%;
+    height: 47px;
+    border-radius: 50px;
+    border: 1px solid #575756;
+    background-color: #fff;
+    color: #575756;
+    margin-top: 15px;
 }
 
 /*===== 버튼 =====*/
@@ -162,9 +236,10 @@ div#main_menu ul li{
 	margin:10px auto;
 }
 .page-main table{
-	width:100%;
+	width:80%;
 	margin:5px auto;
 	border-collapse:collapse;
+	margin-top: 10px;
 }
 .page-main table td, .page-main table th{
 	padding:5px;
