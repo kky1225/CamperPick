@@ -326,6 +326,7 @@
 					}else if(param.result == 'success'){
 						//폼초기화
 						initWriteForm();
+						view_button = 0; //대댓글 안 보여짐
 						//댓글 작성이 성공하면 새로 삽입한 글을 포함해서 첫번째 페이지의
 						//게시글들을 다시 호출
 						selectData(1,$('#camping_num').val());
@@ -478,7 +479,6 @@
 			
 			//댓글 수정폼 UI
 			var modifyUI = '<form id="remre_form">';
-			   modifyUI += '  <input type="hidden" name="review_num" id="mre_num" value="'+review_num+'">';
 			   modifyUI += '  <input type="hidden" name="rre_num" id="mre_num" value="'+rre_num+'">';
 			   modifyUI += '  <input type="hidden" name="mem_num" id="mmem_num" value="'+mem_num+'">';
 			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="remre_content" class="rep-content">'+re_content+'</textarea>';
@@ -499,7 +499,7 @@
 			$(this).parent().hide();
 			
 			//수정폼을 수정하고자하는 데이터가 있는 div에 노출
-			$(this).parents('.item').append(modifyUI);
+			$(this).parents('.rritem').append(modifyUI);
 			
 			//입력한 글자수 셋팅
 			var inputLength = $('#remre_content').val().length;
@@ -515,7 +515,7 @@
 		});
 		// 대댓글 수정 폼 초기화
 		function rinitModifyForm(){
-			$('.sub-item').show();
+			$('.rrsub-item').show();
 			$('#remre_form').remove();
 		}
 		//대댓글 수정
