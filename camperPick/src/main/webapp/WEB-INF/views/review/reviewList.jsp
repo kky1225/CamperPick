@@ -48,7 +48,7 @@
 						if($('#mem_num').val() && user_auth == 4){
 							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.res_num+'" value="답글 작성" class="write-btn">';
 						}
-							/* output += '&nbsp;' */
+							 output += '&nbsp;'
 						output +='<input type="button" data-num="'+item.review_num+'" value="답글 보기" class="view-btn">';
 						if($('#mem_num').val()==item.mem_num){
 							//로그인한 회원 번호가 댓글 작성자 회원 번호와 같으면
@@ -302,7 +302,7 @@
 			}
 		});
 		
-		/* 대댓글==================================================================== */
+		/* 대댓글===================================================================================================== */
 		
 		//대댓글 등록---------------
 		$(document).on('submit','#wre_form',function(event){
@@ -423,8 +423,7 @@
 			$('#mre_form').remove();
 		}
 		
-		//------------------------대댓글 리스트----------------------------------------
-		
+		//------------------------대댓글 리스트-----
 		//대댓글 리스트 버튼 클릭시 대댓글 리스트 노출
 		$(document).on('click','.view-btn',function(){
 			var view_btn = $(this);
@@ -469,30 +468,30 @@
 		
 		//대댓글 수정 버튼 클릭시 수정폼 노출
 		$(document).on('click','.rmodify-btn',function(){
-			//댓글 글번호
-			var review_num = $(this).attr('data-num');
+			//대댓글 글번호
+			var rre_num = $(this).attr('data-num');
 			//작성자 회원 번호
 			var mem_num = $(this).attr('data-mem');
-			//댓글 내용
-			var content = $(this).parent().find('p').html().replace(/<br>/gi,'\n');
+			//대댓글 내용
+			var re_content = $(this).parent().find('p').html().replace(/<br>/gi,'\n');
 			
 			//댓글 수정폼 UI
-			var modifyUI = '<form id="mre_form">';
+			var modifyUI = '<form id="remre_form">';
 			   modifyUI += '  <input type="hidden" name="review_num" id="mre_num" value="'+review_num+'">';
 			   modifyUI += '  <input type="hidden" name="rre_num" id="mre_num" value="'+rre_num+'">';
 			   modifyUI += '  <input type="hidden" name="mem_num" id="mmem_num" value="'+mem_num+'">';
-			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="mre_content" class="rep-content">'+re_content+'</textarea>';
-			   modifyUI += '  <div id="mre_first"><span class="letter-count">1000/1000</span></div>';	
-			   modifyUI += '  <div id="mre_second" class="align-right">';
+			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="remre_content" class="rep-content">'+re_content+'</textarea>';
+			   modifyUI += '  <div id="remre_first"><span class="letter-count">1000/1000</span></div>';	
+			   modifyUI += '  <div id="remre_second" class="align-right">';
 			   modifyUI += '     <input type="submit" value="수정">';
-			   modifyUI += '     <input type="button" value="취소" class="re-reset">';
+			   modifyUI += '     <input type="button" value="취소" class="rre-reset">';
 			   modifyUI += '  </div>';
 			   modifyUI += '  <hr size="1" noshade width="90%">';
 			   modifyUI += '</form>';
 			   
 			//이전에 이미 수정하는 댓글이 있을 경우 수정버튼을 클릭하면
 			//숨김 sub-item을 환원시키고 수정폼을 초기화함
-			initModifyForm();
+			rinitModifyForm();
 			
 			//지금 클릭해서 수정하고자 하는 데이터는 감추기
 			//수정버튼을 감싸고 있는 div
@@ -502,27 +501,27 @@
 			$(this).parents('.item').append(modifyUI);
 			
 			//입력한 글자수 셋팅
-			var inputLength = $('#mre_content').val().length;
+			var inputLength = $('#remre_content').val().length;
 			var remain = 1000 - inputLength;
 			remain += '/1000';
 			
 			//문서 객체에 반영
-			$('#mre_first .letter-count').text(remain);		
+			$('#remre_first .letter-count').text(remain);		
 		});
 		//수정폼에서 취소 버튼 클릭시 수정폼 초기화
-		$(document).on('click','.re-reset',function(){
-			initModifyForm();
+		$(document).on('click','.rre-reset',function(){
+			rinitModifyForm();
 		});
-		//댓글 수정 폼 초기화
-		function initModifyForm(){
+		// 대댓글 수정 폼 초기화
+		function rinitModifyForm(){
 			$('.sub-item').show();
-			$('#mre_form').remove();
+			$('#remre_form').remove();
 		}
 		//대댓글 수정
-		$(document).on('submit','#mre_form',function(event){
-			if($('#mre_content').val().trim()==''){
+		$(document).on('submit','#remre_form',function(event){
+			if($('#remre_content').val().trim()==''){
 				alert('내용을 입력하세요');
-				$('#mre_content').val('').focus();
+				$('#remre_content').val('').focus();
 				return false;
 			}
 			
@@ -541,9 +540,9 @@
 					if(param.result =='logout'){
 						alert('로그인해야 수정할 수 있습니다.')
 					}else if(param.result == 'success'){
-						$('#mre_form').parent().find('p').html($('#mre_content').val().replace(/</g,'&lt;').replace(/>/g,'&gt;'));
+						$('#remre_form').parent().find('p').html($('#remre_content').val().replace(/</g,'&lt;').replace(/>/g,'&gt;'));
 						//수정폼 초기화
-						initModifyForm();
+						rinitModifyForm();
 					}else if(param.result == 'wrongAccess'){
 						alert('타인의 글을 수정할 수 없습니다.');
 					}else{
@@ -579,7 +578,7 @@
 						alert('로그인해야 삭제할 수 있습니다.');
 					}else if(param.result == 'success'){
 						alert('삭제가 완료되었습니다');
-						selectData(1,$('#review_num').val());
+						selectData(1,$('#camping_num').val());
 					}else if(param.result == 'wrongAccess'){
 						alert('타인의 글을 삭제할 수 없습니다.');
 					}else{

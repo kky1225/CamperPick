@@ -271,7 +271,7 @@ public class ReviewController {
 					if(count > 0) {
 						list = reviewService.getReReviewList(map);
 						
-						logger.debug("<<댓댓글 목록>> : " + list);
+						logger.debug("<<대댓글 목록>> : " + list);
 						
 					}else {
 						list = Collections.emptyList();
@@ -304,7 +304,7 @@ public class ReviewController {
 						map.put("result", "logout");
 					}else if(user_num != null && user_num==mem_num) {
 						//로그인이 되어 있고 로그인한 아이디와 작성자 아이디가 일치
-						reviewService.deleteReview(rre_num);
+						reviewService.deleteReReview(rre_num);
 						map.put("result", "success");
 					}else {
 						//로그인 아이디와 작성자 아이디 불일치
@@ -316,7 +316,7 @@ public class ReviewController {
 		//대댓글 수정
 				@RequestMapping("/review/updateReReview.do")
 				@ResponseBody
-				public Map<String,String> modifyReview(ReviewReplyVO reviewreplyVO, HttpSession session, HttpServletRequest request){
+				public Map<String,String> modifyReReview(ReviewReplyVO reviewreplyVO, HttpSession session, HttpServletRequest request){
 					
 					logger.debug("<<대댓글 수정>>:" + reviewreplyVO);
 					
