@@ -30,7 +30,7 @@
 			<script type="text/javascript">
 				var delete_btn = document.getElementById('delete_btn');
 				delete_btn.onclick=function(){
-					var choice=confirm('삭제하시겠습니까?');
+					var choice=confirm('정말 삭제하시겠습니까?');
 					if(choice){
 						location.replace('deleteRoom.do?room_num=${room.room_num}');
 					}

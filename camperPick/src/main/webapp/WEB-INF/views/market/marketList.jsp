@@ -77,7 +77,7 @@ tr{
 		</c:if>
 	</div>
 	<c:if test="${count == 0}">
-	<div class="result-display">출력할 내용이 없습니다.</div>
+	<div class="result-display">출력할 내용이 없습니다</div>
 	</c:if>
 	<c:if test="${count > 0}">
 	<table class="table table-borderless" style="text-align:center;">

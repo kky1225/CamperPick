@@ -73,7 +73,7 @@ $(document).ready(function(){
 				<form:errors path="res_phone" cssClass="error-color"/>
 			</li>
 			<li>
-				<label for="res_email">예약이메일</label>
+				<label for="res_email">예약 이메일</label>
 				<form:input path="res_email" class="form-control" style="margin-bottom:10px;"/>
 				<form:errors path="res_email" cssClass="error-color"/>
 			</li>
