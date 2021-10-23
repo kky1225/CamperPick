@@ -56,7 +56,7 @@
 	</form:form>
 	<hr size="1" width="30%">
 	<div id="naver_id_login" style="text-align:center">
-		<a href="${url}"> <img src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" style="height:40px;"/></a>
+		<a href="${url}"><img src="${pageContext.request.contextPath }/resources/images/naver.png" border="0"></a>
 	</div>
 </div>
 <!-- 중앙 내용 끝 -->

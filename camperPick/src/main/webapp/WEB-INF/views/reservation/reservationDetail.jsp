@@ -105,33 +105,81 @@ $(document).ready(function(){
 }); //doc.ready
 </script>
 <!-- 중앙 내용 시작 -->
-<div class="page-main">
-	<h2 class="align-center" style="margin-bottom:50px;"><b>${reservation.res_name }님의 예약</b></h2>
-	<ul>
-		<li><b>캠핑지 정보</b></li>
-		<li>캠핑장명 : ${reservation.camp_name }</li>
-		<li>객실 : ${reservation.room_name }</li>
+<div class="page-main middle-content">
+	<h4 class="align-center" style="margin-bottom:50px;"><b>${reservation.res_name }님의 예약</b></h4>
+	
+	<h5><b>예약 정보</b></h5>
+	<br>
+	<ul class="content-center">
+		<li class="form-group">
+			<fieldset disabled>
+			    <label class="form-label" for="disabledInput">캠핑장</label>
+			    <input class="form-control" id="disabledInput" type="text" placeholder="${reservation.camp_name}" disabled>
+			</fieldset>
+		</li>
+		<li class="form-group">
+			<fieldset disabled>
+			    <label class="form-label" for="disabledInput">객실</label>
+			    <input class="form-control" id="disabledInput" type="text" placeholder="${reservation.room_name}" disabled>
+			</fieldset>		  
+		</li>
+		<li class="form-group">
+			<fieldset disabled>
+			    <label class="form-label" for="disabledInput">예약번호</label>
+			    <input class="form-control" id="disabledInput" type="text" placeholder="${reservation.res_num}" disabled>
+			</fieldset>	
+		</li>
+		<li class="form-group">
+			<fieldset disabled>
+				<label class="form-label" for="disabledInput">예약자</label>
+				<input class="form-control" id="disabledInput" type="text" placeholder="${reservation.res_name}" disabled>
+			</fieldset>
+		</li>	
+		<li class="form-group">
+			<fieldset disabled>
+				<label class="form-label" for="disabledInput">전화번호</label>
+				<input class="form-control" id="disabledInput" type="text" placeholder="${reservation.res_phone}" disabled>
+			</fieldset>
+		</li>
+		<li class="form-group">
+			<fieldset disabled>
+				<label class="form-label" for="disabledInput">이메일</label>
+				<input class="form-control" id="disabledInput" type="text" placeholder="${reservation.res_email}" disabled>
+			</fieldset>
+		</li>
+		<li class="form-group">
+			<fieldset disabled>
+				<label class="form-label" for="disabledInput">인원</label>
+				<input class="form-control" id="disabledInput" type="text" placeholder="${reservation.headcount}" disabled>
+			</fieldset>
+		</li>
+		<li class="form-group">
+			<fieldset disabled>
+				<label class="form-label" for="disabledInput">날짜</label>
+				<input class="form-control" id="disabledInput" type="text" placeholder="${reservation.res_start}" disabled>
+			</fieldset> 
+		</li>
+		<li class="form-group">
+			<fieldset disabled>
+				<label class="form-label" for="disabledInput">가격</label>
+				<input class="form-control" id="disabledInput" type="text" placeholder="${reservation.res_price}" disabled>
+			</fieldset>
+		</li>
+		<li class="form-group" id="r_state">
+			<fieldset disabled>
+				<label class="form-label" for="disabledInput">예약상태</label>
+				<input class="form-control" id="disabledInput" type="text" placeholder="${reservation.res_state}" disabled>
+			</fieldset>
+		</li>
 	</ul>
-	<ul>
-		<li><b>예약 정보</b></li>
-		<li>예약번호 : ${reservation.res_num }</li>
-		<li>예약자명 : ${reservation.res_name }</li>	
-		<li>전화번호 : ${reservation.res_phone }</li>
-		<li>이메일 : ${reservation.res_email }</li>
-		<li>인원 : ${reservation.headcount }명</li>
-		<li>날짜 : ${reservation.res_start } ~ ${reservation.res_end }</li>
-		<li>가격 : ${reservation.res_price}원</li>
-		<li>예약상태 : ${reservation.res_state }</li>
-	</ul>
-	<hr size="1" width="100%" >
+	
 	<div class="align-right">
 	<c:if test="${!empty user_num && user_num == reservation.mem_num}">
-		
-			<input type="button" value="예약 수정" class="button" style="margin-top:10px;" onclick="location.href='updateReservation.do?res_num=${reservation.res_num}'">
-			<input type="button" value="예약 취소" class="button" style="margin-top:10px;" id="delete_btn">
-			<c:if test="${reservation.res_state=='결제대기' }">
-				<input type="button" class="button" style="margin-top:10px;" value="결제" id="payment">
-			</c:if>	
+		<input type="button" value="예약 수정" class="button" style="margin-top:10px;" onclick="location.href='updateReservation.do?res_num=${reservation.res_num}'">
+		<input type="button" value="예약 취소" class="button" style="margin-top:10px;" id="delete_btn">
+		<c:if test="${reservation.res_state=='결제대기' }">
+			<input type="button" class="button" style="margin-top:10px;" value="결제" id="payment">
+		</c:if>	
 	</c:if>
 	</div>
 </div>
