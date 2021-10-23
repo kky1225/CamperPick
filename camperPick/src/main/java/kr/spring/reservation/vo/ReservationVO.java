@@ -26,6 +26,7 @@ public class ReservationVO {
 	private int room_num;
 	private int camping_num;
 	private int res_price;
+	private String filename;
 	
 	private String camp_name;
 	private String room_name;
@@ -119,17 +120,19 @@ public class ReservationVO {
 	public void setRes_price(int res_price) {
 		this.res_price = res_price;
 	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	
 	@Override
 	public String toString() {
 		return "ReservationVO [res_num=" + res_num + ", res_email=" + res_email + ", res_name=" + res_name
 				+ ", res_phone=" + res_phone + ", headcount=" + headcount + ", res_start=" + res_start + ", res_end="
 				+ res_end + ", res_state=" + res_state + ", mem_num=" + mem_num + ", room_num=" + room_num
-				+ ", camping_num=" + camping_num + ", res_price=" + res_price + ", camp_name=" + camp_name
-				+ ", room_name=" + room_name + "]";
+				+ ", camping_num=" + camping_num + ", res_price=" + res_price + ", filename_1=" + filename
+				+ ", camp_name=" + camp_name + ", room_name=" + room_name + "]";
 	}
-	
-	
-	
-	
-	
 }

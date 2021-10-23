@@ -20,7 +20,7 @@
   	</select>
   	
   	<select id="getReservation" parameterType="integer" resultType="reservationVO">
-  		SELECT res_num, res_name,res_phone,headcount,res_start,res_end,res_state,mem_num,r.room_num,r.camping_num,res_email,camp_name,room_name,res_price FROM creserve r JOIN croom m ON r.room_num=m.room_num JOIN camping c ON c.camping_num=m.camping_num
+  		SELECT res_num, res_name,res_phone,headcount,res_start,res_end,res_state,mem_num,r.room_num,r.camping_num,res_email,camp_name,room_name,res_price,m.filename FROM creserve r JOIN croom m ON r.room_num=m.room_num JOIN camping c ON c.camping_num=m.camping_num
   		 WHERE res_num=#{res_num}
   	</select>
   	<update id="updateReservation" parameterType="reservationVO">

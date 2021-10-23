@@ -39,6 +39,14 @@ public class MemberVO {
 		return false;
 	}
 	
+	//=========전화번호 일치 여부 체크 ==========//
+	public boolean isCheckedPhone(String userPhone) {
+		if(auth > 1 && phone.equals(userPhone)) {
+			return true;
+		}
+		return false;
+	}
+	
 	public int getMem_num() {
 		return mem_num;
 	}

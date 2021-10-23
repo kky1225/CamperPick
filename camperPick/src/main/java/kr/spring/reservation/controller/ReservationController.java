@@ -28,6 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.camping.service.CampingService;
 import kr.spring.iamport.Iamport;
+import kr.spring.member.service.MemberService;
+import kr.spring.member.vo.MemberVO;
 import kr.spring.payment.service.PaymentService;
 import kr.spring.payment.vo.PaymentVO;
 import kr.spring.reservation.service.ReservationService;
@@ -35,6 +37,7 @@ import kr.spring.reservation.vo.ReservationVO;
 import kr.spring.reservation.vo.ReserveNotificationVO;
 import kr.spring.room.service.RoomService;
 import kr.spring.room.vo.RoomVO;
+import kr.spring.util.AuthCheckException;
 import kr.spring.util.PagingUtil;
 
 
@@ -56,6 +59,8 @@ public class ReservationController {
 	private CampingService campingService;
 	@Autowired
 	private PaymentService paymentService;
+	@Autowired
+	private MemberService memberService;
 
 	//자바빈 초기화
 	@ModelAttribute					
@@ -73,6 +78,12 @@ public class ReservationController {
 	@ModelAttribute					
 	public ReserveNotificationVO initCommand3() {
 		return new ReserveNotificationVO();
+	}
+	
+	//자바빈(VO)초기화
+	@ModelAttribute
+	public MemberVO initCommand4() {
+		return new MemberVO();
 	}
 	
 	//예약 등록 - 폼 호출
@@ -168,32 +179,59 @@ public class ReservationController {
 
 	//예약 검색 결과 -이름, 전화번호로 검색
 	@RequestMapping("/reservation/getReservationList.do")
-	public ModelAndView getReservation(@RequestParam(value="pageNum",defaultValue="1") int currentPage,@RequestParam String email,HttpSession session) {
+	public ModelAndView getReservation(@RequestParam(value="pageNum",defaultValue="1") int currentPage, @Valid MemberVO memberVO, BindingResult result) {
 		
-		Map<String,Object> map = new HashMap<String, Object>();
-		//count
-		int count = reservationService.getReservationCount(email);
+Map<String,Object> map = new HashMap<String, Object>();
 		
-		//페이지
-		//page
-		PagingUtil page = new PagingUtil(currentPage,count, rowCount, pageCount,"getReservationList.do");
-		map.put("start", page.getStartCount());
-		map.put("end", page.getEndCount());
-	
-		map.put("email", email);
-		logger.debug("<<예약검색>> : " + count);
-		//list
-		List<ReservationVO> list = null;
-		if(count>0) {
-			list = reservationService.getReservationList(map);
+		//로그인 체크(email, 전화번호 일치 여부 체크)
+		try {
+			MemberVO member = memberService.selectCheckMember(memberVO.getEmail());
+			boolean check = false;
+					
+			if(member!=null) {//이메일 일치
+				//전화번호 일치 여부 체크               사용자가 입력한 전화번호
+				check = member.isCheckedPhone(memberVO.getPhone());
+			}
+					
+			if(check) {
+				//인증 성공, 로그인 처리
+				//count
+				int count = reservationService.getReservationCount(memberVO.getEmail());
+						
+				//페이지
+				//page
+				PagingUtil page = new PagingUtil(currentPage,count, rowCount, pageCount,"getReservationList.do");
+				map.put("start", page.getStartCount());
+				map.put("end", page.getEndCount());
+					
+				map.put("email", memberVO.getEmail());
+				logger.debug("<<예약검색>> : " + count);
+				//list
+				List<ReservationVO> list = null;
+				if(count>0) {
+					list = reservationService.getReservationList(map);
+				}
+						
+				ModelAndView mav = new ModelAndView();
+				mav.setViewName("reservationList");
+				mav.addObject("count",count);
+				mav.addObject("list",list);
+				mav.addObject("pagingHtml", page.getPagingHtml());
+						
+				return mav;
+			}else {
+				//인증 실패
+				throw new AuthCheckException();
+			}
+		}catch(AuthCheckException e) {
+			//인증 실패로 메시지 생성 및 로그인 폼 호출
+			result.reject("invalidIdOrPhone");
+					
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("reservationSearch");
+			
+			return mav;
 		}
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("reservationList");
-		mav.addObject("count",count);
-		mav.addObject("list",list);
-		mav.addObject("pagingHtml", page.getPagingHtml());
-		return mav;
 	}
 	
 	//예약일 중간 확인

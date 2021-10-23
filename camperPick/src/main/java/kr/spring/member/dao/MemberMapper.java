@@ -20,7 +20,7 @@ public interface MemberMapper {
 	@Insert("INSERT INTO cmember_detail (mem_num, name, passwd, phone, zipcode, address1, address2) VALUES (#{mem_num}, #{name}, #{passwd}, #{phone}, #{zipcode, jdbcType=VARCHAR}, #{address1, jdbcType=VARCHAR}, #{address2, jdbcType=VARCHAR})")
 	public void insertMember_detail(MemberVO member);
 	
-	@Select("SELECT m.mem_num,m.auth, m.email, d.passwd FROM cmember m, cmember_detail d WHERE m.mem_num=d.mem_num AND m.email=#{email}")
+	@Select("SELECT m.mem_num,m.auth, m.email, d.passwd, d.phone FROM cmember m, cmember_detail d WHERE m.mem_num=d.mem_num AND m.email=#{email}")
 	public MemberVO selectCheckMember(String email);
 	
 	@Select("SELECT m.mem_num,m.auth, m.email, d.passwd FROM cmember m, cmember_detail d WHERE m.mem_num=d.mem_num AND d.phone=#{phone}")

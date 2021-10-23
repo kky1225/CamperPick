@@ -110,6 +110,11 @@ $(document).ready(function(){
 	
 	<h5><b>예약 정보</b></h5>
 	<br>
+	<c:if test="${!empty reservation.filename}">
+		<ul>
+			<li><img src="${pageContext.request.contextPath }/room/imageView.do?room_num=${reservation.room_num}" style="max-width:500px"></li>
+		</ul>
+	</c:if>
 	<ul class="content-center">
 		<li class="form-group">
 			<fieldset disabled>

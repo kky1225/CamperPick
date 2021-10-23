@@ -42,23 +42,30 @@
 		</div>
 	</c:if>
 	<c:if test="${count>0 }">
-		<table class="table table-borderless" style="text-align:center;">
+		<table class="table table-hover" style="text-align:center;">
 			<thead class="thead-dark">
 			<tr>
-				<th>예약 번호</th>
-				<th>예약자명</th>
+				<th>사진</th>
 				<th>캠핑장명</th>
+				<th>예약자명</th>
 				<th>날짜</th>
 				<th>예약상태</th>
 			</tr>
 			</thead>
 			<c:forEach var="reservation" items="${list }">
-				<tr>
-					<td>${reservation.res_num }</td>
-					<td><a href="detailReservation.do?res_num=${reservation.res_num }">${reservation.res_name}</a></td>
-					<td>${reservation.camp_name }</td>
-					<td>${reservation.res_start }~${reservation.res_end }</td>
-					<td>${reservation.res_state }</td>
+				<tr onClick="location.href='detailReservation.do?res_num=${reservation.res_num }'" style="border-bottom:1px solid #000;">
+					<td>
+					<c:if test="${!empty reservation.filename}">
+						<img src="${pageContext.request.contextPath }/camping/imageView.do?camping_num=${reservation.camping_num}" border="0" width="120" height="120">
+					</c:if>
+					<c:if test="${empty reservation.filename}">
+						<img src="${pageContext.request.contextPath }/resources/images/noImage.gif" border="0" width="120" height="120" >
+					</c:if>
+					</td>
+					<td style="vertical-align:middle;">${reservation.camp_name }</td>
+					<td style="vertical-align:middle;">${reservation.res_name}</td>
+					<td style="vertical-align:middle;">${reservation.res_start }~${reservation.res_end }</td>
+					<td style="vertical-align:middle;">${reservation.res_state }</td>
 				</tr>
 			</c:forEach>
 		</table>
