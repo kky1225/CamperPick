@@ -181,7 +181,7 @@ public class ReservationController {
 	@RequestMapping("/reservation/getReservationList.do")
 	public ModelAndView getReservation(@RequestParam(value="pageNum",defaultValue="1") int currentPage, @Valid MemberVO memberVO, BindingResult result) {
 		
-Map<String,Object> map = new HashMap<String, Object>();
+		Map<String,Object> map = new HashMap<String, Object>();
 		
 		//로그인 체크(email, 전화번호 일치 여부 체크)
 		try {

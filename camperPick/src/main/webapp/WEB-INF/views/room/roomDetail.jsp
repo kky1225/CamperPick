@@ -37,7 +37,9 @@
 				};
 			</script>
 		</c:if>
+		<c:if test="${!empty user_num && (user_auth==2 || user_auth == 3)}">
 		<input type="button" value="예약하기" class="button" onclick="location.href='${pageContext.request.contextPath }/reservation/reserve.do?camping_num=${room.camping_num }&room_num=${room.room_num }&mem_num=${user_num }'">
+		</c:if>
 		<input type="button" value="목록" class="button" onclick="location.href='${pageContext.request.contextPath }/camping/detail.do?camping_num=${room.camping_num }'">
 	</div>
 </div>

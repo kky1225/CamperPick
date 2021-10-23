@@ -72,8 +72,8 @@ tr{
 		</ul>
 	</form>
 	<div class="align-right" style="width: 90%">
-		<c:if test="${user_auth > 1}">
-		<input type="button" value="글쓰기" class="button-large" onclick="location.href='marketWrite.do'">
+		<c:if test="${user_auth == 2 || user_auth == 3}">
+			<input type="button" value="글쓰기" class="button-large" onclick="location.href='marketWrite.do'">
 		</c:if>
 	</div>
 	<c:if test="${count == 0}">
