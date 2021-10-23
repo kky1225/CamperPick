@@ -15,7 +15,8 @@ div#main{
 div#main_header{
 	min-height: 50px;
     display: flex;
-    justify-content: flex-start;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
     align-items: center;
 }
 div#main_body{
@@ -32,25 +33,28 @@ div#main_footer{
 
 /*==========메뉴==========*/
 div#main_header .logo{
-	margin: 0 100px 0 200px;
+	margin: 0 50px 0 80px;
+	flex-basis: 100px;
 }
-div#main_header ul{
+div#main_header .menu{
+	flex-basis: 700px;
+	text-align: center;
+}
+div#main_header .menu ul{
 	list-style:none;
+	display: inline-block;
 	margin-top: 20px;
+	padding-left: 110px;
 }
-div#main_header ul li{
+div#main_header .menu ul li{
 	float: left;
     font-size: 16px;
     margin: 0 50px 5px 10px;
 }
-div#main_header .menu{
-	text-align: center;
-	padding: 0 100px 20px 278px;
-}
 div#main_header .register{
-	text-align: center;
+	text-align: left;
 	padding-bottom: 5px;
-	padding-left: 100px
+	flex-basis: 300px;
 }
 a:link { color: black; text-decoration: none;}
 a:visited { color: black; text-decoration: none;}
