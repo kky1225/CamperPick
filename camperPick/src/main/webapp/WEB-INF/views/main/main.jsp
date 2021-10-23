@@ -29,8 +29,10 @@
 		        CAMPERPICK
 		    </h1>
 		    <div class="msearch_content">
-		    	<input class="search_input" type="text" placeholder="캠핑장 검색">
-		    	<input class="search_btn" type="button" value="검색하기">
+		    	<form id="search_form" action="../camping/list.do">
+		    		<input class="search_input" type="search" size="30" id="keyword" name="keyword" placeholder="지역 검색">
+		    		<input class="search_btn" type="submit" value="검색하기">
+		    	</form>
 		    </div>
 		</div>
 	</div>

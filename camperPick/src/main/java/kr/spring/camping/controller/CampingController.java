@@ -64,7 +64,7 @@ public class CampingController {
 	}
 	//캠핑장 검색 - 검색한 캠핑장 list가져오기
 	@RequestMapping("/camping/list.do")
-	public ModelAndView getList(@RequestParam(value="pageNum",defaultValue="1") int currentPage, @RequestParam(value="keyfield",defaultValue="")String keyfield, @RequestParam(value="keyword",defaultValue="") String keyword) {
+	public ModelAndView getList(@RequestParam(value="pageNum",defaultValue="1") int currentPage, @RequestParam(value="keyfield",defaultValue="2")String keyfield, @RequestParam(value="keyword",defaultValue="") String keyword) {
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("keyword", keyword);
