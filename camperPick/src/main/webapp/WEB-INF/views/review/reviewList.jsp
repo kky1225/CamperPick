@@ -341,11 +341,7 @@
 			//기본 이벤트 제거
 			event.preventDefault();
 		});
-		//댓글 작성 폼 초기화
-		function initModifyForm(){
-			$('textarea').val('');
-			$('#mre_first .letter-count').text('1000/1000');
-		}
+		
 		//textarea에 내용 입력시 글자수 체크
 		$(document).on('keyup','textarea',function(){
 			//남은 글자수를 구함

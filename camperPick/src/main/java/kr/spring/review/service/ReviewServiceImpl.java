@@ -44,6 +44,7 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public void deleteReview(Integer review_num) {
+		reviewMapper.deleteReReviewByReviewNum(review_num); 
 		reviewMapper.deleteReview(review_num);
 		
 	}

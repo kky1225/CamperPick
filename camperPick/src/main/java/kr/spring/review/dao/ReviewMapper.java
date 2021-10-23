@@ -45,9 +45,12 @@ public interface ReviewMapper {
 	    public void updateReReview(ReviewReplyVO reviewReply);
 	    @Delete("DELETE FROM creview_reply WHERE rre_num=#{rre_num}")
 	    public void deleteReReview(Integer rre_num); 
+	    @Delete("DELETE FROM creview_reply WHERE review_num=#{review_num}")
+	    public void deleteReReviewByReviewNum(Integer review_num); 
 	    //캠핑상세페이지 삭제시 대댓글이 존재하면 부모글 삭제전 댓글 삭제
 	    @Delete("DELETE FROM creview_reply WHERE camping_num=#{camping_num}") 
 	    public void deleteReReviewByCampingNum(Integer rre_num);
+	    
 	
 
 	
