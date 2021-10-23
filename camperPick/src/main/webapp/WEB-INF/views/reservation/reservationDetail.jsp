@@ -184,7 +184,8 @@ $(document).ready(function(){
 		<input type="button" value="예약 취소" class="button" style="margin-top:10px;" id="delete_btn">
 		<c:if test="${reservation.res_state=='결제대기' }">
 			<input type="button" class="button" style="margin-top:10px;" value="결제" id="payment">
-		</c:if>	
+		</c:if>
+		<input type="button" value="목록" class="button" onclick="location.href='${pageContext.request.contextPath }/reservation/getReservationList.do?email=${reservation.res_email}&&phone=${reservation.res_phone}'">
 	</c:if>
 	</div>
 </div>

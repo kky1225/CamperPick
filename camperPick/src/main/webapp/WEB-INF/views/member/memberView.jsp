@@ -124,7 +124,7 @@
 						<p>예약된 정보를 확인할 수 있습니다.</p>
 					</div>
 					<div class="mp_btn">
-						<input type="button" class="button-large" value="확인" onclick="location.href='${pageContext.request.contextPath}/reservation/getReservationList.do?email=${user_email}'">
+						<input type="button" class="button-large" value="확인" onclick="location.href='${pageContext.request.contextPath}/reservation/getReservationList.do?email=${user_email}&&phone=${member.phone}'">
 					</div>
 				</div>
 			</div>
