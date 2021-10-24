@@ -35,24 +35,33 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	
+		
 	<h4 class="align-center" style="margin: 20px 0 30px 0;"><b>${camping.camp_name }</b></h4>
+
 	
-	<ul>
-		<li>번호 : ${camping.camping_num }</li>
-		<li>주소 : ${camping.camp_address }</li>	
-		<li>전화번호 : ${camping.camp_phone }</li>
-		<li>객실수 : ${camping.rcount }</li>
-	</ul>
+	<div class="camping-top">
+		<table summary="">
+			<tr>
+				<th>번호</th>
+				<td>${camping.camping_num}</td>
+			</tr>
+			<tr>
+				<th>주소</th>
+				<td>${camping.camp_address}</td>
+			</tr>
+			<tr>
+				<th>전화번호</th>
+				<td>${camping.camp_phone}</td>
+			</tr>
+			<tr>
+				<th>객실수</th>
+				<td>${camping.rcount}</td>
+			</tr>
+		</table>
+	</div>
+	
+	
 	<hr size="1" width="100%" >
-	
-	
-	
-	
-	
-	
 	
 	<c:if test="${!empty camping.filename}">
 	<div class="align-center">
