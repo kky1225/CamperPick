@@ -37,7 +37,6 @@
 	</div>
 		
 	<h4 class="align-center" style="margin: 20px 0 30px 0;"><b>${camping.camp_name }</b></h4>
-
 	
 	<div class="camping-top">
 		<table summary="">
@@ -59,7 +58,6 @@
 			</tr>
 		</table>
 	</div>
-	
 	
 	<hr size="1" width="100%" >
 	

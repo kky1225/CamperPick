@@ -28,7 +28,7 @@
 				<br>
 				<span id="file_detail">(${reviewVO.filename})파일이 등록되어 있습니다.
 				다시 업로드하면 기존 파일은 삭제됩니다.</span>
-				<input type="button" value="파일삭제" id="file_del">
+				<input type="button" class="button" value="파일삭제" id="file_del">
 				<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
 				<script type="text/javascript">
 				$(function(){
@@ -69,6 +69,4 @@
 	</form:form>
 </div>
 <!-- 중앙 내용 끝 -->
-
-
 
