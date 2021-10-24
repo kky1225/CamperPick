@@ -34,7 +34,7 @@
 			};
 		</script>
 		</c:if>
-		<input type="button" value="목록" onclick="location.href='reviewlist.do'">
+		<input type="button" class="button" value="목록" onclick="location.href='reviewlist.do'">
 	</div>
 </div>
 <!-- 중앙 내용 끝 -->

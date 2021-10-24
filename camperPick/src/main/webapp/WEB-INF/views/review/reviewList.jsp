@@ -616,14 +616,14 @@
 </script>
 <!-- 리뷰  시작 -->
 <br><br>
-<div class="page-main">
-<hr size="1" width="100%" noshade="noshade">
+<div class="page-main" style="width: 100%">
+
 <br><br>
-	<h4 class="align-center" style="margin-bottom:8px;"><b>리뷰</b></h4>
+	
 <!-- 댓글 목록 출력 -->	
-<hr size="1" width="100%" noshade="noshade">
+
 	<div id="reply_div" class="align-center">
-		<span class="reply-title" >후기 작성</span>
+		<h5 class="align-center" style="margin:8px;"><b>리뷰</b></h5>
 		<form id="re_form">
 			<input type="hidden" name="camping_num" value="${param.camping_num}"
 			       id="camping_num">
@@ -643,7 +643,7 @@
 				<span id="letter-count" style="margin-right:350px;">1000/1000</span>
 				<div class="row">
 					<div class="col-auto" style="margin-left:32px; margin-left:88px;">
-						<input id="filename_text" class="form-control mt-2" value="파일선택" style="width:200px; margin-left:14px;" readonly>
+						<input id="filename_text" class="form-control mt-2" value="파일선택" style="width:305px; margin-left:14px;" readonly>
 					</div>
 					<div class="col-auto" style="margin-top:5px; margin-left:-10px;">
 						<label for="upload" class="btn btn-dark" style="width:60px;">파일</label>
@@ -654,15 +654,15 @@
 				<c:if test="${!empty review.filename}">
 				<img src="${pageContext.request.contextPath}/review/photoView.do" width="100" height="100" class="my-photo">
 				</c:if>
-			<div id="re_second" class="align-center">
-				<input type="submit" value="전송" <c:if test="${empty user_num}">disabled="disabled"</c:if> style="margin-left:280px;">
+			<div id="re_second" class="align-center" style="padding: 7px 0 10px 0;">
+				<input type="submit" class="btn btn-dark" value="전송" <c:if test="${empty user_num}">disabled="disabled"</c:if> style="margin-left:280px;">
 			</div>
 			
 		</form>
 	</div>
 	<div id="output"></div>
 	<div class="paging-button" style="display:none;">
-		<input type="button" value="다음글 보기">
+		<input type="button" class="button" value="다음글 보기">
 	</div>
 	<div id="loading" style="display:none;">
 		<img src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif">
