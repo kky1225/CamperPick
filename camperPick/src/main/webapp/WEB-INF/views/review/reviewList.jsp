@@ -139,7 +139,9 @@
 		});
 		//댓글 작성 폼 초기화
 		function initForm(){
-			$('content').val('');
+			$('#title').val('');
+			$('#content').val('');
+			$('#filename_text').val('파일선택');
 			$('#letter-count').text('1000/1000');
 		}
 		//textarea에 내용 입력시 글자수 체크

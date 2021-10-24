@@ -46,7 +46,7 @@
 				<form:password path="passwd" class="form-control" placeholder="Password" style="width:300px; margin-left:35px;"/>
 			</li>
 			<li>
-				<form:errors element="div" cssClass="error-color" style="margin-top:20px;"/>
+				<form:errors element="div" cssClass="error-color" style="margin-top:20px;margin-left:35px;"/>
 			</li>
 		</ul>
 		<div class="align-center">

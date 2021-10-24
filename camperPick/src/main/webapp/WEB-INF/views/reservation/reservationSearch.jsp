@@ -6,17 +6,6 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		//검색 유효성 체크
-		$('#search_form').submit(function(){
-			if($('#email').val().trim()==''){
-				alert('이메일을 입력하세요!');
-				$('#email').val('').focus();
-				return false;
-			}
-		});
-	});
-	
-	$(function(){
 		var fname ="";
 		var today =new Date();
 		var hh = today.getHours();
