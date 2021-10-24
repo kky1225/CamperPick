@@ -294,10 +294,7 @@
 			//게시판 번호
 			var notice_num = $(this).attr('data-notice');
 			//대댓글 작성자 회원 번호
-			if(${user_auth} != null){
-				var mem_num = ${user_num};
-			}
-			mem_num = 0;
+			mem_num = ${user_auth};
 			
 			//대댓글 작성폼 UI
 			var rmodifyUI = '<form id="wre_form">';
