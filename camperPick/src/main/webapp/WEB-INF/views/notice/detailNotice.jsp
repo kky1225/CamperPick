@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/videoAdapter.js"></script>    
@@ -559,12 +559,41 @@
 		//초기 데이터(목록) 호출
 		//selectData(1,$('#market_num').val()); 
 		
-	})
+	});
+	
+	// 타이틀 배경이미지
+	$(function(){
+		var fname ="";
+		var today =new Date();
+		var hh = today.getHours();
+		
+		if(hh>=4 && hh<9){			//새벽 4시부터 낮 9시
+			fname="${pageContext.request.contextPath}/resources/images/main_bg1.jpg";
+		}else if(hh>=9 && hh<18){	//낮 9시부터 오후 6시
+			fname="${pageContext.request.contextPath}/resources/images/main_bg2.jpg";
+		}else if(hh>=18 && hh<24){	//오후 6시부터 밤 12시
+			fname="${pageContext.request.contextPath}/resources/images/main_bg3.jpg";
+		}else{						//밤 12시 부터 새벽 4시
+			fname="${pageContext.request.contextPath}/resources/images/main_bg0.jpg";
+		}
+		
+		$('.main_bg').css('background-image','url('+fname+')');
+	});
 </script>
 <!DOCTYPE html>
 <!-- 공지사항 디테일 시작 -->
-<div class="page-main" id="container" style="margin-top: 45px;">
-	<h4 class="align-center" style="margin-bottom:10px;"><b>공지사항</b></h4>
+<div class="page-main" id="container">
+
+	<div id="main-content">
+		<div class="main_bg">
+			<div class="search_container">
+	    		<h4 class="search_title" style="font-size: 23px;">
+			        공지사항
+			    </h4>
+			</div>
+		</div>
+	</div>
+	
 	<br>
 	<div class="content-top">
 		<table summary="">
