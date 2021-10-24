@@ -6,6 +6,10 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/videoAdapter.js"></script>    
+<c:if test="${empty user_auth}">
+	<c:set var="user_auth" value="0"></c:set>
+	<c:set var="user_num" value="0"></c:set>
+</c:if>
 <script type="text/javascript">
 	$(function() {
 		var currentPage;
@@ -290,7 +294,10 @@
 			//게시판 번호
 			var notice_num = $(this).attr('data-notice');
 			//대댓글 작성자 회원 번호
-			var mem_num = ${user_num};
+			if(${user_auth} != null){
+				var mem_num = ${user_num};
+			}
+			mem_num = 0;
 			
 			//대댓글 작성폼 UI
 			var rmodifyUI = '<form id="wre_form">';
@@ -651,8 +658,8 @@
 			<input type="hidden" name="mem_num" value="${user_num}" id="mem_num">
 			<textarea rows="3" cols="50" name="re_content"
 			  id="re_content" class="rep-content" 
-			  <c:if test="${empty user_num}">disabled="disabled"</c:if>
-			  ><c:if test="${empty user_num}">로그인 해야 작성할 수 있습니다.</c:if></textarea>
+			  <c:if test="${empty user_num || user_num==0}">disabled="disabled"</c:if>
+			  ><c:if test="${empty user_num || user_num==0}">로그인 해야 작성할 수 있습니다.</c:if></textarea>
 			  <c:if test="${!empty user_num}">
 			<div id="re_first">
 				<span class="letter-count">300/300</span>

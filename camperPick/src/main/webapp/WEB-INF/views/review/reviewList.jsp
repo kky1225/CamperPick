@@ -3,7 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>      
-
+<c:if test="${empty user_auth}">
+	<c:set var="user_auth" value="0"></c:set>
+	<c:set var="user_num" value="0"></c:set>
+</c:if>
 <script type="text/javascript">
 	$(function() {
 		var currentPage;
@@ -34,7 +37,12 @@
 					$('#loading').hide();
 					count = param.count;
 					rowCount = param.rowCount;
-					var user_auth = ${user_auth};
+					
+					if(${user_auth} != null){
+						var user_auth = ${user_auth};
+					}
+					user_auth = 0;
+					
 					$(param.list).each(function(index,item){
 						var output = '<div class="item">';
 						output += '<div class="sub-item">';
@@ -622,11 +630,11 @@
 			<input type="hidden" name="mem_num" value="${user_num}" id="mem_num">
 			<input type="hidden" name="res_num" value="1" id="mem_num">
 			<input type="text" name="title" value="${title}" id="title" style="width:400px; margin-left:100px;" class="form-control" placeholder="제목을 입력해 주세요"
-			<c:if test="${empty user_num}">disabled="disabled"</c:if>
+			<c:if test="${empty user_num || user_num==0}">disabled="disabled"</c:if>
 			 >
 			<textarea rows="3" cols="60" name="content"  style="width:400px; margin-left:100px;"
 			   id="content" class="form-control mt-2"
-			   <c:if test="${empty user_num}">disabled="disabled"</c:if>
+			   <c:if test="${empty user_num || user_num==0}">disabled="disabled"</c:if>
 			   ><%-- <c:if test="${empty res_num &&!empty user_num}">예약하신 분만 후기를 작성할 수 있습니다.</c:if> --%></textarea>
 			
 				<%-- <c:if test="${empty review.filename}">
