@@ -165,7 +165,7 @@
 			var modifyUI = '<form id="mre_form">';
 			   modifyUI += '  <input type="hidden" name="nre_num" id="mnre_num" value="'+nre_num+'">';
 			   modifyUI += '  <input type="hidden" name="mem_num" id="mmem_num" value="'+mem_num+'">';
-			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="mre_content" class="rep-content">'+content+'</textarea>';
+			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="mre_content" class="form-control" >'+content+'</textarea>';
 			   modifyUI += '  <div id="mre_first"><span class="letter-count">300/300</span></div>';	
 			   modifyUI += '  <div id="mre_second" class="align-right">';
 			   modifyUI += '     <input type="submit" value="수정" class="btn btn-outline-dark" style="font-size:14px;">';
@@ -304,7 +304,7 @@
 			   rmodifyUI += '  <input type="hidden" name="nre_num" id="cnre_num" value="'+nre_num+'">';
 			   rmodifyUI += '  <input type="hidden" name="mem_num" id="cmem_num" value="'+mem_num+'">';
 			   rmodifyUI += '  <input type="hidden" name="notice_num" id="cnotice_num" value="'+notice_num+'">';
-			   rmodifyUI += '  <textarea rows="3" cols="50" name="re_content" id="cre_content" class="rep-content"></textarea>';
+			   rmodifyUI += '  <textarea rows="3" cols="50" name="re_content" id="cre_content" class="form-control" ></textarea>';
 			   rmodifyUI += '  <div id="cre_first"><span class="letter-count">300/300</span></div>';	
 			   rmodifyUI += '  <div id="cre_second" class="align-right">';
 			   rmodifyUI += '     <input type="submit" value="등록" class="btn btn-outline-dark" style="font-size:14px;">';
@@ -457,7 +457,7 @@
 			   modifyUI += '  <input type="hidden" name="nrre_num" id="rcre_num" value="'+nrre_num+'">';
 			   modifyUI += '  <input type="hidden" name="mem_num" id="rcmem_num" value="'+mem_num+'">';
 			   modifyUI += '  <input type="hidden" name="notice_num" id="rcnotice_num" value="'+notice_num+'">';
-			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="rcre_content" class="rep-content">'+re_content+'</textarea>';
+			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="rcre_content" class="form-control">'+re_content+'</textarea>';
 			   modifyUI += '  <div id="rcre_first"><span class="letter-count">300/300</span></div>';	
 			   modifyUI += '  <div id="rcre_second" class="align-right">';
 			   modifyUI += '     <input type="submit" value="수정" class="btn btn-outline-dark" style="font-size:14px;">';
@@ -657,7 +657,7 @@
 			<input type="hidden" name="notice_num" value="${notice.notice_num}" id="notice_num">
 			<input type="hidden" name="mem_num" value="${user_num}" id="mem_num">
 			<textarea rows="3" cols="50" name="re_content"
-			  id="re_content" class="rep-content" 
+			  id="re_content" class="form-control" 
 			  <c:if test="${empty user_num || user_num==0}">disabled="disabled"</c:if>
 			  ><c:if test="${empty user_num || user_num==0}">로그인 해야 작성할 수 있습니다.</c:if></textarea>
 			  <c:if test="${!empty user_num}">
@@ -665,7 +665,7 @@
 				<span class="letter-count">300/300</span>
 			</div>
 			<div id="re_second" class="align-right">
-				<input type="submit" class="button-large" value="전송" >
+				<input type="submit" class="button-large mt-3" value="전송" style="margin-left:100px;">
 			</div>
 			</c:if>
 		</form>
