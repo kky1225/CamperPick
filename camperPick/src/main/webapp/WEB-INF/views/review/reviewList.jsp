@@ -48,11 +48,11 @@
 							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.res_num+'" value="답글 작성" class="write-btn">';
 						}
 							 output += '&nbsp;'
-						output +='<input type="button" class="button" data-num="'+item.review_num+'" value="답글 보기" class="view-btn">';
+						output +='<input type="button" data-num="'+item.review_num+'" value="답글 보기" class="view-btn">';
 						if($('#mem_num').val()==item.mem_num){
 							//로그인한 회원 번호가 댓글 작성자 회원 번호와 같으면
-							output += ' <input type="button" class="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
-							output += ' <input type="button" class="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
+							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
+							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
 						
 						 }
 						output += '  <hr size="1" noshade>';
@@ -613,7 +613,7 @@
 <!-- 댓글 목록 출력 -->	
 
 	<div id="reply_div" class="align-center">
-		<span class="reply-title" style="font-size:14px;">후기 작성</span>
+		<span class="reply-title"><b>후기 작성</b></span>
 		<form id="re_form">
 			<input type="hidden" name="camping_num" value="${param.camping_num}"
 			       id="camping_num">
