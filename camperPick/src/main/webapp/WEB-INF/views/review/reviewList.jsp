@@ -37,22 +37,22 @@
 					var user_auth = ${user_auth};
 					$(param.list).each(function(index,item){
 						var output = '<div class="item">';
-						output += '<h4>' + item.title + '</h4>';
 						output += '<div class="sub-item">';
+						output += '<h4>' + item.title + '</h4>';
 						output +='   <p>' + item.content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
 						if(item.filename){
 							output +='   <div><img src="${pageContext.request.contextPath}/review/photoView.do?review_num='+item.review_num+'" style="max-width:100px;"></div>';
 						}
 						output += item.reg_date; 
 						if($('#mem_num').val() && user_auth == 4){
-							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.res_num+'" value="답글 작성" class="write-btn button">';
+							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.res_num+'" value="답글 작성" class="write-btn">';
 						}
 							 output += '&nbsp;'
-						output +='<input type="button" data-num="'+item.review_num+'" value="답글 보기" class="view-btn button">';
+						output +='<input type="button" data-num="'+item.review_num+'" value="답글 보기" class="view-btn">';
 						if($('#mem_num').val()==item.mem_num){
 							//로그인한 회원 번호가 댓글 작성자 회원 번호와 같으면
-							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn button">';
-							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn button">';
+							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
+							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
 						
 						 }
 						output += '  <hr size="1" noshade>';
@@ -93,9 +93,9 @@
 				return false;
 			}
 			
-			if($('#re_content').val().trim()==''){
+			if($('#content').val().trim()==''){
 				alert('내용을 입력하세요!');
-				$('#re_content').val('').focus();
+				$('#content').val('').focus();
 				return false;
 			}
 			
@@ -134,7 +134,7 @@
 		});
 		//댓글 작성 폼 초기화
 		function initForm(){
-			$('textarea').val('');
+			$('content').val('');
 			$('#letter-count').text('1000/1000');
 		}
 		//textarea에 내용 입력시 글자수 체크
@@ -147,12 +147,12 @@
 			}else{//1000자 이하인 경우
 				var remain = 1000 - inputLength;
 				remain += '/1000';
-				if($(this).attr('id') == 're_content'){
+				if($(this).attr('id') == 'content'){
 					//등록폼 글자수
 					$('#letter-count').text(remain);
-				}else{
+				}else if($(this).attr('id') == 'mre_content'){
 					//수정폼 글자수
-					$('#letter-count').text(remain);
+					$('#mre_letter-count').text(remain);
 				}
 			}
 		});
@@ -163,17 +163,19 @@
 			//작성자 회원 번호
 			var mem_num = $(this).attr('data-mem');
 			//댓글 내용
+			var title = $("div.item").find('h4').html().replace(/<br>/gi,'\n');
 			var content = $(this).parent().find('p').html().replace(/<br>/gi,'\n');
 			
 			//댓글 수정폼 UI
 			var modifyUI = '<form id="mre_form">';
 			   modifyUI += '  <input type="hidden" name="review_num" id="mre_num" value="'+review_num+'">';
 			   modifyUI += '  <input type="hidden" name="mem_num" id="mmem_num" value="'+mem_num+'">';
-			   modifyUI += '  <textarea rows="3" cols="50" name="content" id="mre_content" class="rep-content">'+content+'</textarea>';
-			   modifyUI += '  <span class="letter-count">1000/1000</span>';	
+			   modifyUI += '  <input type="text" name="title" value="'+title+'" id="mre_title" style="width:400px;" class="form-control" placeholder="제목을 입력해 주세요">';
+			   modifyUI += '  <textarea rows="3" cols="60" name="content" id="mre_content" style="width:400px;" class="form-control mt-2">'+content+'</textarea>';
+			   modifyUI += '  <span id="mre_letter-count">1000/1000</span>';
 			   modifyUI += '  <div id="mre_second" class="align-right">';
-			   modifyUI += '     <input type="submit" value="수정" class="button">';
-			   modifyUI += '     <input type="button" value="취소" class="re-reset button">';
+			   modifyUI += '     <input type="submit" value="수정">';
+			   modifyUI += '     <input type="button" value="취소" class="re-reset">';
 			   modifyUI += '  </div>';
 			   modifyUI += '  <hr size="1" noshade width="90%">';
 			   modifyUI += '</form>';
@@ -190,12 +192,12 @@
 			$(this).parents('.item').append(modifyUI);
 			
 			//입력한 글자수 셋팅
-			var inputLength = $('#content').val().length;
+			var inputLength = $('#mre_content').val().length;
 			var remain = 1000 - inputLength;
 			remain += '/1000';
 			
 			//문서 객체에 반영
-			$('#letter-count').text(remain);		
+			$('#mre_letter-count').text(remain);		
 		});
 		//수정폼에서 취소 버튼 클릭시 수정폼 초기화
 		$(document).on('click','.re-reset',function(){
@@ -245,6 +247,8 @@
 			
 			//기본 이벤트 제거
 			event.preventDefault();
+			
+			selectData(1,$('#camping_num').val());
 			
 		});
 		
@@ -309,9 +313,9 @@
 		
 		//대댓글 등록---------------
 		$(document).on('submit','#wre_form',function(event){
-			if($('#mre_content').val().trim()==''){
+			if($('#re_content').val().trim()==''){
 				alert('내용을 입력하세요!');
-				$('#mre_content').val('').focus();
+				$('#re_content').val('').focus();
 				return false;
 			}
 			var data = $(this).serialize();
@@ -361,10 +365,10 @@
 				remain += '/1000';
 				if($(this).attr('id') == 're_content'){
 					//등록폼 글자수
-					$('#mre_first .letter-count').text(remain);
-				}else{
+					$('#wre_form .re2_letter-count').text(remain);
+				}else if($(this).attr('id') == 'remre_content'){
 					//수정폼 글자수
-					$('#mmre_first .letter-count').text(remain);
+					$('#remre_form .re3_letter-count').text(remain);
 				}
 			}
 		});	
@@ -385,11 +389,11 @@
 			   modifyUI += '  <input type="hidden" name="review_num" id="mre_num" value="'+review_num+'">';
 			   modifyUI += '  <input type="hidden" name="mem_num" id="mmem_num" value="'+mem_num+'">';
 			   modifyUI += '  <input type="hidden" name="res_num" id="mres_num" value="'+res_num+'">';
-			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="mre_content" class="rep-content"></textarea>';
-			   modifyUI += '  <div id="mre_first"><span class="letter-count">1000/1000</span></div>';	
+			   modifyUI += '  <textarea rows="3" cols="60" name="re_content" id="re_content" class="form-control"></textarea>';
+			   modifyUI += '  <div id="mre_first"><span class="re2_letter-count">1000/1000</span></div>';	
 			   modifyUI += '  <div id="mre_second" class="align-right">';
-			   modifyUI += '     <input type="submit" value="등록" class="button">';
-			   modifyUI += '     <input type="button" value="취소" class="wre-reset button">';
+			   modifyUI += '     <input type="submit" value="등록">';
+			   modifyUI += '     <input type="button" value="취소" class="wre-reset">';
 			   modifyUI += '  </div>';
 			   modifyUI += '  <hr size="1" noshade width="90%">';
 			   modifyUI += '</form>';
@@ -399,18 +403,18 @@
 			
 			//지금 클릭해서 수정하고자 하는 데이터는 감추기
 			//작성버튼을 감싸고 있는 div
-			$(this).parent().hide();
+			//$(this).parent().hide();
 			
 			//작성폼을 수정하고자하는 데이터가 있는 div에 노출
 			$(this).parents('.item').append(modifyUI);
 			
 			//입력한 글자수 셋팅
-			var inputLength = $('#mre_content').val().length;
+			var inputLength = $('#re_content').val().length;
 			var remain = 1000 - inputLength;
 			remain += '/1000';
 			
 			//문서 객체에 반영
-			$('#mre_first .letter-count').text(remain);		
+			$('#wre_form .re2_letter-count').text(remain);		
 		});
 		//작성폼에서 취소 버튼 클릭시 작성폼 초기화
 		$(document).on('click','.wre-reset',function(){
@@ -419,7 +423,7 @@
 		//댓글 작성 폼 초기화
 		function initWriteForm(){
 			$('.sub-item').show();
-			$('#mre_form').remove();
+			$('#wre_form').remove();
 		}
 		 
 		//------------------------대댓글 리스트-----
@@ -446,8 +450,8 @@
 							output += item.re_date; 
 							if($('#mem_num').val()==item.mem_num){
 								//로그인한 회원 번호가 댓글 작성자 회원 번호와 같으면
-								output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="수정" class="rmodify-btn button">';
-								output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="삭제" class="rdelete-btn button">';
+								output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="수정" class="rmodify-btn">';
+								output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="삭제" class="rdelete-btn">';
 							 }
 							output += '</div>';
 							output += '</div>';
@@ -483,11 +487,11 @@
 			var modifyUI = '<form id="remre_form">';
 			   modifyUI += '  <input type="hidden" name="rre_num" id="mre_num" value="'+rre_num+'">';
 			   modifyUI += '  <input type="hidden" name="mem_num" id="mmem_num" value="'+mem_num+'">';
-			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="remre_content" class="rep-content">'+re_content+'</textarea>';
-			   modifyUI += '  <div id="remre_first"><span class="letter-count">1000/1000</span></div>';	
+			   modifyUI += '  <textarea rows="3" cols="60" name="re_content" id="remre_content" class="form-control">'+re_content+'</textarea>';
+			   modifyUI += '  <div id="remre_first"><span class="re3_letter-count">1000/1000</span></div>';	
 			   modifyUI += '  <div id="remre_second" class="align-right">';
-			   modifyUI += '     <input type="submit" value="수정" class="button">';
-			   modifyUI += '     <input type="button" value="취소" class="rre-reset button">';
+			   modifyUI += '     <input type="submit" value="수정">';
+			   modifyUI += '     <input type="button" value="취소" class="rre-reset">';
 			   modifyUI += '  </div>';
 			   modifyUI += '  <hr size="1" noshade width="90%">';
 			   modifyUI += '</form>';
@@ -508,7 +512,7 @@
 			remain += '/1000';
 			
 			//문서 객체에 반영
-			$('#remre_first .letter-count').text(remain);		
+			$('#remre_form .re3_letter-count').text(remain);		
 		});
 		//수정폼에서 취소 버튼 클릭시 수정폼 초기화
 		$(document).on('click','.rre-reset',function(){
@@ -600,19 +604,18 @@
 			$('#filename_text').val($(this)[0].files[0].name);
 		}));
 		
-  
-		
 	});
 </script>
 <!-- 리뷰  시작 -->
 <br><br>
-<div class="page-main" style="width:100%;">
-
+<div class="page-main">
+<hr size="1" width="100%" noshade="noshade">
 <br><br>
+	<h4 class="align-center" style="margin-bottom:8px;"><b>리뷰</b></h4>
 <!-- 댓글 목록 출력 -->	
-
+<hr size="1" width="100%" noshade="noshade">
 	<div id="reply_div" class="align-center">
-		<h4 class="align-center" style="margin:8px;"><b>리뷰</b></h4>
+		<span class="reply-title" >후기 작성</span>
 		<form id="re_form">
 			<input type="hidden" name="camping_num" value="${param.camping_num}"
 			       id="camping_num">
@@ -622,17 +625,17 @@
 			<c:if test="${empty user_num}">disabled="disabled"</c:if>
 			 >
 			<textarea rows="3" cols="60" name="content"  style="width:400px; margin-left:100px;"
-			   id="re_content" class="form-control mt-2"
+			   id="content" class="form-control mt-2"
 			   <c:if test="${empty user_num}">disabled="disabled"</c:if>
 			   ><%-- <c:if test="${empty res_num &&!empty user_num}">예약하신 분만 후기를 작성할 수 있습니다.</c:if> --%></textarea>
 			
 				<%-- <c:if test="${empty review.filename}">
 				<img src="${pageContext.request.contextPath}/resources/images/blank.jpg" width="100" height="100" class="my-photo">
 				</c:if> --%>
-				<span id="letter-count">1000/1000</span>
+				<span id="letter-count" style="margin-right:350px;">1000/1000</span>
 				<div class="row">
 					<div class="col-auto" style="margin-left:32px; margin-left:88px;">
-						<input id="filename_text" class="form-control mt-2" value="파일선택" style="width:305px; margin-left:14px;" readonly>
+						<input id="filename_text" class="form-control mt-2" value="파일선택" style="width:200px; margin-left:14px;" readonly>
 					</div>
 					<div class="col-auto" style="margin-top:5px; margin-left:-10px;">
 						<label for="upload" class="btn btn-dark" style="width:60px;">파일</label>
@@ -643,8 +646,8 @@
 				<c:if test="${!empty review.filename}">
 				<img src="${pageContext.request.contextPath}/review/photoView.do" width="100" height="100" class="my-photo">
 				</c:if>
-			<div id="re_second" class="align-center" style="margin-top:5px;">
-				<input type="submit" class="button-large" value="전송" <c:if test="${empty user_num}">disabled="disabled"</c:if> style="margin-left:280px;">
+			<div id="re_second" class="align-center">
+				<input type="submit" value="전송" <c:if test="${empty user_num}">disabled="disabled"</c:if> style="margin-left:280px;">
 			</div>
 			
 		</form>
