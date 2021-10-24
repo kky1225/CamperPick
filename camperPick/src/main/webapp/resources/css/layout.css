@@ -368,4 +368,8 @@ a:hover { color: #555; text-decoration: none;}
 	padding:10px;
 }
 
+/* 게시판 상세페이지 */
+#content_detail{
+	width: 45%;
+}
 

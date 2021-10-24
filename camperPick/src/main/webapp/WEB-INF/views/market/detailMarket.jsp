@@ -563,11 +563,13 @@
 </script>
 <!DOCTYPE html>
 <!-- 거래게시판 디테일 시작 -->
-<div class="page-main">
+<div class="page-main" id="content_detail">
 	<h4 class="align-center" style="margin-bottom:10px;"><b>거래게시판 상세</b></h4>
 	<p>
 		제목 : ${market.title}<br>
 		작성자 : ${market.name}<br>
+		작성일 : ${market.reg_date}<br>
+		수정일 : ${market.modify_date}<br>
 		조회수 : ${market.hit}
 	</p>
 	<hr width="100%" size="1" noshade="noshade">

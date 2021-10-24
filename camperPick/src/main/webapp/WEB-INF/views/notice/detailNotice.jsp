@@ -563,7 +563,7 @@
 </script>
 <!DOCTYPE html>
 <!-- 공지사항 디테일 시작 -->
-<div class="page-main">
+<div class="page-main" id="content_detail">
 	<h4 class="align-center" style="margin-bottom:10px;"><b>공지사항 상세</b></h4>
 	<p>
 		제목 : ${notice.title}<br>
