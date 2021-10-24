@@ -606,14 +606,14 @@
 </script>
 <!-- 리뷰  시작 -->
 <br><br>
-<div class="page-main">
-<hr size="1" width="100%" noshade="noshade">
+<div class="page-main" style="width:100%;">
+
 <br><br>
 	<h4 class="align-center" style="margin-bottom:8px;"><b>리뷰</b></h4>
 <!-- 댓글 목록 출력 -->	
-<hr size="1" width="100%" noshade="noshade">
+
 	<div id="reply_div" class="align-center">
-		<span class="reply-title" >후기 작성</span>
+		<span class="reply-title"><b>후기 작성</b></span>
 		<form id="re_form">
 			<input type="hidden" name="camping_num" value="${param.camping_num}"
 			       id="camping_num">
