@@ -102,8 +102,8 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public void deleteReReviewByCampingNum(Integer rre_num) {
-		reviewMapper.deleteReviewByCampingNum(rre_num);
+	public void deleteReReviewByCampingNum(Integer camping_num) {
+		reviewMapper.deleteReviewByCampingNum(camping_num);
 		
 	}
 
