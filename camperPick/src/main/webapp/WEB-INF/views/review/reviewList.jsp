@@ -87,11 +87,18 @@
 		});
 		//댓글 등록
 		$('#re_form').submit(function(event){
+			if($('#title').val().trim()==''){
+				alert('제목을 입력하세요!');
+				$('#title').val('').focus();
+				return false;
+			}
+			
 			if($('#re_content').val().trim()==''){
 				alert('내용을 입력하세요!');
 				$('#re_content').val('').focus();
 				return false;
 			}
+			
 			var data = $(this).serialize();
 			//등록
 			//파일 전송
@@ -128,7 +135,7 @@
 		//댓글 작성 폼 초기화
 		function initForm(){
 			$('textarea').val('');
-			$('#re_first .letter-count').text('1000/1000');
+			$('#letter-count').text('1000/1000');
 		}
 		//textarea에 내용 입력시 글자수 체크
 		$(document).on('keyup','textarea',function(){
@@ -142,10 +149,10 @@
 				remain += '/1000';
 				if($(this).attr('id') == 're_content'){
 					//등록폼 글자수
-					$('#re_first .letter-count').text(remain);
+					$('#letter-count').text(remain);
 				}else{
 					//수정폼 글자수
-					$('#mre_first .letter-count').text(remain);
+					$('#letter-count').text(remain);
 				}
 			}
 		});
@@ -163,7 +170,7 @@
 			   modifyUI += '  <input type="hidden" name="review_num" id="mre_num" value="'+review_num+'">';
 			   modifyUI += '  <input type="hidden" name="mem_num" id="mmem_num" value="'+mem_num+'">';
 			   modifyUI += '  <textarea rows="3" cols="50" name="content" id="mre_content" class="rep-content">'+content+'</textarea>';
-			   modifyUI += '  <div id="mre_first"><span class="letter-count">1000/1000</span></div>';	
+			   modifyUI += '  <span class="letter-count">1000/1000</span>';	
 			   modifyUI += '  <div id="mre_second" class="align-right">';
 			   modifyUI += '     <input type="submit" value="수정">';
 			   modifyUI += '     <input type="button" value="취소" class="re-reset">';
@@ -183,12 +190,12 @@
 			$(this).parents('.item').append(modifyUI);
 			
 			//입력한 글자수 셋팅
-			var inputLength = $('#mre_content').val().length;
+			var inputLength = $('#content').val().length;
 			var remain = 1000 - inputLength;
 			remain += '/1000';
 			
 			//문서 객체에 반영
-			$('#mre_first .letter-count').text(remain);		
+			$('#letter-count').text(remain);		
 		});
 		//수정폼에서 취소 버튼 클릭시 수정폼 초기화
 		$(document).on('click','.re-reset',function(){
@@ -591,7 +598,9 @@
 		//초기 데이터(목록) 호출
 		selectData(1,$('#camping_num').val());
 		
-		
+		if($('#upload').change(function(){
+			$('#filename_text').val($(this)[0].files[0].name);
+		}));
 		
   
 		
@@ -612,32 +621,33 @@
 			       id="camping_num">
 			<input type="hidden" name="mem_num" value="${user_num}" id="mem_num">
 			<input type="hidden" name="res_num" value="1" id="mem_num">
-			제목: <input type="text" name="title" value="${title}" id="title" 
+			<input type="text" name="title" value="${title}" id="title" style="width:400px; margin-left:100px;" class="form-control" placeholder="제목을 입력해 주세요"
 			<c:if test="${empty user_num}">disabled="disabled"</c:if>
 			 >
-			<textarea rows="3" cols="50" name="content" 
-			   id="re_content" class="rep-content" 
+			<textarea rows="3" cols="60" name="content"  style="width:400px; margin-left:100px;"
+			   id="re_content" class="form-control mt-2"
 			   <c:if test="${empty user_num}">disabled="disabled"</c:if>
-			   ><c:if test="${empty user_num}">로그인해야 후기를 작성할 수 있습니다.</c:if><%-- <c:if test="${empty res_num &&!empty user_num}">예약하신 분만 후기를 작성할 수 있습니다.</c:if> --%></textarea>
+			   ><%-- <c:if test="${empty res_num &&!empty user_num}">예약하신 분만 후기를 작성할 수 있습니다.</c:if> --%></textarea>
 			
 				<%-- <c:if test="${empty review.filename}">
 				<img src="${pageContext.request.contextPath}/resources/images/blank.jpg" width="100" height="100" class="my-photo">
 				</c:if> --%>
+				<span id="letter-count">1000/1000</span>
+				<div class="row">
+					<div class="col-auto" style="margin-left:32px; margin-left:88px;">
+						<input id="filename_text" class="form-control mt-2" value="파일선택" style="width:200px; margin-left:14px;" readonly>
+					</div>
+					<div class="col-auto" style="margin-top:5px; margin-left:-10px;">
+						<label for="upload" class="btn btn-dark" style="width:60px;">파일</label>
+					</div>
+					<input type="file" id="upload" name="upload" accept="image/gif,image/png,image/jpeg" style="display:none;">
+				</div>
+				
 				<c:if test="${!empty review.filename}">
 				<img src="${pageContext.request.contextPath}/review/photoView.do" width="100" height="100" class="my-photo">
 				</c:if>
-			
-			
-			<div class="align-center">
-				<input type="file" value="파일 등록" id="upload" name="upload"
-				 <c:if test="${empty user_num}">disabled="disabled"</c:if>
-				  >
-			</div>
-			<div id="re_first">
-				<span class="letter-count">1000/1000</span>
-			</div>
-			<div id="re_second" class="align-right">
-				<input type="submit" value="전송">
+			<div id="re_second" class="align-center">
+				<input type="submit" value="전송" <c:if test="${empty user_num}">disabled="disabled"</c:if> style="margin-left:280px;">
 			</div>
 			
 		</form>
