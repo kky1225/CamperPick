@@ -244,6 +244,8 @@
 			});
 			// 기본 이벤트 제거
 			event.preventDefault();
+			
+			selectData(1,$('#market_num').val());
 		});
 		
 		// 댓글 삭제
@@ -294,10 +296,7 @@
 			//게시판 번호
 			var market_num = $(this).attr('data-market');
 			//대댓글 작성자 회원 번호
-			if(${user_auth} != null){
-				var mem_num = ${user_num};
-			}
-			mem_num = 0;
+			mem_num = ${user_num};
 			
 			//대댓글 작성폼 UI
 			var rmodifyUI = '<form id="wre_form">';
