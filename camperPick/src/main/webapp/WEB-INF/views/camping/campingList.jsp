@@ -47,7 +47,7 @@
 	</div>
 	
 	<c:if test="${!empty user_num && user_auth==4}">
-	<div class="align-right">
+	<div class="align-right" style="width: 90%; margin-top: 10px;">
 		<input type="button" class="button" value="등록" onclick="location.href='write.do'">
 		<input type="button" class="button" value="데이터 받기" onclick="location.href='insertData.do'">
 	</div>

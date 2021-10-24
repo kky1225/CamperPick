@@ -563,7 +563,7 @@
 </script>
 <!DOCTYPE html>
 <!-- 거래게시판 디테일 시작 -->
-<div class="page-main" id="container">
+<div class="page-main" id="container" style="margin-top: 45px;">
 	<h4 class="align-center" style="margin-bottom:10px;"><b>거래게시판</b></h4>
 	<br>
 	
@@ -591,24 +591,27 @@
 		</table>
 	</div>
 	
-	<div class="content-datail">
-		${market.content}<br>
-		<c:if test="${!empty market.filename}">
-			<div class="align-center">
-				<img src="imageView.do?market_num=${market.market_num}" style="max-width: 500px">
-			</div>
-			<hr width="100%" size="1" noshade="noshade">
-		</c:if>
-		<c:if test="${empty market.filename}">
-			<hr width="100%" size="1" noshade="noshade">
-		</c:if>
-		<div class="align-right">
-			<c:if test="${user_num == market.mem_num}">
-			<input type="button" value="수정" onclick="location.href='marketUpdate.do?market_num=${market.market_num}'" class="btn btn-outline-dark" style="font-size:14px;">
-			<input type="button" value="삭제" onclick="location.href='marketDelete.do?market_num=${market.market_num}'" class="btn btn-outline-dark" style="font-size:14px;">
-			</c:if>
-			<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/market/marketList.do'" class="btn btn-outline-dark" style="font-size:14px;">
+	<div class="content-datail" style="padding-left:20px;">
+		${market.content}
+	</div>
+	
+	<br>
+	
+	<c:if test="${!empty market.filename}">
+		<div class="align-center">
+			<img src="imageView.do?market_num=${market.market_num}" style="max-width: 500px">
 		</div>
+		<hr width="100%" size="1" noshade="noshade">
+	</c:if>
+	<c:if test="${empty market.filename}">
+		<hr width="100%" size="1" noshade="noshade">
+	</c:if>
+	<div class="align-right">
+		<c:if test="${user_num == market.mem_num}">
+		<input type="button" value="수정" onclick="location.href='marketUpdate.do?market_num=${market.market_num}'" class="btn btn-outline-dark" style="font-size:14px;">
+		<input type="button" value="삭제" onclick="location.href='marketDelete.do?market_num=${market.market_num}'" class="btn btn-outline-dark" style="font-size:14px;">
+		</c:if>
+		<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/market/marketList.do'" class="btn btn-outline-dark" style="font-size:14px;">
 	</div>
 	
 	<hr size="1" width="100%" noshade="noshade">
