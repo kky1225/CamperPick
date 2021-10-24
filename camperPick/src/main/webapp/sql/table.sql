@@ -174,7 +174,7 @@ create sequence cmarket_reply_seq;
 
 /*거래게시판 대댓글*/
 create table cmarket_reply2(
-	mre_num number not null,
+	mrre_num number not null,
 	re_content clob not null,
 	re_ip varchar2(40) not null,
 	re_date date default sysdate not null,
@@ -182,7 +182,7 @@ create table cmarket_reply2(
 	market_num number not null,
 	mem_num number not null,
 	mre_num number not null,
-	constraint cmarket_reply2_pk primary key (mre_num),
+	constraint cmarket_reply2_pk primary key (mrre_num),
 	constraint cmarket_reply2_fk1 foreign key (market_num) references cmarket (market_num),
 	constraint cmarket_reply2_fk2 foreign key (mem_num) references cmember (mem_num),
 	constraint cmarket_reply2_fk3 foreign key (mre_num) references cmarket_reply (mre_num)
