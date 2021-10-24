@@ -19,7 +19,7 @@
 		
 		// 댓글 목록
 		function selectData(pageNum,market_num) {
-			currentPage=pageNum;
+			currentPage = pageNum;
 			
 			if(pageNum == 1){
 				// 처음 호출에는 해당 ID의 div의 내부 내용물을 제거

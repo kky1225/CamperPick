@@ -15,7 +15,7 @@
 		var view_button = 0;//댓댓글이 안 보여짐 (초기값) 
 		//댓글 목록
 		function selectData(pageNum,camping_num){
-			currentPage=pageNum;
+			currentPage = pageNum;
 			
 			if(pageNum == 1){
 				//처음 호출시는 해당 ID의 div의 내부 내용물을 제거
