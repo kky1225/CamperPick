@@ -1,6 +1,7 @@
 package kr.spring.notice.controller;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.notice.service.NoticeService;
+import kr.spring.notice.vo.NoticeReReplyVO;
+import kr.spring.notice.vo.NoticeReplyVO;
 import kr.spring.notice.vo.NoticeVO;
 import kr.spring.util.PagingUtil;
 import kr.spring.util.StringUtil;
@@ -276,6 +279,250 @@ public class NoticeController {
 		
 		return "redirect:/notice/noticeList.do";
 	}
+	
+	// 댓글 등록(ajax)
+		@RequestMapping("/notice/writeReply.do")
+		@ResponseBody
+		public Map<String, String> writeReply(NoticeReplyVO noticeReplyVO,
+											  HttpSession session,
+											  HttpServletRequest request){
+			log.debug("<<댓글 등록>> : " + noticeReplyVO);
+					
+			Map<String, String> map = new HashMap<String, String>();
+					
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			if(user_num == null) {
+				// 로그인 안 됨
+				map.put("result", "logout");
+			}else {
+				// 로그인 됨
+				// ip 등록
+				noticeReplyVO.setRe_ip(request.getRemoteAddr());
+				// 댓글 등록
+				noticeService.insertReply(noticeReplyVO);
+				map.put("result", "success");
+			}
+					
+			return map;
+		}
+				
+		// 댓글 목록  
+		@RequestMapping("/notice/listReply.do")
+		@ResponseBody
+		public Map<String,Object> getList(
+							@RequestParam(value="pageNum",defaultValue="1") int currentPage,
+							@RequestParam int notice_num){
+					
+			log.debug("<<currentPage>> : " + currentPage);
+			log.debug("<<notice_num>> : " + notice_num);
+					
+			Map<String,Object> map = new HashMap<String, Object>();
+					
+			map.put("notice_num", notice_num);
+					
+			// 총 글의 개수
+			int count = noticeService.selectRowCountReply(map);
+					
+			PagingUtil page = new PagingUtil(currentPage, count, rowCount, pageCount, null);
+			map.put("start", page.getStartCount());
+			map.put("end", page.getEndCount());
+					
+			List<NoticeReplyVO> list = null;
+			if(count > 0) {
+				list = noticeService.selectListReply(map);
+			}else {
+				list = Collections.emptyList();
+			}
+					
+			Map<String,Object> mapJson = new HashMap<String, Object>();
+			mapJson.put("count", count);
+			mapJson.put("rowCount",rowCount);
+			mapJson.put("list", list);
+					
+			return mapJson;
+		}
+				
+		// 댓글 삭제
+		@RequestMapping("/notice/deleteReply.do")
+		@ResponseBody
+		public Map<String, String> deleteReply(@RequestParam int nre_num,@RequestParam int mem_num,HttpSession session){
+					
+			log.debug("<<nre_num>> : " + nre_num);
+			log.debug("<<mem_num>> : " + mem_num);
+					
+			Map<String,String> map = new HashMap<String, String>();
+					
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			if(user_num == null) {
+				// 로그인이 되어있지 않음
+				map.put("result", "logout");
+			}else if(user_num != null && user_num == mem_num){
+				// 로그인이 되어있고 로그인 한 아이디와 작성자 아이디가 일치
+				noticeService.deleteReply(nre_num);
+				map.put("result", "success");
+			}else {
+				// 로그인 아이디와 작성자 아이디 불일치
+				map.put("result", "wrongAccess");
+			}
+					
+			return map;
+		}
+				
+		// 댓글 수정
+		@RequestMapping("/notice/updateReply.do")
+		@ResponseBody
+		public Map<String, String> modifyReply(NoticeReplyVO noticeReplyVO, HttpSession session,HttpServletRequest request){
+			log.debug("<<댓글 수정>> : " + noticeReplyVO);
+
+			Map<String, String> map = new HashMap<String, String>();
+					
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			if(user_num == null) {
+				// 로그인이 안 된 경우
+				map.put("result", "logout");
+			}else if(user_num != null && user_num == noticeReplyVO.getMem_num()) {
+				// 로그인 회원 번호와 작성자 회원 번호 일치
+				// ip 등록
+				noticeReplyVO.setRe_ip(request.getRemoteAddr());
+						
+				// 댓글 수정
+				noticeService.updateReply(noticeReplyVO);
+				map.put("result", "success");
+			}else {
+				// 로그인 회원 번호와 작성자 회원 번호 불일치
+				map.put("result", "wrongAccess");
+			}
+					
+			return map;
+		}
+		
+		// #############대댓글################
+		
+			//대댓글 등록(ajax)
+			@RequestMapping("/notice/writeReReply.do")
+			@ResponseBody
+			public Map<String,String> writeReReply(NoticeReReplyVO noticeReReplyVO,
+					                             HttpSession session,
+					                             HttpServletRequest request){
+				log.debug("<<대댓글 등록>> : " + noticeReReplyVO);
+				
+				Map<String,String> map = new HashMap<String,String>();
+				
+				Integer user_num = (Integer)session.getAttribute("user_num");
+				if(user_num == null) {
+					//로그인 안 됨
+					map.put("result", "logout");
+				}else {
+					//로그인 됨
+					//ip 등록
+					noticeReReplyVO.setRe_ip(request.getRemoteAddr());
+					//댓글 등록
+					noticeService.insertReReply(noticeReReplyVO);
+					map.put("result", "success");
+				}
+				
+				return map;
+			}
+
+
+
+			// 대댓글 목록(ajax)
+			@RequestMapping("/notice/rereplyList.do")
+			@ResponseBody
+			public Map<String,Object> getreList(
+					      @RequestParam(value="pageNum",defaultValue="1") int currentPage,
+					      @RequestParam int nre_num)	{
+				
+			 						  
+			 				  
+				log.debug("<<currentPage>> : " + currentPage);
+				log.debug("<<nre_num>> : " + nre_num);
+				
+				Map<String,Object> map = new HashMap<String,Object>();
+				map.put("nre_num", nre_num);
+				//총 글의 갯수
+				int count = noticeService.getReReplyCount(map);
+				
+				PagingUtil page = new PagingUtil(currentPage,count,rowCount,pageCount,
+						                 null);
+				map.put("start", page.getStartCount());
+				map.put("end", page.getEndCount());
+				
+				List<NoticeReReplyVO> list = null;
+				if(count > 0) {
+					list = noticeService.getReReplyList(map);
+					
+					log.debug("<<대댓글 목록>> : " + list);
+					
+				}else {
+					list = Collections.emptyList();
+				}
+				
+				Map<String,Object> mapJson = new HashMap<String,Object>();
+				mapJson.put("count", count);
+				mapJson.put("rowCount", rowCount);
+				mapJson.put("list", list);
+				
+				return mapJson;
+			}
+			
+
+			//대댓글 삭제
+			@RequestMapping("/notice/deleteReReply.do")
+			@ResponseBody
+			public Map<String,String> deleteReReply(@RequestParam int nrre_num,
+					                              @RequestParam int mem_num,
+					                              HttpSession session){
+				
+				log.debug("<<nrre_num>> : " + nrre_num);
+				log.debug("<<mem_num>> : " + mem_num);
+				
+				Map<String,String> map = new HashMap<String,String>();
+				
+				Integer user_num = (Integer)session.getAttribute("user_num");
+				if(user_num == null) {
+					//로그인이 되어있지 않음
+					map.put("result", "logout");
+				}else if(user_num != null && user_num==mem_num) {
+					//로그인이 되어 있고 로그인한 아이디와 작성자 아이디가 일치
+					noticeService.deleteReReply(nrre_num);
+					map.put("result", "success");
+				}else {
+					//로그인 아이디와 작성자 아이디 불일치
+					map.put("result", "wrongAccess");
+				}
+				return map;
+			}
+			
+			//대댓글 수정
+			@RequestMapping("/notice/updateReReply.do")
+			@ResponseBody
+			public Map<String,String> modifyReReply(NoticeReReplyVO noticeReReplyVO, HttpSession session, HttpServletRequest request){
+				
+				log.debug("<<대댓글 수정>>:" + noticeReReplyVO);
+				
+				Map<String,String> map=new HashMap<String,String>();
+				
+				Integer user_num=(Integer)session.getAttribute("user_num");
+				if(user_num==null) {
+					//로그인이 안된 경우
+					map.put("result", "logout");
+				}else if(user_num!=null && user_num == noticeReReplyVO.getMem_num()) {
+					//로그인 회원번호와 작성자 회원번호 일치
+					//ip 등록
+					noticeReReplyVO.setRe_ip(request.getRemoteAddr());
+					
+					//대댓글 수정
+					noticeService.updateReReply(noticeReReplyVO);
+					map.put("result", "success");
+				}else {
+					//로그인회원번호와 작성자 회원번호 불일치
+					map.put("result", "wrongAccess");
+					
+				}
+				
+				return map;
+			}
 	
 }
 

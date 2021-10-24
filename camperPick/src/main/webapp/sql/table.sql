@@ -120,6 +120,23 @@ create table cnotice_reply(
 );
 create sequence cnotice_reply_seq;
 
+/*공지사항 대댓글*/
+create table cnotice_reply2(
+	nrre_num number not null,
+	re_content clob not null,
+	re_ip varchar2(40) not null,
+	re_date date default sysdate not null,
+	re_modifydate date default sysdate not null,
+	notice_num number not null,
+	mem_num number not null,
+	nre_num number not null,
+	constraint cnotice_reply2_pk primary key (nrre_num),
+	constraint cnotice_reply2_fk1 foreign key (notice_num) references cnotice (notice_num),
+	constraint cnotice_reply2_fk2 foreign key (mem_num) references cmember (mem_num),
+	constraint cnotice_reply2_fk3 foreign key (nre_num) references cnotice_reply (nre_num)
+);
+create sequence cnotice_reply2_seq;
+
 /*거래게시판*/
 create table cmarket(
 	market_num number not null,
@@ -154,6 +171,23 @@ create table cmarket_reply(
 	constraint cmarket_reply_fk2 foreign key (mem_num) references cmember (mem_num)
 );
 create sequence cmarket_reply_seq;
+
+/*거래게시판 대댓글*/
+create table cmarket_reply2(
+	mrre_num number not null,
+	re_content clob not null,
+	re_ip varchar2(40) not null,
+	re_date date default sysdate not null,
+	re_modifydate date default sysdate not null,
+	market_num number not null,
+	mem_num number not null,
+	mre_num number not null,
+	constraint cmarket_reply2_pk primary key (mre_num),
+	constraint cmarket_reply2_fk1 foreign key (market_num) references cmarket (market_num),
+	constraint cmarket_reply2_fk2 foreign key (mem_num) references cmember (mem_num),
+	constraint cmarket_reply2_fk3 foreign key (mre_num) references cmarket_reply (mre_num)
+);
+create sequence cmarket_reply2_seq;
 
 /* 결제 테이블 */
 CREATE TABLE payment(

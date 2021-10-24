@@ -71,4 +71,69 @@
          WHERE notice_num=#{notice_num}  		
 	</update>
 	
+	<!-- 댓글 목록 -->
+	<select id="selectListReply" parameterType="map" resultType="noticeReplyVO">
+		SELECT
+		  *
+		FROM (SELECT 
+		        a.*,
+		        rownum rnum
+		      FROM (SELECT 
+		              b.nre_num,
+		  			  b.re_content,
+		              TO_CHAR(b.re_date,'YYYY-MM-DD HH24:MI:SS') re_date,
+		              TO_CHAR(b.re_modifydate,'YYYY-MM-DD HH24:MI:SS') re_modifydate,
+		              b.notice_num,
+		              b.mem_num,
+		              m.name
+		            FROM cnotice_reply b JOIN cmember_detail m ON b.mem_num=m.mem_num
+		            WHERE b.notice_num = #{notice_num}
+		            ORDER BY b.nre_num DESC)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+	
+	<!-- 댓글 총 갯수 -->
+	<select id="selectRowCountReply" parameterType="map" resultType="integer">
+		SELECT
+		   COUNT(*)
+		FROM cnotice_reply b JOIN cmember_detail m ON b.mem_num=m.mem_num
+		WHERE b.notice_num = #{notice_num}
+	</select>
+	
+	<!-- 대댓글 -->
+	<select id="getReReplyList" parameterType="map" resultType="noticeReReplyVO">
+		SELECT
+		  *
+		FROM (SELECT 
+		        a.*,
+		        rownum rnum
+		      FROM (SELECT 
+		      		  b.nrre_num,
+		              m.nre_num,
+		  			  b.re_content,
+		  			  b.re_ip,
+		              TO_CHAR(b.re_date,'YYYY-MM-DD HH24:MI:SS') re_date,
+		              TO_CHAR(b.re_modifydate,'YYYY-MM-DD HH24:MI:SS') re_modifydate,
+		              m.notice_num,
+		              b.mem_num
+		            FROM cnotice_reply2 b JOIN cnotice_reply m ON b.nre_num=m.nre_num
+		            WHERE b.nre_num = #{nre_num}
+		            ORDER BY b.nrre_num DESC)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]> 
+		 
+		 
+	</select>
+	
+	<!-- 대댓글 총 갯수 -->
+	<select id="getReReplyCount" parameterType="map" resultType="integer">
+		SELECT
+		   COUNT(*)
+		FROM cnotice_reply2 b JOIN cnotice_reply m ON b.nre_num=m.nre_num
+		WHERE b.nre_num = #{nre_num}
+	</select>
+	
 </mapper>  

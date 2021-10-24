@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.spring.notice.dao.NoticeMapper;
+import kr.spring.notice.vo.NoticeReReplyVO;
+import kr.spring.notice.vo.NoticeReplyVO;
 import kr.spring.notice.vo.NoticeVO;
 
 @Service
@@ -61,6 +63,77 @@ public class NoticeServiceImpl implements NoticeService{
 		noticeMapper.deleteFile(notice_num);
 		
 	}
+	
+	// 댓글
+		@Override
+		public List<NoticeReplyVO> selectListReply(Map<String, Object> map) {
+			return noticeMapper.selectListReply(map);
+		}
+
+		@Override
+		public int selectRowCountReply(Map<String, Object> map) {
+			return noticeMapper.selectRowCountReply(map);
+		}
+
+		@Override
+		public void insertReply(NoticeReplyVO NoticeReplyVO) {
+			noticeMapper.insertReply(NoticeReplyVO);
+		}
+
+		@Override
+		public void updateReply(NoticeReplyVO NoticeReplyVO) {
+			noticeMapper.updateReply(NoticeReplyVO);
+		}
+
+		@Override
+		public void deleteReply(Integer nre_num) {
+			// 댓글을 삭제하면 대댓글도 삭제
+			noticeMapper.deleteReReplyByReplyNum(nre_num);
+			noticeMapper.deleteReply(nre_num);
+		}
+		
+		// 대댓글
+		@Override
+		public int getReReplyCount(Map<String, Object> map) {
+			// TODO Auto-generated method stub
+			return noticeMapper.getReReplyCount(map);
+		}
+
+		@Override
+		public List<NoticeReReplyVO> getReReplyList(Map<String, Object> map) {
+			// TODO Auto-generated method stub
+			return noticeMapper.getReReplyList(map);
+		}
+
+		@Override
+		public NoticeReReplyVO getReReply(Integer nrre_num) {
+			// TODO Auto-generated method stub
+			return noticeMapper.getReReply(nrre_num);
+		}
+
+		@Override
+		public void insertReReply(NoticeReReplyVO noticeReReplyVO) {
+			// TODO Auto-generated method stub
+			noticeMapper.insertReReply(noticeReReplyVO);
+		}
+
+		@Override
+		public void updateReReply(NoticeReReplyVO noticeReReplyVO) {
+			// TODO Auto-generated method stub
+			noticeMapper.updateReReply(noticeReReplyVO);
+		}
+
+		@Override
+		public void deleteReReply(Integer nrre_num) {
+			// TODO Auto-generated method stub
+			noticeMapper.deleteReReply(nrre_num);
+		}
+
+		@Override
+		public void deleteReReplyByNoticeNum(Integer notice_num) {
+			// TODO Auto-generated method stub
+			noticeMapper.deleteReReplyByNoticeNum(notice_num);
+		}
 
 
 }

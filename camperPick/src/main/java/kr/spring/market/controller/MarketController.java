@@ -1,6 +1,7 @@
 package kr.spring.market.controller;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.market.service.MarketService;
+import kr.spring.market.vo.MarketReReplyVO;
+import kr.spring.market.vo.MarketReplyVO;
 import kr.spring.market.vo.MarketVO;
 import kr.spring.util.PagingUtil;
 import kr.spring.util.StringUtil;
@@ -279,6 +282,252 @@ public class MarketController {
 			return "redirect:/market/marketList.do";
 		}
 	
+		
+		// ################댓글#####################
+		
+		// 댓글 등록(ajax)
+		@RequestMapping("/market/writeReply.do")
+		@ResponseBody
+		public Map<String, String> writeReply(MarketReplyVO marketReplyVO,
+											  HttpSession session,
+											  HttpServletRequest request){
+			log.debug("<<댓글 등록>> : " + marketReplyVO);
+				
+			Map<String, String> map = new HashMap<String, String>();
+				
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			if(user_num == null) {
+				// 로그인 안 됨
+				map.put("result", "logout");
+			}else {
+				// 로그인 됨
+				// ip 등록
+				marketReplyVO.setRe_ip(request.getRemoteAddr());
+				// 댓글 등록
+				marketService.insertReply(marketReplyVO);
+				map.put("result", "success");
+			}
+				
+			return map;
+		}
+			
+		// 댓글 목록  
+		@RequestMapping("/market/listReply.do")
+		@ResponseBody
+		public Map<String,Object> getList(
+							@RequestParam(value="pageNum",defaultValue="1") int currentPage,
+							@RequestParam int market_num){
+				
+			log.debug("<<currentPage>> : " + currentPage);
+			log.debug("<<market_num>> : " + market_num);
+				
+			Map<String,Object> map = new HashMap<String, Object>();
+				
+			map.put("market_num", market_num);
+				
+			// 총 글의 개수
+			int count = marketService.selectRowCountReply(map);
+				
+			PagingUtil page = new PagingUtil(currentPage, count, rowCount, pageCount, null);
+			map.put("start", page.getStartCount());
+			map.put("end", page.getEndCount());
+				
+			List<MarketReplyVO> list = null;
+			if(count > 0) {
+				list = marketService.selectListReply(map);
+			}else {
+				list = Collections.emptyList();
+			}
+				
+			Map<String,Object> mapJson = new HashMap<String, Object>();
+			mapJson.put("count", count);
+			mapJson.put("rowCount",rowCount);
+			mapJson.put("list", list);
+				
+			return mapJson;
+		}
+			
+		// 댓글 삭제
+		@RequestMapping("/market/deleteReply.do")
+		@ResponseBody
+		public Map<String, String> deleteReply(@RequestParam int mre_num,@RequestParam int mem_num,HttpSession session){
+				
+			log.debug("<<mre_num>> : " + mre_num);
+			log.debug("<<mem_num>> : " + mem_num);
+				
+			Map<String,String> map = new HashMap<String, String>();
+				
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			if(user_num == null) {
+				// 로그인이 되어있지 않음
+				map.put("result", "logout");
+			}else if(user_num != null && user_num == mem_num){
+				// 로그인이 되어있고 로그인 한 아이디와 작성자 아이디가 일치
+				marketService.deleteReply(mre_num);
+				map.put("result", "success");
+			}else {
+				// 로그인 아이디와 작성자 아이디 불일치
+				map.put("result", "wrongAccess");
+			}
+				
+			return map;
+		}
+			
+		// 댓글 수정
+		@RequestMapping("/market/updateReply.do")
+		@ResponseBody
+		public Map<String, String> modifyReply(MarketReplyVO marketReplyVO, HttpSession session,HttpServletRequest request){
+			log.debug("<<댓글 수정>> : " + marketReplyVO);
+
+			Map<String, String> map = new HashMap<String, String>();
+				
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			if(user_num == null) {
+				// 로그인이 안 된 경우
+				map.put("result", "logout");
+			}else if(user_num != null && user_num == marketReplyVO.getMem_num()) {
+				// 로그인 회원 번호와 작성자 회원 번호 일치
+				// ip 등록
+				marketReplyVO.setRe_ip(request.getRemoteAddr());
+					
+				// 댓글 수정
+				marketService.updateReply(marketReplyVO);
+				map.put("result", "success");
+			}else {
+				// 로그인 회원 번호와 작성자 회원 번호 불일치
+				map.put("result", "wrongAccess");
+			}
+				
+			return map;
+		}
+		
+		// #############대댓글################
+		
+		//대댓글 등록(ajax)
+		@RequestMapping("/market/writeReReply.do")
+		@ResponseBody
+		public Map<String,String> writeReReply(MarketReReplyVO marketReReplyVO,
+				                             HttpSession session,
+				                             HttpServletRequest request){
+			log.debug("<<대댓글 등록>> : " + marketReReplyVO);
+			
+			Map<String,String> map = new HashMap<String,String>();
+			
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			if(user_num == null) {
+				//로그인 안 됨
+				map.put("result", "logout");
+			}else {
+				//로그인 됨
+				//ip 등록
+				marketReReplyVO.setRe_ip(request.getRemoteAddr());
+				//댓글 등록
+				marketService.insertReReply(marketReReplyVO);
+				map.put("result", "success");
+			}
+			
+			return map;
+		}
+
+
+
+		// 대댓글 목록(ajax)
+		@RequestMapping("/market/rereplyList.do")
+		@ResponseBody
+		public Map<String,Object> getreList(
+				      @RequestParam(value="pageNum",defaultValue="1") int currentPage,
+				      @RequestParam int mre_num)	{
+			
+		 						  
+		 				  
+			log.debug("<<currentPage>> : " + currentPage);
+			log.debug("<<mre_num>> : " + mre_num);
+			
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("mre_num", mre_num);
+			//총 글의 갯수
+			int count = marketService.getReReplyCount(map);
+			
+			PagingUtil page = new PagingUtil(currentPage,count,rowCount,pageCount,
+					                 null);
+			map.put("start", page.getStartCount());
+			map.put("end", page.getEndCount());
+			
+			List<MarketReReplyVO> list = null;
+			if(count > 0) {
+				list = marketService.getReReplyList(map);
+				
+				log.debug("<<대댓글 목록>> : " + list);
+				
+			}else {
+				list = Collections.emptyList();
+			}
+			
+			Map<String,Object> mapJson = new HashMap<String,Object>();
+			mapJson.put("count", count);
+			mapJson.put("rowCount", rowCount);
+			mapJson.put("list", list);
+			
+			return mapJson;
+		}
+		
+
+		//대댓글 삭제
+		@RequestMapping("/market/deleteReReply.do")
+		@ResponseBody
+		public Map<String,String> deleteReReply(@RequestParam int mrre_num,
+				                              @RequestParam int mem_num,
+				                              HttpSession session){
+			
+			log.debug("<<mrre_num>> : " + mrre_num);
+			log.debug("<<mem_num>> : " + mem_num);
+			
+			Map<String,String> map = new HashMap<String,String>();
+			
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			if(user_num == null) {
+				//로그인이 되어있지 않음
+				map.put("result", "logout");
+			}else if(user_num != null && user_num==mem_num) {
+				//로그인이 되어 있고 로그인한 아이디와 작성자 아이디가 일치
+				marketService.deleteReReply(mrre_num);
+				map.put("result", "success");
+			}else {
+				//로그인 아이디와 작성자 아이디 불일치
+				map.put("result", "wrongAccess");
+			}
+			return map;
+		}
+		
+		//대댓글 수정
+		@RequestMapping("/market/updateReReply.do")
+		@ResponseBody
+		public Map<String,String> modifyReReply(MarketReReplyVO marketReReplyVO, HttpSession session, HttpServletRequest request){
+			
+			log.debug("<<대댓글 수정>>:" + marketReReplyVO);
+			
+			Map<String,String> map=new HashMap<String,String>();
+			
+			Integer user_num=(Integer)session.getAttribute("user_num");
+			if(user_num==null) {
+				//로그인이 안된 경우
+				map.put("result", "logout");
+			}else if(user_num!=null && user_num == marketReReplyVO.getMem_num()) {
+				//로그인 회원번호와 작성자 회원번호 일치
+				//ip 등록
+				marketReReplyVO.setRe_ip(request.getRemoteAddr());
+				
+				//대댓글 수정
+				marketService.updateReReply(marketReReplyVO);
+				map.put("result", "success");
+			}else {
+				//로그인회원번호와 작성자 회원번호 불일치
+				map.put("result", "wrongAccess");
+				
+			}
+			
+			return map;
+		}	
 }
 
 
