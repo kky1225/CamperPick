@@ -19,7 +19,7 @@ public interface ReviewMapper {
 	public ReviewVO getReview(Integer review_num);
 	@Insert("INSERT INTO creview (review_num,title,content,ip,mem_num,uploadfile,filename,res_num,camping_num) VALUES (creview_seq.nextval,#{title},#{content},#{ip},#{mem_num},#{uploadfile},#{filename},#{res_num},#{camping_num})")
 	public void insertReview(ReviewVO review);
-	@Update ("UPDATE creview SET content=#{content},ip=#{ip},modify_date=SYSDATE WHERE review_num=#{review_num}")
+	@Update ("UPDATE creview SET title=#{title},content=#{content},ip=#{ip},modify_date=SYSDATE WHERE review_num=#{review_num}")
 	public void updateReview(ReviewVO review);
 	@Delete("DELETE FROM creview WHERE review_num=#{review_num}")
 	public void deleteReview(Integer review_num);

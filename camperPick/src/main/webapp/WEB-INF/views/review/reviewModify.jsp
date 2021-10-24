@@ -64,10 +64,10 @@
 		</ul>
 		<div class="align-center">
 			<form:button>수정</form:button>
-			<input type="button" value="목록" onclick="location.href='reviewlist.do'">
+			<input type="button" class="button" value="목록" onclick="location.href='reviewlist.do'">
 		</div>	
 	</form:form>
-</</div>
+</div>
 <!-- 중앙 내용 끝 -->
 
 

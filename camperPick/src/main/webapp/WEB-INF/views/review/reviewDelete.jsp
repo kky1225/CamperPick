@@ -18,8 +18,8 @@
 			</li>
 		</ul>
 		<div class="align-center">
-			<input type="submit" value="삭제" class="btn btn-dark" style="width:120px; margin-top:20px;">
-			<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/camping/list.do'" class="btn btn-dark" style="width:120px; margin-top:20px;">	
+			<input type="submit" value="삭제" class="button" style="width:120px; margin-top:20px;">
+			<input type="button" value="목록" class="button" onclick="location.href='${pageContext.request.contextPath}/camping/list.do'" style="width:120px; margin-top:20px;">	
 		</div>
 	</form:form>
 </div>
