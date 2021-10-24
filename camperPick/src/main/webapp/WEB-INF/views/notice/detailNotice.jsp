@@ -294,7 +294,7 @@
 			//게시판 번호
 			var notice_num = $(this).attr('data-notice');
 			//대댓글 작성자 회원 번호
-			mem_num = ${user_auth};
+			mem_num = ${user_num};
 			
 			//대댓글 작성폼 UI
 			var rmodifyUI = '<form id="wre_form">';
