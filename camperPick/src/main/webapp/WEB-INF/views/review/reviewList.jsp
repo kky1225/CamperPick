@@ -186,7 +186,7 @@
 			//수정버튼을 감싸고 있는 div
 			$(this).parent().hide();
 			
-			//수정폼을 수정하고자하는 데이터가 있는 div에 노출
+			//수정폼을 댓글리스트에 노출
 			$(this).parents('.item').append(modifyUI);
 			
 			//입력한 글자수 셋팅
@@ -370,10 +370,10 @@
 		});	
 		
 		
-		
-		//대댓글 작성 버튼 클릭시 대댓글 작성폼 노출------------
+	 	
+		//답글 작성 버튼 클릭시 대댓글 작성폼 노출------------
 		$(document).on('click','.write-btn',function(){
-			//댓글 글번호
+			//댓글번호
 			var review_num = $(this).attr('data-num');
 			//예약 번호
 			var res_num = $(this).attr('data-mem');
@@ -394,15 +394,14 @@
 			   modifyUI += '  <hr size="1" noshade width="90%">';
 			   modifyUI += '</form>';
 			   
-			//이전에 이미 수정하는 댓글이 있을 경우 수정버튼을 클릭하면
-			//숨김 sub-item을 환원시키고 수정폼을 초기화함
+			//이전에 이미 작성하는 댓글이 있을 경우 숨김 
 			initWriteForm();
 			
 			//지금 클릭해서 수정하고자 하는 데이터는 감추기
-			//수정버튼을 감싸고 있는 div
+			//작성버튼을 감싸고 있는 div
 			$(this).parent().hide();
 			
-			//수정폼을 수정하고자하는 데이터가 있는 div에 노출
+			//작성폼을 수정하고자하는 데이터가 있는 div에 노출
 			$(this).parents('.item').append(modifyUI);
 			
 			//입력한 글자수 셋팅
@@ -413,18 +412,18 @@
 			//문서 객체에 반영
 			$('#mre_first .letter-count').text(remain);		
 		});
-		//수정폼에서 취소 버튼 클릭시 수정폼 초기화
+		//작성폼에서 취소 버튼 클릭시 작성폼 초기화
 		$(document).on('click','.wre-reset',function(){
 			initWriteForm();
 		});
-		//댓글 수정 폼 초기화
+		//댓글 작성 폼 초기화
 		function initWriteForm(){
 			$('.sub-item').show();
 			$('#mre_form').remove();
 		}
-		
+		 
 		//------------------------대댓글 리스트-----
-		//대댓글 리스트 버튼 클릭시 대댓글 리스트 노출
+		//답글보기 버튼 클릭시 답글 리스트 노출
 		$(document).on('click','.view-btn',function(){
 			var view_btn = $(this);
 			var review_num = $(this).attr('data-num');
@@ -458,7 +457,7 @@
 							//문서 객체에 추가
 							view_btn.parents('.sub-item').append(output);
 						}
-						view_button = 1; //댓댓글이 보여짐 
+						view_button = 1; //대댓글이 보여짐 
 						},
 					error:function(){
 						alert('네트워크 오류 발생');
@@ -467,20 +466,20 @@
 			}else{
 				$('.rritem').hide();
 				$('.view-hr').hide();
-				view_button = 0; //댓댓글이 안 보여지게 함
+				view_button = 0; //대댓글이 안 보여지게 함
 			}
 		}); 
 		
 		//대댓글 수정 버튼 클릭시 수정폼 노출
 		$(document).on('click','.rmodify-btn',function(){
-			//대댓글 글번호
+			//대댓글번호
 			var rre_num = $(this).attr('data-num');
 			//작성자 회원 번호
 			var mem_num = $(this).attr('data-mem');
 			//대댓글 내용
 			var re_content = $(this).parent().find('p').html().replace(/<br>/gi,'\n');
 			
-			//댓글 수정폼 UI
+			//대댓글 수정폼 UI
 			var modifyUI = '<form id="remre_form">';
 			   modifyUI += '  <input type="hidden" name="rre_num" id="mre_num" value="'+rre_num+'">';
 			   modifyUI += '  <input type="hidden" name="mem_num" id="mmem_num" value="'+mem_num+'">';
@@ -493,15 +492,14 @@
 			   modifyUI += '  <hr size="1" noshade width="90%">';
 			   modifyUI += '</form>';
 			   
-			//이전에 이미 수정하는 댓글이 있을 경우 수정버튼을 클릭하면
-			//숨김 sub-item을 환원시키고 수정폼을 초기화함
+			//수정폼을 초기화함
 			rinitModifyForm();
 			
 			//지금 클릭해서 수정하고자 하는 데이터는 감추기
 			//수정버튼을 감싸고 있는 div
 			$(this).parent().hide();
 			
-			//수정폼을 수정하고자하는 데이터가 있는 div에 노출
+			//수정폼을 대댓글리스트가 있는 div에 노출
 			$(this).parents('.rritem').append(modifyUI);
 			
 			//입력한 글자수 셋팅
