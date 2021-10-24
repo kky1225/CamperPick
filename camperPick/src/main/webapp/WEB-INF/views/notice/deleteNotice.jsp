@@ -18,8 +18,8 @@
 			</li>
 		</ul>
 		<div class="align-center">
-			<input type="submit" value="삭제" class="btn btn-dark" style="width:120px; margin-top:20px;">
-			<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/notice/noticeList.do'" class="btn btn-dark" style="width:120px; margin-top:20px;">	
+			<input type="submit" value="삭제" class="button-large" style="width:120px; margin-top:20px;">
+			<input type="button" value="목록" class="button-large" onclick="location.href='${pageContext.request.contextPath}/notice/noticeList.do'" style="width:120px; margin-top:20px;">	
 		</div>
 	</form:form>
 </div>

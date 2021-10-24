@@ -45,14 +45,14 @@
 						}
 						output += item.reg_date; 
 						if($('#mem_num').val() && user_auth == 4){
-							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.res_num+'" value="답글 작성" class="write-btn">';
+							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.res_num+'" value="답글 작성" class="write-btn button">';
 						}
 							 output += '&nbsp;'
-						output +='<input type="button" data-num="'+item.review_num+'" value="답글 보기" class="view-btn">';
+						output +='<input type="button" data-num="'+item.review_num+'" value="답글 보기" class="view-btn button">';
 						if($('#mem_num').val()==item.mem_num){
 							//로그인한 회원 번호가 댓글 작성자 회원 번호와 같으면
-							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
-							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
+							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn button">';
+							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn button">';
 						
 						 }
 						output += '  <hr size="1" noshade>';
@@ -172,8 +172,8 @@
 			   modifyUI += '  <textarea rows="3" cols="50" name="content" id="mre_content" class="rep-content">'+content+'</textarea>';
 			   modifyUI += '  <span class="letter-count">1000/1000</span>';	
 			   modifyUI += '  <div id="mre_second" class="align-right">';
-			   modifyUI += '     <input type="submit" value="수정">';
-			   modifyUI += '     <input type="button" value="취소" class="re-reset">';
+			   modifyUI += '     <input type="submit" value="수정" class="button">';
+			   modifyUI += '     <input type="button" value="취소" class="re-reset button">';
 			   modifyUI += '  </div>';
 			   modifyUI += '  <hr size="1" noshade width="90%">';
 			   modifyUI += '</form>';
@@ -388,8 +388,8 @@
 			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="mre_content" class="rep-content"></textarea>';
 			   modifyUI += '  <div id="mre_first"><span class="letter-count">1000/1000</span></div>';	
 			   modifyUI += '  <div id="mre_second" class="align-right">';
-			   modifyUI += '     <input type="submit" value="등록">';
-			   modifyUI += '     <input type="button" value="취소" class="wre-reset">';
+			   modifyUI += '     <input type="submit" value="등록" class="button">';
+			   modifyUI += '     <input type="button" value="취소" class="wre-reset button">';
 			   modifyUI += '  </div>';
 			   modifyUI += '  <hr size="1" noshade width="90%">';
 			   modifyUI += '</form>';
@@ -446,8 +446,8 @@
 							output += item.re_date; 
 							if($('#mem_num').val()==item.mem_num){
 								//로그인한 회원 번호가 댓글 작성자 회원 번호와 같으면
-								output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="수정" class="rmodify-btn">';
-								output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="삭제" class="rdelete-btn">';
+								output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="수정" class="rmodify-btn button">';
+								output += ' <input type="button" data-num="'+item.rre_num+'" data-mem="'+item.mem_num+'" value="삭제" class="rdelete-btn button">';
 							 }
 							output += '</div>';
 							output += '</div>';
@@ -486,8 +486,8 @@
 			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="remre_content" class="rep-content">'+re_content+'</textarea>';
 			   modifyUI += '  <div id="remre_first"><span class="letter-count">1000/1000</span></div>';	
 			   modifyUI += '  <div id="remre_second" class="align-right">';
-			   modifyUI += '     <input type="submit" value="수정">';
-			   modifyUI += '     <input type="button" value="취소" class="rre-reset">';
+			   modifyUI += '     <input type="submit" value="수정" class="button">';
+			   modifyUI += '     <input type="button" value="취소" class="rre-reset button">';
 			   modifyUI += '  </div>';
 			   modifyUI += '  <hr size="1" noshade width="90%">';
 			   modifyUI += '</form>';
@@ -609,11 +609,10 @@
 <div class="page-main" style="width:100%;">
 
 <br><br>
-	<h4 class="align-center" style="margin-bottom:8px;"><b>리뷰</b></h4>
 <!-- 댓글 목록 출력 -->	
 
 	<div id="reply_div" class="align-center">
-		<span class="reply-title"><b>후기 작성</b></span>
+		<h4 class="align-center" style="margin:8px;"><b>리뷰</b></h4>
 		<form id="re_form">
 			<input type="hidden" name="camping_num" value="${param.camping_num}"
 			       id="camping_num">

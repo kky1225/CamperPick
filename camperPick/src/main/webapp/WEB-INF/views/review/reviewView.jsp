@@ -21,9 +21,9 @@
 	<hr size="1" width="100%">
 	<div class="align-right">
 		<c:if test="${!empty user_num && user_num == review.mem_num}">
-		<input type="button" value="수정" 
+		<input type="button" class="button" value="수정" 
 		                onclick="location.href='update.do?review_num=${review.review_num}'">
-		<input type="button" value="삭제" id="delete_btn">
+		<input type="button" class="button" value="삭제" id="delete_btn">
 		<script type="text/javascript">
 			var delete_btn = document.getElementById('delete_btn');
 			delete_btn.onclick=function(){
