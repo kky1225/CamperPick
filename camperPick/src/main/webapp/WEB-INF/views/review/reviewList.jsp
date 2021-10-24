@@ -38,10 +38,7 @@
 					count = param.count;
 					rowCount = param.rowCount;
 					
-					if(${user_auth} != null){
-						var user_auth = ${user_auth};
-					}
-					user_auth = 0;
+					var user_auth = ${user_auth};
 					
 					$(param.list).each(function(index,item){
 						var output = '<div class="item">';
