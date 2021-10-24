@@ -6,6 +6,10 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/videoAdapter.js"></script>    
+<c:if test="${empty user_auth}">
+	<c:set var="user_auth" value="0"></c:set>
+	<c:set var="user_num" value="0"></c:set>
+</c:if>
 <script type="text/javascript">
 	$(function() {
 		var currentPage;
@@ -15,7 +19,7 @@
 		
 		// 댓글 목록
 		function selectData(pageNum,market_num) {
-			currentPage = pageNum;
+			currentPage=pageNum;
 			
 			if(pageNum == 1){
 				// 처음 호출에는 해당 ID의 div의 내부 내용물을 제거
@@ -161,7 +165,7 @@
 			var modifyUI = '<form id="mre_form">';
 			   modifyUI += '  <input type="hidden" name="mre_num" id="mmre_num" value="'+mre_num+'">';
 			   modifyUI += '  <input type="hidden" name="mem_num" id="mmem_num" value="'+mem_num+'">';
-			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="mre_content" class="rep-content">'+content+'</textarea>';
+			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="mre_content" class="form-control">'+content+'</textarea>';
 			   modifyUI += '  <div id="mre_first"><span class="letter-count">300/300</span></div>';	
 			   modifyUI += '  <div id="mre_second" class="align-right">';
 			   modifyUI += '     <input type="submit" value="수정" class="btn btn-outline-dark" style="font-size:14px;">';
@@ -290,14 +294,17 @@
 			//게시판 번호
 			var market_num = $(this).attr('data-market');
 			//대댓글 작성자 회원 번호
-			var mem_num = ${user_num};
+			if(${user_auth} != null){
+				var mem_num = ${user_num};
+			}
+			mem_num = 0;
 			
 			//대댓글 작성폼 UI
 			var rmodifyUI = '<form id="wre_form">';
 			   rmodifyUI += '  <input type="hidden" name="mre_num" id="cmre_num" value="'+mre_num+'">';
 			   rmodifyUI += '  <input type="hidden" name="mem_num" id="cmem_num" value="'+mem_num+'">';
 			   rmodifyUI += '  <input type="hidden" name="market_num" id="cmarket_num" value="'+market_num+'">';
-			   rmodifyUI += '  <textarea rows="3" cols="50" name="re_content" id="cre_content" class="rep-content"></textarea>';
+			   rmodifyUI += '  <textarea rows="3" cols="50" name="re_content" id="cre_content" class="form-control"></textarea>';
 			   rmodifyUI += '  <div id="cre_first"><span class="letter-count">300/300</span></div>';	
 			   rmodifyUI += '  <div id="cre_second" class="align-right">';
 			   rmodifyUI += '     <input type="submit" value="등록" class="btn btn-outline-dark" style="font-size:14px;">';
@@ -651,15 +658,15 @@
 			<input type="hidden" name="market_num" value="${market.market_num}" id="market_num">
 			<input type="hidden" name="mem_num" value="${user_num}" id="mem_num">
 			<textarea rows="3" cols="50" name="re_content"
-			  id="re_content" class="rep-content" 
-			  <c:if test="${empty user_num}">disabled="disabled"</c:if>
-			  ><c:if test="${empty user_num}">로그인 해야 작성할 수 있습니다.</c:if></textarea>
+			  id="re_content" class="form-control" 
+			  <c:if test="${empty user_num || user_num==0}">disabled="disabled"</c:if>
+			  ><c:if test="${empty user_num || user_num==0}">로그인 해야 작성할 수 있습니다.</c:if></textarea>
 			  <c:if test="${!empty user_num}">
 			<div id="re_first">
 				<span class="letter-count">300/300</span>
 			</div>
 			<div id="re_second" class="align-right">
-				<input type="submit" class="button-large" value="전송" >
+				<input type="submit" class="button-large mt-3" value="전송" style="margin-left:100px;">
 			</div>
 			</c:if>
 		</form>
