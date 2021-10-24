@@ -174,7 +174,7 @@ create sequence cmarket_reply_seq;
 
 /*거래게시판 대댓글*/
 create table cmarket_reply2(
-	mrre_num number not null,
+	mre_num number not null,
 	re_content clob not null,
 	re_ip varchar2(40) not null,
 	re_date date default sysdate not null,
