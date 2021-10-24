@@ -563,34 +563,56 @@
 </script>
 <!DOCTYPE html>
 <!-- 거래게시판 디테일 시작 -->
-<div class="page-main" id="content_detail">
-	<h4 class="align-center" style="margin-bottom:10px;"><b>거래게시판 상세</b></h4>
-	<p>
-		제목 : ${market.title}<br>
-		작성자 : ${market.name}<br>
-		작성일 : ${market.reg_date}<br>
-		수정일 : ${market.modify_date}<br>
-		조회수 : ${market.hit}
-	</p>
-	<hr width="100%" size="1" noshade="noshade">
-	${market.content}<br>
-	<c:if test="${!empty market.filename}">
-		<div class="align-center">
-			<img src="imageView.do?market_num=${market.market_num}" style="max-width: 500px">
-		</div>
-		<hr width="100%" size="1" noshade="noshade">
-	</c:if>
-	<c:if test="${empty market.filename}">
-		<hr width="100%" size="1" noshade="noshade">
-	</c:if>
-	<div class="align-right">
-		<c:if test="${user_num == market.mem_num}">
-		<input type="button" value="수정" onclick="location.href='marketUpdate.do?market_num=${market.market_num}'" class="btn btn-outline-dark" style="font-size:14px;">
-		<input type="button" value="삭제" onclick="location.href='marketDelete.do?market_num=${market.market_num}'" class="btn btn-outline-dark" style="font-size:14px;">
-		</c:if>
-		<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/market/marketList.do'" class="btn btn-outline-dark" style="font-size:14px;">
+<div class="page-main" id="container">
+	<h4 class="align-center" style="margin-bottom:10px;"><b>거래게시판</b></h4>
+	<br>
+	
+	<div class="content-top">
+		<table summary="">
+			<tr>
+				<th>제목</th>
+				<td>${market.title}</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>${market.name}
+					<div class="content-date">
+						<div class="reg">
+							작성일 : 
+							<span class="txt">${market.reg_date}</span>
+						</div>
+						<div class="modify">
+							수정일 : 
+							<span class="txt">${market.modify_date}</span>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
 	</div>
+	
+	<div class="content-datail">
+		${market.content}<br>
+		<c:if test="${!empty market.filename}">
+			<div class="align-center">
+				<img src="imageView.do?market_num=${market.market_num}" style="max-width: 500px">
+			</div>
+			<hr width="100%" size="1" noshade="noshade">
+		</c:if>
+		<c:if test="${empty market.filename}">
+			<hr width="100%" size="1" noshade="noshade">
+		</c:if>
+		<div class="align-right">
+			<c:if test="${user_num == market.mem_num}">
+			<input type="button" value="수정" onclick="location.href='marketUpdate.do?market_num=${market.market_num}'" class="btn btn-outline-dark" style="font-size:14px;">
+			<input type="button" value="삭제" onclick="location.href='marketDelete.do?market_num=${market.market_num}'" class="btn btn-outline-dark" style="font-size:14px;">
+			</c:if>
+			<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/market/marketList.do'" class="btn btn-outline-dark" style="font-size:14px;">
+		</div>
+	</div>
+	
 	<hr size="1" width="100%" noshade="noshade">
+	
 	<div id="reply_div">
 		<span class="reply-title">댓글</span>
 		<form id="re_form">

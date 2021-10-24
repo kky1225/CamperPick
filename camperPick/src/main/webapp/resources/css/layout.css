@@ -369,7 +369,63 @@ a:hover { color: #555; text-decoration: none;}
 }
 
 /* 게시판 상세페이지 */
-#content_detail{
+#container{
 	width: 45%;
+}
+.content-top{
+	height: 40px;
+	margin-bottom: 75px;
+}
+.content-top table{
+	width: 100%;
+	position: relative;
+    margin: 10px 0 0;
+    border: 1px solid #e5e5e5;
+    
+    border-left: 0;
+    border-right: 0;
+    line-height: 1.5;
+}
+.content-top table th{
+	width: 100px;
+    padding: 12px 0 12px 18px;
+    border-bottom-width: 0;
+    color: #353535;
+    text-align: left;
+    font-weight: normal;
+    background-color: #fff;
+}
+.content-top table td{
+	border: 0;
+	position: relative;
+    padding: 8px 0 7px !important;
+}
+.content-date{
+	position: absolute;
+    right: 10px;
+    top: 13px;
+}
+.content-date .reg{
+	float: left;
+	display: inline-block;
+}
+.content-date .modify{
+	float: left;
+    margin-left: 10px;
+}
+.txt{
+	display: inline-block;
+    font-size: 11px;
+    color: #999;
+    word-break: normal;
+}
+.content-detail{
+	padding: 30px 20px;
+    border-top: 1px solid #f1f1f1;
+    margin: 0;
+    word-break: break-all;
+    font-size: 12px;
+    line-height: 22px;
+    min-height: 100px;
 }
 
