@@ -644,10 +644,10 @@
 	</c:if>
 	<div class="align-right">
 		<c:if test="${user_num == market.mem_num}">
-		<input type="button" value="수정" onclick="location.href='marketUpdate.do?market_num=${market.market_num}'" class="btn btn-outline-dark" style="font-size:14px;">
-		<input type="button" value="삭제" onclick="location.href='marketDelete.do?market_num=${market.market_num}'" class="btn btn-outline-dark" style="font-size:14px;">
+		<input type="button" value="수정" onclick="location.href='marketUpdate.do?market_num=${market.market_num}'" class="button-large" style="font-size:14px;">
+		<input type="button" value="삭제" onclick="location.href='marketDelete.do?market_num=${market.market_num}'" class="button-large" style="font-size:14px;">
 		</c:if>
-		<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/market/marketList.do'" class="btn btn-outline-dark" style="font-size:14px;">
+		<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/market/marketList.do'" class="button-large" style="font-size:14px;">
 	</div>
 	
 	<hr size="1" width="100%" noshade="noshade">
@@ -666,7 +666,7 @@
 				<span class="letter-count">300/300</span>
 			</div>
 			<div id="re_second" class="align-right">
-				<input type="submit" value="전송" >
+				<input type="submit" class="button-large" value="전송" >
 			</div>
 			</c:if>
 		</form>
