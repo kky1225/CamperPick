@@ -49,14 +49,14 @@
 						output += '   <p>' + item.re_content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
 						output += item.re_date;
 						if($('#mem_num').val() != ''){
-							output += ' <input type="button" data-notice="'+item.notice_num+'" data-num="'+item.nre_num+'" data-mem="'+item.mem_num+'" value="답글 작성" class="write-btn btn btn-outline-dark" style="font-size:14px;"">';
+							output += ' <input type="button" data-notice="'+item.notice_num+'" data-num="'+item.nre_num+'" data-mem="'+item.mem_num+'" value="답글 작성" class="write-btn btn btn-outline-dark button" style="font-size:14px;"">';
 							output += '&nbsp;'
 						}
-						output +='<input type="button" data-notice="'+item.notice_num+'" data-num="'+item.nre_num+'" value="답글 보기" class="view-btn btn btn-outline-dark" style="font-size:14px;"">';
+						output +='<input type="button" data-notice="'+item.notice_num+'" data-num="'+item.nre_num+'" value="답글 보기" class="view-btn btn btn-outline-dark button" style="font-size:14px;"">';
 						if($('#mem_num').val() == item.mem_num){
 							// 로그인 한 회원 번호가 댓글 작성자 회원 번호와 같으면
-							output += '	<input type="button" data-num="'+item.nre_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn btn btn-outline-dark" style="font-size:14px;">';
-							output += '	<input type="button" data-num="'+item.nre_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn btn btn-outline-dark" style="font-size:14px;">';
+							output += '	<input type="button" data-num="'+item.nre_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn btn btn-outline-dark button" style="font-size:14px;">';
+							output += '	<input type="button" data-num="'+item.nre_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn btn btn-outline-dark button" style="font-size:14px;">';
 						}
 						output += '	<hr size="1" noshade>';
 						output += '</div>';
@@ -168,8 +168,8 @@
 			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="mre_content" class="form-control" >'+content+'</textarea>';
 			   modifyUI += '  <div id="mre_first"><span class="letter-count">300/300</span></div>';	
 			   modifyUI += '  <div id="mre_second" class="align-right">';
-			   modifyUI += '     <input type="submit" value="수정" class="btn btn-outline-dark" style="font-size:14px;">';
-			   modifyUI += '     <input type="button" value="취소" class="re-reset btn btn-outline-dark" style="font-size:14px;">';
+			   modifyUI += '     <input type="submit" value="수정" class="btn btn-outline-dark button" style="font-size:14px;">';
+			   modifyUI += '     <input type="button" value="취소" class="re-reset btn btn-outline-dark button" style="font-size:14px;">';
 			   modifyUI += '  </div>';
 			   modifyUI += '  <hr size="1" noshade width="90%">';
 			   modifyUI += '</form>';
@@ -304,8 +304,8 @@
 			   rmodifyUI += '  <textarea rows="3" cols="50" name="re_content" id="cre_content" class="form-control" ></textarea>';
 			   rmodifyUI += '  <div id="cre_first"><span class="letter-count">300/300</span></div>';	
 			   rmodifyUI += '  <div id="cre_second" class="align-right">';
-			   rmodifyUI += '     <input type="submit" value="등록" class="btn btn-outline-dark" style="font-size:14px;">';
-			   rmodifyUI += '     <input type="button" value="취소" class="wre-reset btn btn-outline-dark" style="font-size:14px;"">';
+			   rmodifyUI += '     <input type="submit" value="등록" class="btn btn-outline-dark button" style="font-size:14px;">';
+			   rmodifyUI += '     <input type="button" value="취소" class="wre-reset btn btn-outline-dark button" style="font-size:14px;"">';
 			   rmodifyUI += '  </div>';
 			   rmodifyUI += '  <hr size="1" noshade width="90%">';
 			   rmodifyUI += '</form>';
@@ -414,8 +414,8 @@
 							output += item.re_date; 
 							if($('#mem_num').val()==item.mem_num){
 								//로그인한 회원 번호가 댓글 작성자 회원 번호와 같으면
-								output += ' <input type="button" data-notice="'+item.notice_num+'" data-num="'+item.nrre_num+'" data-mem="'+item.mem_num+'" value="수정" class="rmodify-btn btn btn-outline-dark" style="font-size:14px;"">';
-								output += ' <input type="button" data-notice="'+item.notice_num+'" data-num="'+item.nrre_num+'" data-mem="'+item.mem_num+'" value="삭제" class="rdelete-btn btn btn-outline-dark" style="font-size:14px;"">';
+								output += ' <input type="button" data-notice="'+item.notice_num+'" data-num="'+item.nrre_num+'" data-mem="'+item.mem_num+'" value="수정" class="rmodify-btn btn btn-outline-dark button" style="font-size:14px;"">';
+								output += ' <input type="button" data-notice="'+item.notice_num+'" data-num="'+item.nrre_num+'" data-mem="'+item.mem_num+'" value="삭제" class="rdelete-btn btn btn-outline-dark button" style="font-size:14px;"">';
 							 }
 							output += '</div>';
 							output += '</div>';
@@ -457,8 +457,8 @@
 			   modifyUI += '  <textarea rows="3" cols="50" name="re_content" id="rcre_content" class="form-control">'+re_content+'</textarea>';
 			   modifyUI += '  <div id="rcre_first"><span class="letter-count">300/300</span></div>';	
 			   modifyUI += '  <div id="rcre_second" class="align-right">';
-			   modifyUI += '     <input type="submit" value="수정" class="btn btn-outline-dark" style="font-size:14px;">';
-			   modifyUI += '     <input type="button" value="취소" class="rre-reset btn btn-outline-dark" style="font-size:14px;"">';
+			   modifyUI += '     <input type="submit" value="수정" class="btn btn-outline-dark button" style="font-size:14px;">';
+			   modifyUI += '     <input type="button" value="취소" class="rre-reset btn btn-outline-dark button" style="font-size:14px;"">';
 			   modifyUI += '  </div>';
 			   modifyUI += '  <hr size="1" noshade width="90%">';
 			   modifyUI += '</form>';
