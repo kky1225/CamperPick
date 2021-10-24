@@ -41,7 +41,7 @@
 	<c:if test="${!empty user_num}">
 	    [<span>${user_email}</span>]
 	    <c:if test="${user_auth != 4}">
-	   		<a href="${pageContext.request.contextPath}/member/notification.do">알림</a>
+	   		<a href="${pageContext.request.contextPath}/member/notification.do"><img src="${pageContext.request.contextPath}/resources/images/notification.png" width="22" height="22"></a>
 	   		<a id="notification_count"></a>
 	    </c:if>
 		<a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a>
