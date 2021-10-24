@@ -48,11 +48,11 @@
 							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.res_num+'" value="답글 작성" class="write-btn">';
 						}
 							 output += '&nbsp;'
-						output +='<input type="button" data-num="'+item.review_num+'" value="답글 보기" class="view-btn">';
+						output +='<input type="button" class="button" data-num="'+item.review_num+'" value="답글 보기" class="view-btn">';
 						if($('#mem_num').val()==item.mem_num){
 							//로그인한 회원 번호가 댓글 작성자 회원 번호와 같으면
-							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
-							output += ' <input type="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
+							output += ' <input type="button" class="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
+							output += ' <input type="button" class="button" data-num="'+item.review_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
 						
 						 }
 						output += '  <hr size="1" noshade>';
@@ -613,7 +613,7 @@
 <!-- 댓글 목록 출력 -->	
 
 	<div id="reply_div" class="align-center">
-		<span class="reply-title"><b>후기 작성</b></span>
+		<span class="reply-title" style="font-size:14px;">후기 작성</span>
 		<form id="re_form">
 			<input type="hidden" name="camping_num" value="${param.camping_num}"
 			       id="camping_num">
@@ -633,7 +633,7 @@
 				<span id="letter-count">1000/1000</span>
 				<div class="row">
 					<div class="col-auto" style="margin-left:32px; margin-left:88px;">
-						<input id="filename_text" class="form-control mt-2" value="파일선택" style="width:200px; margin-left:14px;" readonly>
+						<input id="filename_text" class="form-control mt-2" value="파일선택" style="width:305px; margin-left:14px;" readonly>
 					</div>
 					<div class="col-auto" style="margin-top:5px; margin-left:-10px;">
 						<label for="upload" class="btn btn-dark" style="width:60px;">파일</label>
@@ -644,8 +644,8 @@
 				<c:if test="${!empty review.filename}">
 				<img src="${pageContext.request.contextPath}/review/photoView.do" width="100" height="100" class="my-photo">
 				</c:if>
-			<div id="re_second" class="align-center">
-				<input type="submit" value="전송" <c:if test="${empty user_num}">disabled="disabled"</c:if> style="margin-left:280px;">
+			<div id="re_second" class="align-center" style="margin-top:5px;">
+				<input type="submit" class="button-large" value="전송" <c:if test="${empty user_num}">disabled="disabled"</c:if> style="margin-left:280px;">
 			</div>
 			
 		</form>
