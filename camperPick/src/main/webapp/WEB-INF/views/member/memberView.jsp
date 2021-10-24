@@ -23,7 +23,7 @@
 	});
 </script> 
 <!-- 마이페이지 시작 -->
-<div id="mypageForm" class="page-main">
+<div id="mypageForm" class="page-main" style="width: 55%;">
 
 	<div id="main-content">
 		<div class="main_bg">

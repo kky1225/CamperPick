@@ -27,7 +27,7 @@ public interface ReviewService {
 		
 	public void updateReReview(ReviewReplyVO reviewReply); 
 	public void deleteReReview(Integer rre_num); 
-	public void deleteReReviewByCampingNum(Integer rre_num);
+	public void deleteReReviewByCampingNum(Integer camping_num);
 
 	
 }
