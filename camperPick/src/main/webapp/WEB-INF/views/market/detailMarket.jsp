@@ -244,6 +244,8 @@
 			});
 			// 기본 이벤트 제거
 			event.preventDefault();
+			
+			selectData(1,$('#market_num').val());
 		});
 		
 		// 댓글 삭제
