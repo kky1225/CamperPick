@@ -447,10 +447,13 @@ public class MemberController {
 			Integer user_num = (Integer)session.getAttribute("user_num");
 					
 			list = reservationService.getReserveNotificationList(user_num);
+			
+			MemberVO memberVO = memberService.selectMember(user_num);
 						
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("notification");	// 타일스 식별자
 			mav.addObject("list", list);
+			mav.addObject("phone", memberVO.getPhone());
 					
 			return mav;	
 		}

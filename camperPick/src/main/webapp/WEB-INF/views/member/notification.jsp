@@ -44,7 +44,7 @@
 		</thead>
 		<c:forEach var="notification" items="${list}">
 			<tr style="border-bottom:1px solid #000;">
-				<td><a href="${pageContext.request.contextPath}/reservation/detailReservation.do?res_num=${notification.res_num}">${notification.message}</a></td>
+				<td><a href="${pageContext.request.contextPath}/reservation/detailReservation.do?res_num=${notification.res_num}&&phone=${phone}">${notification.message}</a></td>
 				<td>${notification.date_time}</td>
 			</tr>
 		</c:forEach>
