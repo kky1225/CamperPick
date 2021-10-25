@@ -7,6 +7,8 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.spring.util.DurationFromNow;
+
 public class ReviewVO {
 	private int review_num; //리뷰번호
 	private int res_num; //예약번호
@@ -76,16 +78,17 @@ public class ReviewVO {
 		return reg_date;
 	}
 
+	// 날짜 표기 형식을 변경(예 5초전)
 	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
+		this.reg_date = DurationFromNow.getTimeDiffLabel(reg_date);
 	}
 
 	public String getModify_date() {
 		return modify_date;
 	}
-
+	// 날짜 표기 형식을 변경(예 5초전)
 	public void setModify_date(String modify_date) {
-		this.modify_date = modify_date;
+		this.modify_date = DurationFromNow.getTimeDiffLabel(modify_date);
 	}
 
 	public byte[] getUploadfile() {

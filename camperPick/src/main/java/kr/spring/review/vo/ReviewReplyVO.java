@@ -2,6 +2,8 @@ package kr.spring.review.vo;
 
 import javax.validation.constraints.NotEmpty;
 
+import kr.spring.util.DurationFromNow;
+
 public class ReviewReplyVO {
 	private int rre_num;//댓글번호(대댓글번호)
 	@NotEmpty
@@ -35,14 +37,16 @@ public class ReviewReplyVO {
 	public String getRe_date() {
 		return re_date;
 	}
+	// 날짜 표기 형식을 변경(예 5초전)
 	public void setRe_date(String re_date) {
-		this.re_date = re_date;
+		this.re_date = DurationFromNow.getTimeDiffLabel(re_date);
 	}
 	public String getRe_modifydate() {
 		return re_modifydate;
 	}
+	// 날짜 표기 형식을 변경(예 5초전)
 	public void setRe_modifydate(String re_modifydate) {
-		this.re_modifydate = re_modifydate;
+		this.re_modifydate = DurationFromNow.getTimeDiffLabel(re_modifydate);
 	}
 	public int getMem_num() {
 		return mem_num;
