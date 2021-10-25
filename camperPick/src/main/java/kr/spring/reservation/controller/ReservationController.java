@@ -177,7 +177,7 @@ public class ReservationController {
 		return "reservationSearch";
 	}
 
-	//예약 검색 결과 -이름, 전화번호로 검색
+	//예약 검색 결과 -이메일, 전화번호로 검색
 	@RequestMapping("/reservation/getReservationList.do")
 	public ModelAndView getReservation(@RequestParam(value="pageNum",defaultValue="1") int currentPage, @Valid MemberVO memberVO, BindingResult result) {
 		
@@ -377,7 +377,7 @@ public class ReservationController {
 		
 	}
 	
-	//예약 취소 - 예약시 mem_num과 로그인 mem_num이 같은지 확인하고 삭제 진행
+	//예약 취소 
 	@RequestMapping("/reservation/deleteReservation.do")
 	public String deleteReserve(@RequestParam int res_num, String camp_name, Model model,HttpServletRequest request, HttpSession session) {
 		
@@ -401,21 +401,6 @@ public class ReservationController {
 		model.addAttribute("url", request.getContextPath() + "/reservation/checkReservation.do");
 		return "common/resultView";
 	}
-	
-	//가장 최근 예약 불러오기	
-	@RequestMapping("/reservation/myReservation.do")
-	public String getMyReservation(@RequestParam int mem_num, Model model,HttpSession session) {
-		
-		ReservationVO reservation = reservationService.getRecentReservation(mem_num);
-		
-		model.addAttribute("reservation", reservation);
-		model.addAttribute("user_email", (String)session.getAttribute("user_email"));
-		
-		logger.debug("<<예약상세>> : " + reservation);
-		
-		return "myReservationDetail";
-	}
-	
 	
 	//날짜 계산
 	public long getDay(String date1, String date2) {
