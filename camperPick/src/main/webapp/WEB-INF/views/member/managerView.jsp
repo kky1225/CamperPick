@@ -65,7 +65,7 @@
 			</li>
 			<li>
 				<input type="submit" value="검색" class="button" style="font-size:14px;">
-				<input type="button" value="목록" class="button" style="font-size:14px;" onclick="location.href='marketList.do'">
+				<input type="button" value="목록" class="button" style="font-size:14px;" onclick="location.href='managerPage.do'">
 			</li>
 		</ul>
 	</form>
