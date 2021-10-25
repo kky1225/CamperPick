@@ -44,7 +44,7 @@
 					
 					$(param.list).each(function(index,item) {
 						var output = '<div class="item">';
-						output += '<h4>' + item.name + '</h4>';
+						output += '<h5>' + '<b>' +item.name + '</b>' + '</h5>';
 						output += '<div class="sub-item">';
 						output += '   <p>' + item.re_content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
 						output += item.re_date;
