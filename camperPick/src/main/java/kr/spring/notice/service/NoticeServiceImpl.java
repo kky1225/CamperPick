@@ -48,6 +48,8 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public void deleteNotice(int notice_num) {
+		noticeMapper.deleteReReplyByNoticeNum(notice_num);
+		noticeMapper.deleteReplyByNoticeNum(notice_num);
 		noticeMapper.deleteNotice(notice_num);
 		
 	}

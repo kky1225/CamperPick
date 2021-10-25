@@ -48,6 +48,8 @@ public class MarketServiceImpl implements MarketService{
 
 	@Override
 	public void deleteMarket(int market_num) {
+		marketMapper.deleteReReplyByMarketNum(market_num);
+		marketMapper.deleteReplyByMarketNum(market_num);
 		marketMapper.deleteMarket(market_num);
 		
 	}
