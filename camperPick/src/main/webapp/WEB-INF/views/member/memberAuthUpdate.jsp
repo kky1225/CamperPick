@@ -6,7 +6,8 @@
 <script type="text/javascript">
 	$(function(){
 		$('#authUpdate_form').submit(function(){
-			if($('#auth').val().trim() < 0 || $('#auth').val().trim() > 4){
+			if($('#auth').val().trim() > 0 && $('#auth').val().trim() < 5){
+			}else{
 				alert('회원등급을 잘못 입력하셨습니다.');
 				return false;
 			}
