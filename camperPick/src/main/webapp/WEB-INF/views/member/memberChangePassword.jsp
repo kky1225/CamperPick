@@ -43,10 +43,38 @@
 			}
 		});
 	});
+	
+		$(function(){
+			var fname ="";
+			var today =new Date();
+			var hh = today.getHours();
+			
+			if(hh>=4 && hh<9){			//새벽 4시부터 낮 9시
+				fname="${pageContext.request.contextPath}/resources/images/main_bg1.jpg";
+			}else if(hh>=9 && hh<18){	//낮 9시부터 오후 6시
+				fname="${pageContext.request.contextPath}/resources/images/main_bg2.jpg";
+			}else if(hh>=18 && hh<24){	//오후 6시부터 밤 12시
+				fname="${pageContext.request.contextPath}/resources/images/main_bg3.jpg";
+			}else{						//밤 12시 부터 새벽 4시
+				fname="${pageContext.request.contextPath}/resources/images/main_bg0.jpg";
+			}
+			
+			$('.main_bg').css('background-image','url('+fname+')');
+		});
 </script>
 <!-- 중앙 내용 시작 -->
 <div class="page-main">
-	<h2>비밀번호 변경</h2>
+	
+	<div id="main-content">
+		<div class="main_bg">
+			<div class="search_container">
+	    		<h4 class="search_title">
+			        비밀번호 변경
+			    </h4>
+			</div>
+		</div>
+	</div>
+
 	<form:form id="change_form" action="changePassword.do" modelAttribute="memberVO">
 		<ul>
 			<li>

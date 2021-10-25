@@ -103,12 +103,39 @@ $(document).ready(function(){
 			});//ajax
 	}
 }); //doc.ready
+
+$(function(){
+	var fname ="";
+	var today =new Date();
+	var hh = today.getHours();
+	
+	if(hh>=4 && hh<9){			//새벽 4시부터 낮 9시
+		fname="${pageContext.request.contextPath}/resources/images/main_bg1.jpg";
+	}else if(hh>=9 && hh<18){	//낮 9시부터 오후 6시
+		fname="${pageContext.request.contextPath}/resources/images/main_bg2.jpg";
+	}else if(hh>=18 && hh<24){	//오후 6시부터 밤 12시
+		fname="${pageContext.request.contextPath}/resources/images/main_bg3.jpg";
+	}else{						//밤 12시 부터 새벽 4시
+		fname="${pageContext.request.contextPath}/resources/images/main_bg0.jpg";
+	}
+	
+	$('.main_bg').css('background-image','url('+fname+')');
+});
 </script>
 <!-- 중앙 내용 시작 -->
 <div class="page-main middle-content">
-	<h4 class="align-center" style="margin-bottom:50px;"><b>${reservation.res_name }님의 예약</b></h4>
-	
-	<h5><b>예약 정보</b></h5>
+
+	<div id="main-content">
+		<div class="main_bg">
+			<div class="search_container">
+	    		<h4 class="search_title">
+					예약정보
+			    </h4>
+			</div>
+		</div>
+	</div>
+
+	<h4 class="align-center" style="margin:30px;"><b>${reservation.res_name }님의 예약</b></h4>
 	<br>
 	<c:if test="${!empty reservation.filename}">
 		<ul>

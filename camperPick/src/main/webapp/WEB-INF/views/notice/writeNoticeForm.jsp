@@ -11,9 +11,38 @@
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/ckeditor.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/uploadAdapter.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var fname ="";
+		var today =new Date();
+		var hh = today.getHours();
+		
+		if(hh>=4 && hh<9){			//새벽 4시부터 낮 9시
+			fname="${pageContext.request.contextPath}/resources/images/main_bg1.jpg";
+		}else if(hh>=9 && hh<18){	//낮 9시부터 오후 6시
+			fname="${pageContext.request.contextPath}/resources/images/main_bg2.jpg";
+		}else if(hh>=18 && hh<24){	//오후 6시부터 밤 12시
+			fname="${pageContext.request.contextPath}/resources/images/main_bg3.jpg";
+		}else{						//밤 12시 부터 새벽 4시
+			fname="${pageContext.request.contextPath}/resources/images/main_bg0.jpg";
+		}
+		
+		$('.main_bg').css('background-image','url('+fname+')');
+	});
+</script>
 <!-- 공지사항 작성 메인 시작 -->
 <div class="page-main">
-	<h4 class="align-center" style="margin-bottom:10px;"><b>공지사항 작성</b></h4>
+	
+	<div id="main-content">
+		<div class="main_bg">
+			<div class="search_container">
+	    		<h4 class="search_title" style="font-size:24px;">
+			        공지사항
+			    </h4>
+			</div>
+		</div>
+	</div>	
+	
 	<form:form id="noticeWrite" action="noticeWrite.do" modelAttribute="noticeVO" enctype="multipart/form-data">
 		<ul>
 			<li>
