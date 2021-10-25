@@ -217,6 +217,7 @@ public class ReservationController {
 				mav.addObject("count",count);
 				mav.addObject("list",list);
 				mav.addObject("pagingHtml", page.getPagingHtml());
+				mav.addObject("phone", memberVO.getPhone());
 						
 				return mav;
 			}else {
@@ -292,26 +293,29 @@ public class ReservationController {
 	
 	//예약 상세
 	@RequestMapping("/reservation/detailReservation.do")
-	public String getReservation(@RequestParam int res_num, Model model) {
+	public String getReservation(@RequestParam int res_num, @RequestParam String phone, Model model) {
 		
 		reservationService.updateReserveNotfication(res_num);
 		
 		ReservationVO reservation = reservationService.getReservation(res_num);
 		
 		model.addAttribute("reservation", reservation);
+		model.addAttribute("phone", phone);
 		
 		logger.debug("<<예약상세>> : " + reservation);
+		logger.debug("<<예약상세>> : " + phone);
 		
 		return "reservationDetail";
 	}
 
 	//예약 수정 - 폼 호출
 	@GetMapping("/reservation/updateReservation.do")
-	public String updateReserve(@RequestParam int res_num, Model model) {
+	public String updateReserve(@RequestParam int res_num, @RequestParam String phone, Model model) {
 		
 		ReservationVO reservationVO = reservationService.getReservation(res_num);
 		
 		model.addAttribute("reservationVO", reservationVO);
+		model.addAttribute("phone", phone);
 		
 		return "updateReservation";
 	}

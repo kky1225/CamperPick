@@ -180,12 +180,12 @@ $(document).ready(function(){
 	
 	<div class="align-right">
 	<c:if test="${!empty user_num && user_num == reservation.mem_num}">
-		<input type="button" value="예약 수정" class="button" style="margin-top:10px;" onclick="location.href='updateReservation.do?res_num=${reservation.res_num}'">
+		<input type="button" value="예약 수정" class="button" style="margin-top:10px;" onclick="location.href='updateReservation.do?res_num=${reservation.res_num}&&phone=${phone}'">
 		<input type="button" value="예약 취소" class="button" style="margin-top:10px;" id="delete_btn">
 		<c:if test="${reservation.res_state=='결제대기' }">
 			<input type="button" class="button" style="margin-top:10px;" value="결제" id="payment">
 		</c:if>
-		<input type="button" value="목록" class="button" onclick="location.href='${pageContext.request.contextPath }/reservation/getReservationList.do?email=${reservation.res_email}&&phone=${reservation.res_phone}'">
+		<input type="button" value="목록" class="button" onclick="location.href='${pageContext.request.contextPath }/reservation/getReservationList.do?email=${reservation.res_email}&&phone=${phone}'">
 	</c:if>
 	</div>
 </div>

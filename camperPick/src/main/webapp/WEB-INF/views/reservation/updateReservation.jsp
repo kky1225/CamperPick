@@ -95,7 +95,7 @@ $(document).ready(function(){
 		</ul>
 		<div class="align-center">
 			<form:button class="button" style="margin-top:30px;">수정</form:button> 
-			<input type="button" class="button" style="margin-top:30px;" value="돌아가기" onclick="location.href='${pageContext.request.contextPath}/reservation/detailReservation.do?res_num=${reservationVO.res_num}'">
+			<input type="button" class="button" style="margin-top:30px;" value="돌아가기" onclick="location.href='${pageContext.request.contextPath}/reservation/detailReservation.do?res_num=${reservationVO.res_num}&&phone=${phone}'">
 		</div>
 	</form:form>
 </div>

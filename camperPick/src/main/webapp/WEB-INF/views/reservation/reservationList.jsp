@@ -53,7 +53,7 @@
 			</tr>
 			</thead>
 			<c:forEach var="reservation" items="${list }">
-				<tr onClick="location.href='detailReservation.do?res_num=${reservation.res_num }'" style="border-bottom:1px solid #000;">
+				<tr onClick="location.href='detailReservation.do?res_num=${reservation.res_num}&&phone=${phone}'" style="border-bottom:1px solid #000;">
 					<td>
 					<c:if test="${!empty reservation.filename}">
 						<img src="${pageContext.request.contextPath }/camping/imageView.do?camping_num=${reservation.camping_num}" border="0" width="120" height="120">
